@@ -27,7 +27,7 @@ const Home = () => {
         <p className='w-fit mt-[12px] m-auto'>Your ideas <br /> revolutionize the world</p>
         <div className='flex justify-around mt-[12px]'>
           <Link className='bg-[#b1b2b5] p-5 rounded-lg' to={""}>Start Networking</Link>
-          <Link className='bg-[#b1b2b5] p-5 rounded-lg' to={""}>Sign Up</Link>
+          <Link className='bg-[#b1b2b5] p-5 rounded-lg' to={"signup"}>Sign Up</Link>
         </div>
       </section>
 
