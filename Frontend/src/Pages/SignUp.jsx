@@ -51,7 +51,7 @@ const signUp = () => {
         }
     }
 
-    const registerClick = async() => {
+    const registerClick = () => {
 
         if (confirmName() == false || validateEmail() == false || confirmPasswords() == false) {
             console.log("Form validation Failed");
@@ -59,9 +59,9 @@ const signUp = () => {
         }
     
         try {
-            const response = await axios.post('https://example.com/api/register', {
-                name,
-                email,
+            const response = axios.post('https://5b1f-72-138-28-18.ngrok-free.app/api/user/register', {
+                name: name,
+                email: email,
                 password: pass,
             });
     
