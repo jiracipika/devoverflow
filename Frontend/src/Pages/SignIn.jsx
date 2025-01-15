@@ -2,9 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const signin = () => {
+
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    
     return (
-        <section className='bg-[#25438B] h-fit w-full p-6 flex-col items-center'>
-            <form className='bg-[#FAF7F8] w-[90%] h-4/5 max-w-[450px] absolute -translate-x-2/4 -translate-y-2/4  text-center mt-5 pt-[50px] pb-[70px] px-[60px] rounded-[20px] left-2/4 top-2/4'>
+        <section className='bg-[#25438B] min-h-screen max-h-fit flex justify-center w-full p-6 flex-col items-center'>
+            <form className='bg-[#FAF7F8] w-[90%] h-4/5 max-w-[450px] text-center mt-5 pt-[50px] pb-[70px] px-[60px] rounded-[20px] left-2/4 top-2/4'>
                 <h1 className="text-center font-bold text-4xl italic">Sign In</h1>
                 <div class='input-group'>
                     <div className='bg-[#b1b2b5] flex items-center mx-0 my-[15px] rounded-[3px]'>
@@ -21,6 +25,8 @@ const signin = () => {
             </form>
         </section>
     )
+
+    
 }
 
 export default signin
