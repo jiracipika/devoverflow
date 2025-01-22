@@ -4,6 +4,8 @@ import Home from "./Pages/Home"
 import Signup from "./Pages/SignUp"
 import Signin from "./Pages/SignIn"
 import Profile from "./Pages/Profile"
+import Schedule from "./Pages/Schedule"
+import Collections from "./Pages/Collections"
 function App() {
 
   return (
@@ -12,9 +14,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
+          <Route path="collections" element={<Collections />} />
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/schedule" element={<Schedule />} />
         </Route>
       </Routes>
     </BrowserRouter>
