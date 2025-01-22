@@ -4,6 +4,7 @@ import Home from "./Pages/Home"
 import Signup from "./Pages/SignUp"
 import Signin from "./Pages/SignIn"
 import Profile from "./Pages/Profile"
+import Schedule from "./Pages/Schedule"
 function App() {
 
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/schedule" element={<Schedule />} />
         </Route>
       </Routes>
     </BrowserRouter>
