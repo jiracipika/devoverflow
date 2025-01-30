@@ -10,7 +10,7 @@ const Navbar = () => {
         <h1 className='px-4 py-2.5 text-[18px]'>Logo</h1>
         <ul className='flex flex-col gap-4 w-full '>
           <NavLink to={"/"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaHouse /></span>Home</NavLink>
-          <NavLink to={"/profile"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaStar /></span>Profile</NavLink>
+          <NavLink to={"/schedule"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaStar /></span>Schedule</NavLink>
           <NavLink to={"/collections"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaStar /></span>Collections</NavLink>
           <NavLink to={"/tags"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Tags</NavLink>
           <NavLink to={"/communities"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Communities</NavLink>
