@@ -2,6 +2,9 @@ import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { FaMagnifyingGlass, FaHouse, FaStar, FaRightFromBracket } from 'react-icons/fa6'
 
+import { NavLink, Link } from 'react-router-dom'
+import { FaMagnifyingGlass, FaHouse, FaStar, FaRightFromBracket } from 'react-icons/fa6'
+
 
 const Navbar = () => {
   return (
@@ -17,12 +20,7 @@ const Navbar = () => {
           <NavLink to={"/question"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Ask a Question</NavLink>
           <NavLink to={"/recommended-q"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Recommended Qs</NavLink>
         </ul>
-
       </div>
-
-
-      <Link className="px-4 py-2.5 gap-2 flex items-center text-[18px]"><span className='flex items-center'><FaRightFromBracket /></span> LogOut</Link>
-
     </nav>
   )
 }
