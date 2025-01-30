@@ -1,47 +1,34 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {Link} from "react-router-dom";
+import ProfileFilterTab from '../Components/ProfileFilterTab'
+import ExpandableCard from '../Components/ExpandableCard.jsx';
+import articles from '../assets/FakeData.js';
+import AvatarPic from '../Components/AvatarPic'
 
 const profile = () => {
-    return (
-        <section className='relative bg-[#25438B] h-full w-full p-6 flex-col items-center'>
-            <div className='p-6 mt-20 rounded-md bg-[#B1B2B5] h-[670px] rounded-[20px] left-[157px] top-[101px]' id='upperBanner'>
-                <h1 className='absolute w-[456px] h-[87px] text-4xl left-[400px] top-[302px] right-[500px]'>Profile Name</h1>
-                <div className='top-[200px] w-[318px] h-[305px] rounded-[50%] bg-[#8DA7CF]' id="profilePicture"></div>
-                <div className='mt-10 bg-[#FAF7F8] w-full h-[300px] rounded-[20px]' id='lowerBanner'>
-                    <h1 className='w-[456px] h-[87px] text-4xl left-[821px] top-[302px] right-[500px]'>Current Position</h1>
-                    <h2 className='text-2xl'>Current Company</h2>
-                    <h3>Dates</h3>
-                </div>       
-            </div>  
-                
-            <div className='p-6 mt-12 rounded-md bg-[#FAF7F8] w-full h-[487px] rounded-[20px]' id='ProfileExperience'>
-                <h1 className='w-[456px] h-[87px] text-4xl left-[821px] top-[302px] right-[500px]'>Profile Experience</h1>
-                <section>
-                    <h2 className='text-2xl'>Company 1</h2>
-                    <h3>Dates</h3>
-                    <hr></hr>
-                    <ul className='list-disc'>
-                        <li>Accomplishment 1</li>
-                        <li>Accomplishment 2</li>
-                    </ul>
-                </section>
-                <section>
-                    <h2 className='text-2xl'>Company 2</h2>
-                    <h3>Dates</h3>
-                    <hr></hr>
-                    <ul className='list-disc'>
-                        <li>Accomplishment 1</li>
-                        <li>Accomplishment 2</li>
-                    </ul>
-                </section>
-            </div>
 
-            <div className='p-6 mt-12 rounded-md bg-[#FAF7F8] w-full h-[487px] rounded-[20px]' id='ProfileSkills'>
-                <h1 className='w-[456px] h-[87px] text-4xl left-[821px] top-[302px] right-[500px]'>Profile Skill</h1>
-                <ul className='list-disc'>
-                    <li>Skill 1 (Years of Experience)</li>
-                    <li>Skill 2 (Years of Experience)</li>
-                    <li>Skill 3 (Years of Experience)</li>
-                </ul>
+    const [filterQuery, setFilterQuery] = useState("")
+
+    const handleFilterChosen = (userquery) =>{
+        setFilterQuery(userquery)
+        console.log(userquery)
+      }
+    
+
+    return (
+        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-full p-6 flex-col'>
+            <AvatarPic />
+            <div className='rounded-md bg-[#0A0B10] h-full rounded-[20px] left-[157px] top-[101px]'>
+                <button className='ml-[700px] bg-gray-500 text-[white] font-bold py-2 px-4 rounded'><Link to="/editProfile">Edit Profile</Link></button>
+                <h1 className='text-[white] text-4xl'>Dao</h1>
+                <p className='text-justify text-[white] '>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+            <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+                <ProfileFilterTab onChosenFilter={handleFilterChosen}/>
+                {articles.map((item, index) =>{
+        return (<ExpandableCard id={index} author={item.author} tags={item.tags} votes={item.likes} answers={item.comments.length} views={item.views} tittle={item.title}/>)
+
+      })}
             </div>
         </section>
     )

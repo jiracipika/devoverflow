@@ -4,6 +4,7 @@ import Home from "./Pages/Home"
 import Signup from "./Pages/SignUp"
 import Signin from "./Pages/SignIn"
 import Profile from "./Pages/Profile"
+import EditProfile from "./Pages/EditProfile"
 import Schedule from "./Pages/Schedule"
 import Collections from "./Pages/Collections"
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/schedule" element={<Schedule />} />
         </Route>
       </Routes>
