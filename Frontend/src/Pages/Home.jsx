@@ -5,10 +5,11 @@ import SearchInput from '../Components/SearchInput';
 import FilterQuestionTab from '../Components/FilterQuestionTab';
 import articles from '../assets/FakeData.js'
 import ExpandableCard from '../Components/ExpandableCard.jsx';
-
+import { useSelector } from 'react-redux';
 
 const Home = () => {
-
+  const auth = useSelector((state) => state.auth)
+  console.log("auth from the home page ", auth)
   const [searchQuery,setSearchQuery] = useState("")
   const [filterQuery, setFilterQuery] = useState("")
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import { FaMagnifyingGlass, FaHouse, FaStar, FaRightFromBracket } from 'react-icons/fa6'
+import { FaPeopleGroup, FaHouse, FaStar, FaRightFromBracket, FaTag, FaQuestion } from 'react-icons/fa6'
 
 
 const Navbar = () => {
@@ -11,11 +11,10 @@ const Navbar = () => {
         <ul className='flex flex-col gap-4 w-full '>
           <NavLink to={"/"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaHouse /></span>Home</NavLink>
           <NavLink to={"/collections"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaStar /></span>Collections</NavLink>
-          <NavLink to={"/jobs"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaStar /></span>Find Jobs</NavLink>
-          <NavLink to={"/tags"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Tags</NavLink>
-          <NavLink to={"/communities"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Communities</NavLink>
-          <NavLink to={"/question"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Ask a Question</NavLink>
-          <NavLink to={"/recommended-q"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Recommended Qs</NavLink>
+          <NavLink to={"/tags"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaTag /></span>Tags</NavLink>
+          <NavLink to={"/communities"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaPeopleGroup /></span>Communities</NavLink>
+          <NavLink to={"/ask-a-question"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><span><FaQuestion /></span>Ask a Question</NavLink>
+          
         </ul>
 
       </div>
