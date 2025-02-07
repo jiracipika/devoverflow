@@ -77,7 +77,7 @@ const articles = [
       "author": "Matthew Johnson",
       "likes": 821,
       "views": 5200,
-      "tags": ["Optimization", "Web development"],
+      "tags": ["Optimization", "Web Development"],
       "comments": [
         {
           "comment": "Great tips! I’ve already implemented lazy loading on my site, and it's made a big difference.",

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from "react-router-dom";
-import AvatarPic from '../Components/AvatarPic'
+import AvatarPic from '../Components/AvatarPic';
+import axios from 'axios';
 
 const EditProfile = () => {
     const [name, setName] = useState("")
@@ -13,7 +14,7 @@ const EditProfile = () => {
         e.preventDefault();
         updateInfo();
         console.log("Updated Profile:", { name, bio });
-        navigate('/profile'); 
+        //navigate('/profile'); 
     }
 
     const handleImageChange = (e) => {
@@ -31,11 +32,7 @@ const EditProfile = () => {
         }
 
         try {
-            const response = axios.post('https://6ecc-72-138-28-18.ngrok-free.app/api/auth/register', {
-                name: name,
-                bio: bio,
-                image: image,
-            });
+            const response = axios.put('https://58ea-72-138-28-18.ngrok-free.app/api/user/editProfile', {name: name, bio: bio});
 
             console.log('Edit Success', response.data);
             alert('Editing Success');
@@ -46,7 +43,7 @@ const EditProfile = () => {
     }
 
     return (
-        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-full'>
+        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-[900px] w-full'>
             <div className="relative">
                 {/* Profile Picture Preview */}
                 {preview ? (
