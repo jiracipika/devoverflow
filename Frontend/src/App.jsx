@@ -7,6 +7,8 @@ import Profile from "./Pages/Profile"
 import EditProfile from "./Pages/EditProfile"
 import Schedule from "./Pages/Schedule"
 import Collections from "./Pages/Collections"
+import Tags from "./Pages/Tags"
+import TagSection from "./Pages/TagSection"
 function App() {
 
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/tags" element={<Tags />} />
+          <Route path="/tagSection/:id" element={<TagSection />} />
         </Route>
       </Routes>
     </BrowserRouter>
