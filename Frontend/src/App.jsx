@@ -7,6 +7,8 @@ import Profile from "./Pages/Profile"
 import EditProfile from "./Pages/EditProfile"
 import Schedule from "./Pages/Schedule"
 import Collections from "./Pages/Collections"
+import Communities from "./Pages/Communities"
+import CommunitiesByTags from "./Pages/CommunitiesByTags"
 import Tags from "./Pages/Tags"
 import TagSection from "./Pages/TagSection"
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Home />} />
           <Route path="collections" element={<Collections />} />
+          <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
+          <Route path="communities/:TagName" element={<Communities />} />
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="/profile" element={<Profile />} />
