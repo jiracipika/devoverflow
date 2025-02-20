@@ -3,7 +3,7 @@ import articles from '../assets/FakeData.js'
 import Tag from './Tag.jsx'
 import { FaThumbsUp, FaComment, FaEye} from 'react-icons/fa6'
 
-const ExpandableCard = ({tittle, author, createdDate, votes, answers, views, tags, id}) => {
+const ExpandableCard = ({tittle, author, createdDate, votes, answers, views, tags, id, imgSrc}) => {
     console.log(tags)
   return (
     <div id={id} className='bg-card-gradient flex flex-col gap-3 p-10 rounded-lg'>
@@ -21,6 +21,7 @@ const ExpandableCard = ({tittle, author, createdDate, votes, answers, views, tag
         </div>
         <div className='flex justify-between'>
             <div className='flex gap-2'>
+                <img className='w-6 h-6 rounded-full' src={imgSrc || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuYdLEzBvwemix8pwsncUkLLOQqnByncadg&s"} alt="" />
                 <p>{author || "user"}</p>
                 <p>{createdDate || "12-12-2024"} </p>
             </div>

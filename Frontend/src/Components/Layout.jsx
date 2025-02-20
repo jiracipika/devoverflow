@@ -12,7 +12,7 @@ const Layout = () => {
       </header>
       <section className='relative w-[calc(100%-266px)]'>
         <Searchbar placeholderText={"Search anything globally"}/>
-        <div className=" relative top-[100px]">
+        <div className=" relative flex top-[100px]">
           <Outlet />
           <footer className='w-[330px]'>
             <Footer />
