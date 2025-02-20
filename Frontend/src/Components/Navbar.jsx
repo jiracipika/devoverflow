@@ -1,6 +1,4 @@
 import React from 'react'
-import { NavLink, Link } from 'react-router-dom'
-import { FaMagnifyingGlass, FaHouse, FaStar, FaRightFromBracket } from 'react-icons/fa6'
 
 import { NavLink, Link } from 'react-router-dom'
 import { FaMagnifyingGlass, FaHouse, FaStar, FaRightFromBracket } from 'react-icons/fa6'
