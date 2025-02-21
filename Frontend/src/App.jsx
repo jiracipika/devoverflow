@@ -15,16 +15,16 @@ function App() {
     <>
     <BrowserRouter>
       <Routes>
-        <Route element={<PersistLogin />}>
-          <Route element={<ProtectedRoute />}>
+        {/*<Route element={<PersistLogin />}>*/}
+          {/*<Route element={<ProtectedRoute />}>*/}
             <Route path="/" element={<Layout />}>
               <Route path="" element={<Home />} />
               <Route path="collections" element={<Collections />} />
               <Route path="ask-a-question" element={<AskAQuestion />} />
               <Route path="profile" element={<Profile />} />
             </Route>
-          </Route>
-        </Route>
+          {/*</Route>*/}
+        {/*</Route>*/}
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<SignIn />} />
       </Routes>
