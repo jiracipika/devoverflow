@@ -4,6 +4,8 @@ import Home from "./Pages/Home"
 import Signup from "./Pages/SignUp"
 import SignIn from "./Pages/SignIn"
 import Profile from "./Pages/Profile"
+import Schedule from "./Pages/Schedule"
+import EditProfile from "./Pages/EditProfile"
 import Collections from "./Pages/Collections"
 import AskAQuestion from "./Pages/AskAQuestion"
 import ProtectedRoute from "./Components/ProtectedRoute"
@@ -29,8 +31,6 @@ function App() {
               <Route path="/editProfile" element={<EditProfile />} />
               <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
               <Route path="communities/:TagName" element={<Communities />} />
-              <Route path="signup" element={<Signup />} />
-              <Route path="signin" element={<Signin />} />
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/tagSection/:id" element={<TagSection />} />
