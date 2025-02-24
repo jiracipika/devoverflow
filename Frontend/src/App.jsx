@@ -9,6 +9,10 @@ import AskAQuestion from "./Pages/AskAQuestion"
 import ProtectedRoute from "./Components/ProtectedRoute"
 import PersistLogin from "./Components/PersistLogin"
 
+import Communities from "./Pages/Communities"
+import CommunitiesByTags from "./Pages/CommunitiesByTags"
+import Tags from "./Pages/Tags"
+import TagSection from "./Pages/TagSection"
 function App() {
 
   return (
@@ -22,6 +26,14 @@ function App() {
               <Route path="collections" element={<Collections />} />
               <Route path="ask-a-question" element={<AskAQuestion />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="/editProfile" element={<EditProfile />} />
+              <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
+              <Route path="communities/:TagName" element={<Communities />} />
+              <Route path="signup" element={<Signup />} />
+              <Route path="signin" element={<Signin />} />
+              <Route path="/schedule" element={<Schedule />} />
+              <Route path="/tags" element={<Tags />} />
+              <Route path="/tagSection/:id" element={<TagSection />} />
             </Route>
           {/*</Route>*/}
         {/*</Route>*/}
