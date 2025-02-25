@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import SearchInput from './SearchInput'
 import { FaMagnifyingGlass, FaMoon } from 'react-icons/fa6'
 
