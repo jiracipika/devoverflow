@@ -15,6 +15,7 @@ const Navbar = () => {
           <NavLink to={"/tags"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Tags</NavLink>
           <NavLink to={"/communities"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Communities</NavLink>
           <NavLink to={"/question"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Ask a Question</NavLink>
+          <NavLink to={"/blog"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Blog</NavLink>
           <NavLink to={"/recommended-q"} className={`flex text-[18px] transition-all font-normal gap-2 px-4 py-2.5 rounded-lg w-full items-center`}><span><FaStar /></span>Recommended Qs</NavLink>
         </ul>
 

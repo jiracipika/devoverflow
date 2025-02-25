@@ -4,6 +4,7 @@ import Home from "./Pages/Home"
 import Signup from "./Pages/SignUp"
 import Signin from "./Pages/SignIn"
 import Profile from "./Pages/Profile"
+import Blog from "./Pages/Blog"
 import Collections from "./Pages/Collections"
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/blog" element={<Blog/>} />
         </Route>
       </Routes>
     </BrowserRouter>
