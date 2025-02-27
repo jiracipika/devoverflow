@@ -3,7 +3,7 @@ const TagCardInfo = [
     {
         "id": 1,
         "title": "Javascript",
-        "description": "A scripting language that enables you to create dynamically updating content, control multimedia, animate images, and pretty much everything else",
+        "description": "JavaScript (a dialect of ECMAScript) is a high-level, multi-paradigm, object-oriented, prototype-based, dynamically-typed, and interpreted language traditionally used for client-side scripting in web browsers.",
         "questions": 1423,
     },
 
@@ -17,14 +17,14 @@ const TagCardInfo = [
     {
         "id": 3,
         "title": "CSS",
-        "description": "A markup language to make things pretty.",
+        "description": "CSS, or Cascading Style Sheets, is a language used to control the visual presentation of documents written in a markup language, including HTML, XML, XHTML, SVG, and XUL.",
         "questions": 23423,
     },
 
     {
         "id": 4,
         "title": "React",
-        "description": "Javascript but seamless.",
+        "description": "React is a JavaScript library for building user interfaces. It uses a declarative, component-based paradigm and aims to be efficient and flexible.",
         "questions": 423,
     }
 ]
