@@ -10,7 +10,7 @@ import Collections from "./Pages/Collections"
 import AskAQuestion from "./Pages/AskAQuestion"
 import ProtectedRoute from "./Components/ProtectedRoute"
 import PersistLogin from "./Components/PersistLogin"
-
+import Blog from "./Pages/Blog"
 import Communities from "./Pages/Communities"
 import CommunitiesByTags from "./Pages/CommunitiesByTags"
 import Tags from "./Pages/Tags"
@@ -34,6 +34,7 @@ function App() {
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/tagSection/:id" element={<TagSection />} />
+              <Route path="/blog" element={<Blog/>} />
             </Route>
           {/*</Route>*/}
         {/*</Route>*/}
