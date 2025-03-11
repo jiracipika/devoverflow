@@ -1,13 +1,13 @@
 import React from 'react'
-import CommunityPic from '../Components/CommunityPic'
+import TagPic from '../Components/TagPic'
 
 
 const TagCard = ({title, description, questions, id}) => {
     return (
         <div id={id} className='bg-card-gradient flex flex-col gap-3 p-10 rounded-lg'>
-            <div>
+            <div className=''>
             <label className='bg-gray-800 hover:bg-gray-600 font-semibold text-[20px] p-2 rounded-lg cursor-pointer'>{title || "Title Name"}</label>
-            <CommunityPic/>
+            <TagPic/>
             <p className='my-1'>{description || "Something"}</p>
             </div>
             <div className='flex justify-between'>

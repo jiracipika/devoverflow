@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const EditProfile = () => {
     const [name, setName] = useState("")
+    const [username, setUserName] = useState ("")
     const [bio, setBio] = useState("")
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
@@ -62,13 +63,20 @@ const EditProfile = () => {
                     <input type="file" accept="image/*" className="hidden" onClick={handleImageChange} />
                 </label>
             </div>
-            <form onSubmit={handleSubmit}className='bg-[#1A1B21] p-6 rounded-lg w-full max-w-md mt-10 shadow-md'>
+            <form onSubmit={handleSubmit}className='bg-[#0A0B10] p-6 rounded-lg w-full max-w-md mt-10 shadow-md'>
                 <h2 className="text-white text-lg font-bold mb-4">Edit Profile</h2>
-                <label className="block text-gray-400 mb-1">Name</label>
+                <label className="block text-gray-400 mb-1">Full Name</label>
                 <input 
                     type="text" 
                     value={name} 
                     onChange={(e) => setName(e.target.value)}
+                    className='w-full p-2 mb-4 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-gray-500'
+                />
+                <label className="block text-gray-400 mb-1"> Username</label>
+                <input 
+                    type="text" 
+                    value={username} 
+                    onChange={(e) => setUserName(e.target.value)}
                     className='w-full p-2 mb-4 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-gray-500'
                 />
                 <label className="block text-gray-400 mb-1">Bio</label>
