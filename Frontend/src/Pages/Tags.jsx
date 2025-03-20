@@ -28,7 +28,7 @@ const Tags = () => {
 
     return (
         <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
-            <SearchInput onSearchChange={handleSearch} placeholderText={"Search by Tag Name"} classNames={"w-[18%] p-2 rounded-lg"} />
+            <SearchInput onSearchChange={handleSearch} placeholderText={"Search by Tag Name"} classNames={"w-[50%] p-2 rounded-lg"} />
             <TagFilterTab onChosenFilter={handleFilterChosen}/>
             <div className='grid grid-cols-3 flex gap-2'>
             {TagCardInfo.map((item, index) =>{

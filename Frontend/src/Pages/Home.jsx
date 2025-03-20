@@ -27,7 +27,7 @@ const Home = () => {
     <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       <header className='flex justify-between'>
         <h1 className='text-[30px] font-bold'>All Questions</h1>
-        <Link className='bg-custom-gradient p-4 rounded-lg font-semibold'>Ask a Question</Link>
+        <Link className='bg-custom-gradient p-4 rounded-lg font-semibold' to="ask-a-question">Ask a Question</Link>
       </header>
       <SearchInput onSearchChange={handleSearch} placeholderText={"Search a Question here"} classNames={"w-full"} />
       <FilterQuestionTab onChosenFilter={handleFilterChosen} />

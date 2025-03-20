@@ -10,6 +10,7 @@ import Collections from "./Pages/Collections"
 import AskAQuestion from "./Pages/AskAQuestion"
 import ProtectedRoute from "./Components/ProtectedRoute"
 import PersistLogin from "./Components/PersistLogin"
+import OtherUserProfile from "./Pages/OtherUserProfile"
 import Blog from "./Pages/Blog"
 import Communities from "./Pages/Communities"
 import CommunitiesByTags from "./Pages/CommunitiesByTags"
@@ -29,6 +30,7 @@ function App() {
               <Route path="ask-a-question" element={<AskAQuestion />} />
               <Route path="profile" element={<Profile />} />
               <Route path="/editProfile" element={<EditProfile />} />
+              <Route path="/otherUserProfile" element={<OtherUserProfile />} />
               <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
               <Route path="communities/:TagName" element={<Communities />} />
               <Route path="/schedule" element={<Schedule />} />

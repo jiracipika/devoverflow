@@ -8,7 +8,7 @@ const FollowSuggestionCard = ({fullName, username, imgSrc}) => {
             <div className='flex gap-3 items-center'>
                 <img className='w-14 h-14 rounded-full' src={imgSrc} alt="" />
                 <div className="">
-                    <h1>{fullName}</h1>
+                    <h1 className=""><Link to="/otherUserProfile">{fullName}</Link></h1>
                     <p>@{username}</p>
                 </div>
             </div>
