@@ -8,6 +8,7 @@ import Schedule from "./Pages/Schedule"
 import EditProfile from "./Pages/EditProfile"
 import Collections from "./Pages/Collections"
 import AskAQuestion from "./Pages/AskAQuestion"
+import Notifications from "./Pages/Notifications"
 import ProtectedRoute from "./Components/ProtectedRoute"
 import PersistLogin from "./Components/PersistLogin"
 import OtherUserProfile from "./Pages/OtherUserProfile"
@@ -34,6 +35,7 @@ function App() {
               <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
               <Route path="communities/:TagName" element={<Communities />} />
               <Route path="/schedule" element={<Schedule />} />
+              <Route path="/notifications" element={<Notifications/>} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/tagSection/:id" element={<TagSection />} />
               <Route path="/blog" element={<Blog/>} />
