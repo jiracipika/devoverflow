@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const NotificationFilterTab = () => {
+const NotificationFilterTab = ({onChosenFilter}) => {
     const [chosenFilter, setChosenFilter] = useState("");
     
     const handleClick = (e) =>{

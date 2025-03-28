@@ -23,13 +23,15 @@ const Tags = () => {
         else if (userquery == "Name"){
             TagCardInfo.sort((a, b) => a.title.localeCompare(b.title));
         }
-        console.log(userquery)
       }
 
     return (
         <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
-            <SearchInput onSearchChange={handleSearch} placeholderText={"Search by Tag Name"} classNames={"w-[50%] p-2 rounded-lg"} />
-            <TagFilterTab onChosenFilter={handleFilterChosen}/>
+            <SearchInput onSearchChange={handleSearch} placeholderText={"Search by Tag Name"} classNames={"w-[100%] p-2 rounded-lg"} />
+            <div className='flex justify-between'>
+                <TagFilterTab onChosenFilter={handleFilterChosen}/>
+                <button className='bg-custom-gradient p-4 rounded-lg font-semibold w-[15%]' >Delete Tag</button>
+            </div>
             <div className='grid grid-cols-3 flex gap-2'>
             {TagCardInfo.map((item, index) =>{
         return (
