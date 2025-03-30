@@ -31,7 +31,7 @@ function App() {
               <Route path="ask-a-question" element={<AskAQuestion />} />
               <Route path="profile" element={<Profile />} />
               <Route path="/editProfile" element={<EditProfile />} />
-              <Route path="/otherUserProfile" element={<OtherUserProfile />} />
+              <Route path="otherUserProfile" element={<OtherUserProfile />} />
               <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
               <Route path="communities/:TagName" element={<Communities />} />
               <Route path="/schedule" element={<Schedule />} />

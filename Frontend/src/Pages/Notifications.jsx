@@ -8,7 +8,7 @@ const Notifications = () => {
     const [filterQuery, setFilterQuery] = useState("All")
 
     const filteredData = filterQuery === "All" ? NotifData : NotifData.filter(item => item.category === filterQuery);
-
+    console.log(filterQuery)
     const handleFilterChosen = (userquery) =>{
         setFilterQuery(userquery)
       }
@@ -18,9 +18,9 @@ const Notifications = () => {
     return(
         <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
             <NotificationFilterTab onChosenFilter={handleFilterChosen}/>
-            <section>
+            <section className='flex flex-col gap-3 justify-center'>
                 {filteredData.map((item, index) =>{
-                    return (<NotificationCard id={index} category={item.category} title={item.title} text={item.text}/>)
+                    return (<NotificationCard id={index} userquery={filterQuery} category={item.category} title={item.title} text={item.text}/>)
                 })}
             </section>
         </div>

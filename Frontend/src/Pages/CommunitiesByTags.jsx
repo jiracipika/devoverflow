@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {Link} from "react-router-dom";
 import SearchInput from '../Components/SearchInput';
 import CommunityDatabyTags from '../assets/CommunityDatabyTags';
 import CommunityCard from '../Components/CommunityCards';
@@ -17,9 +16,7 @@ const CommunitiesByTags = () => {
             <div className='flex gap-2'>
             {CommunityDatabyTags.map((item, index) =>{
                 return (
-                <Link key={item.id} to={`/Communities/${item.TagName}`} >
-                    <CommunityCard className='grid grid-cols-3' id={index} TagName={item.TagName} Users={item.Users}/>
-                </Link>)
+                <CommunityCard className='grid grid-cols-3' id={index} TagName={item.TagName} Users={item.Users}/>)
 
             })}  
             </div>

@@ -41,6 +41,13 @@ const NotifData = [
         "category": "Messages",
 
     },
+    {
+        "title": "Reminder on March 30",
+        "text": "Business Meeting at 10:30 AM",
+        "friendRequest": [],
+        "category": "Schedule",
+
+    },
 ]
 
 export default NotifData
