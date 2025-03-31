@@ -113,29 +113,37 @@ const signUp = () => {
 
 
     return (
-        <section className='bg-[#0F1117] min-h-screen max-h-fit flex justify-center w-full p-6 flex-col items-center'>
-            <form className='bg-[#151821] w-[90%] h-4/5 max-w-[450px] text-center mt-5 pt-[50px] pb-[70px] px-[60px] rounded-[20px] left-2/4 top-2/4'>
-                <h1 className="text-[#FFFFFF] text-center font-bold text-4xl italic">Sign Up</h1>
-                <div class='input-group'>
-                    <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
-                        <input value={name} name="name" onChange={(e) => setName(e.target.value)} type="text" placeholder="Name" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
+        <section className='w-full h-fit bg-[#0F1117]'>
+            <section className='sign-in min-h-screen max-h-fit flex justify-center w-full p-6 flex-col items-center'>
+                <form className='bg-[#151821] w-[90%] h-4/5 flex flex-col gap-3 max-w-[450px] mt-5 pt-[50px] pb-[70px] px-[60px] rounded-[20px] left-2/4 top-2/4'>
+                    <div className='flex justify-between items-center'>
+                        <div>
+                            <h1 className="text-white font-medium text-2xl ">Sign Up</h1>
+                            <p className='text-[#858EAD]'>to Start Networking</p>
+                        </div>
+                        <h1 className='text-white'>logo</h1>
                     </div>
-                    <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
-                        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
+                    <div alt='input-group'>
+                        <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
+                            <input value={name} name="name" onChange={(e) => setName(e.target.value)} type="text" placeholder="Name" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
+                        </div>
+                        <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
+                            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
+                        </div>
+                        <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
+                            <input value={pass} onChange={(e) => {setPass(e.target.value); setStrength(evaluatePasswordStrength(e.target.value))}} type="password" placeholder="Password" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
+                        </div>
+                        <small className='text-[#858EAD]'>Password Strength: {strength}</small>
+                        <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
+                            <input value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} type="password" placeholder="Confirm Password" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
+                        </div>
+                        <div alt="btn-field" className='w-full mt-10;'>
+                            <button onClick={registerClick}  className='bg-gradient-to-r from-[#FF7000] to-[#E2995F] text-sm basis-[48%] h-10 w-full rounded-md text-white font-medium border-0 outline-none' type="button" id="signUpBtn">Sign Up</button>
+                        </div>
+                        <p className='text-sm text-center mt-3 text-[#FFFFFF]'>Already have an account? <Link className='text-center text-[#FF7000] text-sm text-decoration-line: underline' to={"/signin"}>Sign In</Link> Here.</p>
                     </div>
-                    <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
-                        <input value={pass} onChange={(e) => {setPass(e.target.value); setStrength(evaluatePasswordStrength(e.target.value))}} type="password" placeholder="Password" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
-                    </div>
-                    <small className='text-[#858EAD]'>Password Strength: {strength}</small>
-                    <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
-                        <input value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} type="password" placeholder="Confirm Password" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
-                    </div>
-                    <div class="btn-field" className='w-full mt-10;'>
-                        <button onClick={registerClick}  className='text-xl basis-[48%] h-10 w-6/12 bg-gradient-to-r from-[#FF7000] to-[#E2995F] rounded-[20px] border-0 outline-none' type="button" id="signUpBtn">Sign Up</button>
-                    </div>
-                    <p className='text-[#FFFFFF] text-[16px]'>Already have an account? <Link className='font-[bold] text-[#FF7000] text-[16px]' to={"/signin"}>Sign In</Link> Here.</p>
-                </div>
-            </form>
+                </form>
+            </section>
         </section>
     )
 }
