@@ -1,4 +1,4 @@
-import { FaRegStar, FaRegThumbsUp } from "react-icons/fa";
+import { FaRegStar, FaRegThumbsUp, FaEye, FaComment } from "react-icons/fa";
 
 const CollectionCard = ({ question }) => {
   return (
@@ -30,10 +30,14 @@ const CollectionCard = ({ question }) => {
         {/* Right Section - Votes, Answers, Views */}
         <div className="flex space-x-6">
           <span className="flex items-center">
-            <FaRegThumbsUp className="mr-1" /> {question.votes}
+            <FaRegThumbsUp className="text-[#1DA1F2] mr-1" /> {question.votes}
           </span>
-          <span>{question.answers}</span>
-          <span>{question.views}</span>
+          <span className="flex items-center">
+          <FaComment className='text-[#1DA1F2] mr-1'/>{question.answers}
+          </span>
+          <span className="flex items-center">
+            <FaEye className='text-[#1DA1F2] mr-1'/>{question.views}
+          </span>
         </div>
       </div>
     </div>
