@@ -63,7 +63,7 @@ const SignIn = () => {
                         </div>
                         <div className='flex gap-3 flex-col justify-center mx-0 my-[15px] rounded-[3px]'>
                             <input type="password" onChange={(e) => setPass(e.target.value)} placeholder="Password" className='bg-[#212734] rounded-md text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
-                            <Link to={"forgot-password"} className='self-end text-[#1DA1F2]'>Forgot Password</Link>
+                            <Link to={"/forgotpassword"} className='self-end text-[#1DA1F2]'>Forgot Password</Link>
                         </div>
                     </div>
                     <div className='w-full '>

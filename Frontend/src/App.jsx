@@ -17,6 +17,8 @@ import Communities from "./Pages/Communities"
 import CommunitiesByTags from "./Pages/CommunitiesByTags"
 import Tags from "./Pages/Tags"
 import TagSection from "./Pages/TagSection"
+import ForgotPassword from "./Pages/ForgotPassword"
+
 function App() {
 
   return (
@@ -44,6 +46,7 @@ function App() {
         {/*</Route>*/}
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
       

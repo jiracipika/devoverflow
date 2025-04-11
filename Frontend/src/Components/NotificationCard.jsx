@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import NotifData from '../assets/NotifData.js'
 
 const NotificationCard = ({title, text, category, friendRequest, id, imgSrc, userQuery }) => {
     const classOnTheBasisOfCategory = {
@@ -9,10 +10,18 @@ const NotificationCard = ({title, text, category, friendRequest, id, imgSrc, use
     }
 
     const [classForNotification, setClassForNotification] = useState()
+    const [cards, setCards] = useState(NotifData)
 
     useEffect(() => {
         setClassForNotification(classOnTheBasisOfCategory[category])
     }, [category])
+
+    const removeCard = (id) => {
+        const newCards = cards.filter(
+            (card) => card.id !== id
+        )
+        setCards(newCards);
+    }
 
     return(
         <div id={id} className='bg-card-gradient flex flex-col gap-3 p-10 rounded-lg'>
@@ -23,7 +32,7 @@ const NotificationCard = ({title, text, category, friendRequest, id, imgSrc, use
                 <p className={classForNotification}>{text ||"Text Here"} </p>
             </div>
             <div className='flex gap-4'>
-                <button className={`${category == "Requests" ? "block" : "hidden"} bg-custom-gradient p-4 rounded-lg` }>Accept</button>
+                <button onClick={() => removeCard()} className={`${category == "Requests" ? "block" : "hidden"} bg-custom-gradient p-4 rounded-lg` }>Accept</button>
                 <button className={`${category == "Requests" ? "block" : "hidden"} bg-custom-gradient p-4 rounded-lg` }>Decline</button>
             </div>
         </div>

@@ -8,7 +8,7 @@ const Notifications = () => {
     const [filterQuery, setFilterQuery] = useState("All")
 
     const filteredData = filterQuery === "All" ? NotifData : NotifData.filter(item => item.category === filterQuery);
-    console.log(filterQuery)
+
     const handleFilterChosen = (userquery) =>{
         setFilterQuery(userquery)
       }
