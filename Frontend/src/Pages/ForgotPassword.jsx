@@ -1,14 +1,35 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import validator from "validator"
 
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = () => {
+        //e.preventDefault();
+        if (!validator.isEmail(email)) {
+            alert("Invalid Email")
+            return;
+        }
+        else{
+            //Send Email
+            //try {
+            //    const response = await axios.post('', {
+            //        email: email,
+            //    });
+            //    if (response.status === 200) {
+                    // If the email was sent successfully, navigate
+                    //navigate('/thankyoupassword');
+                    navigate('/resetpassword')
+            //      }
+            //} catch (error) {
+            //    console.error('Email send failed:', error);
+            //}
+            //navigate('/resetpassword')
+        }
         
     }
     
@@ -29,7 +50,7 @@ const ForgotPassword = () => {
                         </div>
                     </div>
                     <div className='w-full '>
-                    <button className='bg-gradient-to-r from-[#FF7000] to-[#E2995F] text-sm basis-[48%] h-10 w-full rounded-md text-white font-medium border-0 outline-none' type="button" id="signInBtn">Continue</button>
+                    <button onClick={handleSubmit} className='bg-gradient-to-r from-[#FF7000] to-[#E2995F] text-sm basis-[48%] h-10 w-full rounded-md text-white font-medium border-0 outline-none' type="button">Continue</button>
                     </div>
                     <div className='flex gap-3 flex-col justify-center mx-0 my-[15px] rounded-[3px]'>
                          <Link to={"/signin"} className='self-center text-[#FF7000]'>Back to Sign In</Link>

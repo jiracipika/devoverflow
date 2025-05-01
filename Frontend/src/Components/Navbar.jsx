@@ -7,7 +7,8 @@ import {
   communitesSvgSrc, 
   askAQuestionSvgSrc, 
   logoutSvgSrc,
-  blogSvgSrc
+  blogSvgSrc,
+  messagesSvgSrc
 
 } from '../assets/Icons/getIcons'
 
@@ -24,6 +25,7 @@ const Navbar = () => {
           <NavLink to={"/communitiesbytags"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><img src={communitesSvgSrc} alt='GroupOfPeople-icon' /> Communities</NavLink>
           <NavLink to={"/ask-a-question"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><img src={askAQuestionSvgSrc} alt='QuestionMark-icon' /> Ask a Question</NavLink>
           <NavLink to={"/blog"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><img src={blogSvgSrc} alt='Blog-icon' /> Blog</NavLink>
+          <NavLink to={"/messages"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><img src={messagesSvgSrc} alt='Messages-icon' />Messages</NavLink>
         </ul>
 
       </div>

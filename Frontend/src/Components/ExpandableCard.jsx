@@ -25,7 +25,7 @@ const ExpandableCard = ({tittle, author, createdDate, votes, answers, views, tag
             <div className='flex gap-2'>
                 <img className='w-6 h-6 rounded-full' src={imgSrc || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuYdLEzBvwemix8pwsncUkLLOQqnByncadg&s"} alt="" />
                 <p className="text-white font-semibold">{author || "user"}</p>
-                {/*<p className="text-white font-semibold">{createdDate || "12-12-2024"} </p>*/}
+                {<p className="text-white font-semibold">{createdDate || "12-12-2024"} </p>}
                 <span className="text-gray-500">• asked 3 mins ago</span>
             </div>
             <div className='flex gap-4'>

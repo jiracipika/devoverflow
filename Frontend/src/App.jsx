@@ -17,7 +17,10 @@ import Communities from "./Pages/Communities"
 import CommunitiesByTags from "./Pages/CommunitiesByTags"
 import Tags from "./Pages/Tags"
 import TagSection from "./Pages/TagSection"
+import Messages from "./Pages/Messages"
 import ForgotPassword from "./Pages/ForgotPassword"
+import ThankYouPassword from "./Pages/ThankYouPassword"
+import ResetPassword from "./Pages/ResetPassword"
 
 function App() {
 
@@ -41,12 +44,15 @@ function App() {
               <Route path="/tags" element={<Tags />} />
               <Route path="/tagSection/:id" element={<TagSection />} />
               <Route path="/blog" element={<Blog/>} />
+              <Route path="/messages" element={<Messages/>} />
             </Route>
           {/*</Route>*/}
         {/*</Route>*/}
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/thankyoupassword" element={<ThankYouPassword />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
       
