@@ -4,7 +4,7 @@ import TagPic from '../Components/TagPic'
 
 const TagCard = ({title, description, questions, id}) => {
     return (
-        <div id={id} className='bg-card-gradient flex flex-col gap-3 p-9 rounded-lg'>
+        <div id={id} className='h-[300px] bg-card-gradient flex flex-col gap-3 p-9 rounded-lg'>
             <div className="">
                 <label className='bg-gray-800 hover:bg-gray-600 font-semibold text-[20px] p-2 rounded-lg cursor-pointer'>{title || "Title Name"}</label>
             </div>

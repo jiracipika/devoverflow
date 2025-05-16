@@ -22,7 +22,9 @@ const profile = () => {
                 <button className='ml-[1000px] bg-custom-gradient text-[white] font-bold py-2 px-4 rounded'><Link to="/editProfile">Edit Profile</Link></button>
                 <h1 className='text-[white] text-4xl'>Dao</h1>
                 <h3 className='text-[white] text-sm'>@Daotama</h3>
-                <p className='text-[white] '>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div className='text-wrap'>
+                <p className='text-[white]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                </div>
             </div>
             <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
                 <ProfileFilterTab onChosenFilter={handleFilterChosen}/>

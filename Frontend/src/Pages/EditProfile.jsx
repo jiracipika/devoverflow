@@ -15,7 +15,7 @@ const EditProfile = () => {
         e.preventDefault();
         updateInfo();
         console.log("Updated Profile:", { name, bio });
-        //navigate('/profile'); 
+        navigate('/profile'); 
     }
 
     const handleImageChange = (e) => {
