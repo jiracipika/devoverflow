@@ -34,6 +34,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route path="" element={<Home />} />
               <Route path="collections" element={<Collections />} />
+              <Route path="collections/question/:id" element={<QuestionView />} />
               <Route path="ask-a-question" element={<AskAQuestion />} />
               <Route path="profile" element={<Profile />} />
               <Route path="/editProfile" element={<EditProfile />} />
@@ -46,7 +47,7 @@ function App() {
               <Route path="/tagSection/:id" element={<TagSection />} />
               <Route path="/blog" element={<Blog/>} />
               <Route path="/messages" element={<Messages/>} />
-              <Route path="/question/:id" element={<QuestionView/>} />
+              <Route path="question/:id" element={<QuestionView/>} />
             </Route>
           {/*</Route>*/}
         {/*</Route>*/}

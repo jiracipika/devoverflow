@@ -24,11 +24,6 @@ const Home = () => {
     console.log(userquery)
   }
 
-  const data = {id: articles.id, title: articles.title}
-  console.log(data)
-  const data2 = {articles}
-  console.log(data2)
-
   return (
     <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       <header className='flex justify-between'>
@@ -37,8 +32,7 @@ const Home = () => {
       </header>
       <SearchInput onSearchChange={handleSearch} placeholderText={"Search a Question here"} classNames={"w-full"} />
       <FilterQuestionTab onChosenFilter={handleFilterChosen} />
-      {articles.map((item, index) =>{
-        console.log('itemId', item.id);
+      {articles.map((item) =>{
         return (<Link to={`question/${item.id}`}><ExpandableCard key={item.id} {...item}/></Link>)
 
       })}
