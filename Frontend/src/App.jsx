@@ -8,6 +8,7 @@ import Schedule from "./Pages/Schedule"
 import EditProfile from "./Pages/EditProfile"
 import Collections from "./Pages/Collections"
 import AskAQuestion from "./Pages/AskAQuestion"
+import QuestionView from "./Pages/QuestionView"
 import Notifications from "./Pages/Notifications"
 import ProtectedRoute from "./Components/ProtectedRoute"
 import PersistLogin from "./Components/PersistLogin"
@@ -45,6 +46,7 @@ function App() {
               <Route path="/tagSection/:id" element={<TagSection />} />
               <Route path="/blog" element={<Blog/>} />
               <Route path="/messages" element={<Messages/>} />
+              <Route path="/question/:id" element={<QuestionView/>} />
             </Route>
           {/*</Route>*/}
         {/*</Route>*/}

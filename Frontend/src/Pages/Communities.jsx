@@ -21,18 +21,6 @@ const Communities = () => {
   const filteredUsers = UserDataInfo.filter(user => user.tags.includes(TagName));
   console.log(filteredUsers)
 
-  //const selectedUsers = UserDataInfo.find((User) => User.tags === parseInt(TagName));
-  //console.log(selectedUsers)
-
-  //const getUsersByTag = (tags) => {
-  //  return UserDataInfo.filter(user => 
-  //    user.tags.some(tag => tags.includes(tag)));
-  //};
-  
-
-  //const filteredUsers = getUsersByTag(selectedUsers.tags);
-  //console.log(filteredUsers);
-
 
   return (
     <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>

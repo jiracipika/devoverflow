@@ -13,6 +13,7 @@ const Home = () => {
   const [searchQuery,setSearchQuery] = useState("")
   const [filterQuery, setFilterQuery] = useState("")
 
+
   const handleSearch = (userquery) =>{
     setSearchQuery(userquery)
     console.log(userquery)
@@ -23,8 +24,13 @@ const Home = () => {
     console.log(userquery)
   }
 
+  const data = {id: articles.id, title: articles.title}
+  console.log(data)
+  const data2 = {articles}
+  console.log(data2)
+
   return (
-    <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black max-[1500px]'>
+    <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       <header className='flex justify-between'>
         <h1 className='text-[30px] font-bold'>All Questions</h1>
         <Link className='bg-custom-gradient p-4 rounded-lg font-semibold' to="ask-a-question">Ask a Question</Link>
@@ -32,14 +38,12 @@ const Home = () => {
       <SearchInput onSearchChange={handleSearch} placeholderText={"Search a Question here"} classNames={"w-full"} />
       <FilterQuestionTab onChosenFilter={handleFilterChosen} />
       {articles.map((item, index) =>{
-        return (<ExpandableCard id={index} author={item.author} tags={item.tags} votes={item.likes} answers={item.comments.length} views={item.views} tittle={item.title}/>)
+        console.log('itemId', item.id);
+        return (<Link to={`question/${item.id}`}><ExpandableCard key={item.id} {...item}/></Link>)
 
       })}
     </div>
   )
 }
 
-// Our executive network provides a trusted platform for senior professionals to collaborate, share insights, and build strategic partnerships that fuel growth and innovation.
-// Join a global network of industry leaders to exchange ideas, access exclusive resources, and discover opportunities that accelerate personal and organizational success.
-// Elevate your influence and impact by connecting with top executives in a dynamic environment designed for knowledge-sharing, mentorship, and business advancement.
 export default Home
