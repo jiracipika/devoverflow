@@ -41,6 +41,7 @@ function App() {
               <Route path="otherUserProfile" element={<OtherUserProfile />} />
               <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
               <Route path="communities/:TagName" element={<Communities />} />
+              <Route path="communities/:TagName/otherUserProfile/:id" element={<OtherUserProfile/>} />
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/notifications" element={<Notifications/>} />
               <Route path="/tags" element={<Tags />} />

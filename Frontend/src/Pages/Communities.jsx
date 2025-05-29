@@ -14,22 +14,17 @@ const Communities = () => {
   }
 
   const { TagName } = useParams();
-  console.log(TagName)
-
- 
 
   const filteredUsers = UserDataInfo.filter(user => user.tags.includes(TagName));
-  console.log(filteredUsers)
-
 
   return (
     <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       <SearchInput onSearchChange={handleSearch} placeholderText={"Search by Username"} classNames={"w-full"} />
       <div className='grid grid-cols-3 flex gap-2'>
-      {filteredUsers.map((item, index) =>{
+      {filteredUsers.map((item) =>{
         return (
-        <Link key={item.id} to={'otherUserProfile'} >
-            <UserCard className='' id={index} Name={item.Name} Username={item.Username} tags={item.tags}/>
+        <Link to={`otherUserProfile/${item.id}`} >
+            <UserCard key={item.id} {...item}/>
         </Link>)
 
       })}  

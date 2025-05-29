@@ -11,6 +11,7 @@ const QuestionView = () => {
 
   useEffect(()=> {
     const data = articles.find(x => x.id == params.id);
+    console.log(data)
     setArticle(data);
   }, [])
 
