@@ -45,6 +45,7 @@ function App() {
               <Route path="/notifications" element={<Notifications/>} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/tagSection/:id" element={<TagSection />} />
+              <Route path="/tagSection/:id/question/:id" element={<QuestionView />} />
               <Route path="/blog" element={<Blog/>} />
               <Route path="/messages" element={<Messages/>} />
               <Route path="question/:id" element={<QuestionView/>} />

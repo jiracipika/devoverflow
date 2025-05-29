@@ -28,16 +28,16 @@ const Tags = () => {
     return (
         <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
             <SearchInput onSearchChange={handleSearch} placeholderText={"Search by Tag Name"} classNames={"w-[100%] p-2 rounded-lg"} />
+            <h1>Tags</h1>
+            <p>A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question.</p>
             <div className='flex justify-between'>
                 <TagFilterTab onChosenFilter={handleFilterChosen}/>
-                <button className='bg-custom-gradient p-4 rounded-lg font-semibold w-[15%]' >Delete Tag</button>
+                <button className='bg-custom-gradient p-4 rounded-lg font-semibold w-[15%] max-[1435px]:text-[15px] max-[1435px]:p-3' >Delete Tag</button>
             </div>
             <div className='grid grid-cols-3 flex gap-2'>
             {TagCardInfo.map((item, index) =>{
         return (
-        <Link key={item.id} to={`/tagSection/${item.id}`} >
-            <TagCard id={index} title={item.title} description={item.description} questions={item.questions}/>
-        </Link>)
+            <TagCard id={index} title={item.title} description={item.description} questions={item.questions}/>)
 
       })}    
             </div>

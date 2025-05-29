@@ -6,7 +6,7 @@ import collections from '../assets/CollectionsData.js'
 
 const Collections = () => {
 
-  console.log(collections)
+  //console.log(collections)
 
   return (
     <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>

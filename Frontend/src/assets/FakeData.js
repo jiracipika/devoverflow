@@ -65,7 +65,7 @@ const articles = [
       "content": "CSS Grid is a powerful layout system that allows developers to create complex and responsive designs with ease. Unlike traditional CSS layout techniques, CSS Grid enables two-dimensional layouts, making it easier to align elements in both rows and columns. In this beginner’s guide, we’ll cover the basics of CSS Grid, including how to set up a grid container, define grid items, and control their placement. We’ll also look at some common use cases and real-world examples of how CSS Grid can be used to create modern, responsive layouts.",
       "author": "Sophia White",
       "likes": 234,
-      "tags": ["Grid", "CSS"],
+      "tags": ["CSS"],
       "views": 1890,
       "asked": "3 Minutes Ago",
       "comments": [
@@ -110,7 +110,7 @@ const articles = [
       "votes": 10,
       "answers": 2,
       "asked": "10 Minutes Ago",
-      "tags":["Invalid Fields", "Troubleshooting"],
+      "tags":["Troubleshooting"],
       "comments": [
         {
           "comment": "Comment 1",
