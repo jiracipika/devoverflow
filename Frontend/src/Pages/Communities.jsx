@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
-import {useParams, Link} from "react-router-dom";
+import {useParams, Link, useNavigate } from "react-router-dom";
 import SearchInput from '../Components/SearchInput';
 import UserCard from '../Components/UserCard';
 import UserDataInfo from '../assets/UserData';
 
 const Communities = () => {
+  let navigate = useNavigate();
 
   const [searchQuery,setSearchQuery] = useState("")
   
@@ -23,7 +24,7 @@ const Communities = () => {
       <div className='grid grid-cols-3 flex gap-2'>
       {filteredUsers.map((item) =>{
         return (
-        <Link to={`otherUserProfile/${item.id}`} >
+        <Link to={`/otherUserProfile/${item.id}`} >
             <UserCard key={item.id} {...item}/>
         </Link>)
 

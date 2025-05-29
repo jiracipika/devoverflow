@@ -27,7 +27,7 @@ const TagSection = () => {
             <p>{selectedData.description}</p>
             
             {filteredArticles.map((item) =>{
-        return (<Link to={`question/${item.id}`}><ExpandableCard key={item.id} {...item}/></Link>)
+        return (<Link to={`/question/${item.id}`}><ExpandableCard key={item.id} {...item}/></Link>)
 
       })}
             <Link to="/tags" className="mt-4 inline-block text-blue-500 underline">Back to Tag List</Link>

@@ -34,14 +34,12 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route path="" element={<Home />} />
               <Route path="collections" element={<Collections />} />
-              <Route path="collections/question/:id" element={<QuestionView />} />
               <Route path="ask-a-question" element={<AskAQuestion />} />
               <Route path="profile" element={<Profile />} />
               <Route path="/editProfile" element={<EditProfile />} />
-              <Route path="otherUserProfile" element={<OtherUserProfile />} />
+              <Route path="/otherUserProfile/:id" element={<OtherUserProfile />} />
               <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
               <Route path="communities/:TagName" element={<Communities />} />
-              <Route path="communities/:TagName/otherUserProfile/:id" element={<OtherUserProfile/>} />
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/notifications" element={<Notifications/>} />
               <Route path="/tags" element={<Tags />} />
@@ -49,7 +47,7 @@ function App() {
               <Route path="/tagSection/:id/question/:id" element={<QuestionView />} />
               <Route path="/blog" element={<Blog/>} />
               <Route path="/messages" element={<Messages/>} />
-              <Route path="question/:id" element={<QuestionView/>} />
+              <Route path="/question/:id" element={<QuestionView/>} />
             </Route>
           {/*</Route>*/}
         {/*</Route>*/}
