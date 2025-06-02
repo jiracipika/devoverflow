@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import {Link} from "react-router-dom";
 import SearchInput from '../Components/SearchInput';
 import TagCard from '../Components/TagCard.jsx';
 import TagCardInfo from '../assets/TagSampleData.js';

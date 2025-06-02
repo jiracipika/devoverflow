@@ -1,6 +1,6 @@
 export const blogPosts = [
   {
-    _id: "1",
+    id: 1,
     title: "Best Web Dev Roadmap 2024 - The Winning Formula",
     description:
       "A comprehensive guide to becoming a full-stack developer in 2024. Learn the most in-demand technologies and best practices.",
@@ -16,7 +16,7 @@ export const blogPosts = [
     tech: "Full Stack Development",
   },
   {
-    _id: "2",
+    id: 2,
     title: "Understanding React Server Components",
     description:
       "Deep dive into React Server Components and how they revolutionize web application architecture.",
@@ -32,7 +32,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "3",
+    id: 3,
     title: "Mastering TypeScript: Advanced Patterns",
     description:
       "Learn advanced TypeScript patterns and techniques to write more maintainable and type-safe code.",
@@ -48,7 +48,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "4",
+    id: 4,
     title: "Building Scalable APIs with Node.js",
     description:
       "Best practices for building production-ready APIs that can handle millions of requests.",
@@ -64,7 +64,7 @@ export const blogPosts = [
     tech: "Backend Development",
   },
   {
-    _id: "5",
+    id: 5,
     title: "Exploring CSS Grid for Responsive Layouts",
     description:
       "A beginner-friendly guide to mastering CSS Grid for building responsive designs.",
@@ -80,7 +80,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "6",
+    id: 6,
     title: "Getting Started with GraphQL",
     description:
       "An introductory guide to GraphQL for building flexible and efficient APIs.",
@@ -96,7 +96,7 @@ export const blogPosts = [
     tech: "Backend Development",
   },
   {
-    _id: "7",
+    id: 7,
     title: "Why Svelte is the Framework to Watch in 2024",
     description:
       "Discover why developers are switching to Svelte for building modern web apps.",
@@ -112,7 +112,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "8",
+    id: 8,
     title: "The Rise of Serverless Architecture",
     description:
       "Learn how serverless architecture is changing the way we build and scale applications.",
@@ -128,7 +128,7 @@ export const blogPosts = [
     tech: "Cloud Computing",
   },
   {
-    _id: "9",
+    id: 9,
     title: "Top 10 JavaScript Libraries in 2024",
     description:
       "A curated list of the most popular JavaScript libraries to use this year.",
@@ -144,7 +144,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "10",
+    id: 10,
     title: "Efficient State Management in React",
     description: "Understand the latest state management techniques in React.",
     imageUrl:
@@ -159,7 +159,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "11",
+    id: 11,
     title: "Web Security Essentials for 2024",
     description:
       "Learn the top security practices to keep your web app secure.",
@@ -175,7 +175,7 @@ export const blogPosts = [
     tech: "Backend Development",
   },
   {
-    _id: "12",
+    id: 12,
     title: "Mastering TailwindCSS for Rapid Development",
     description:
       "How to use TailwindCSS to build beautiful and responsive designs quickly.",
@@ -191,7 +191,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "13",
+    id: 13,
     title: "Next.js vs Nuxt.js: Which One Should You Choose?",
     description:
       "Compare Next.js and Nuxt.js to decide the best framework for your project.",
@@ -207,7 +207,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "14",
+    id: 14,
     title: "Docker Basics for Web Developers",
     description: "Learn how Docker can simplify your development workflow.",
     imageUrl:
@@ -222,7 +222,7 @@ export const blogPosts = [
     tech: "DevOps",
   },
   {
-    _id: "15",
+    id: 15,
     title: "Understanding Progressive Web Apps",
     description: "Why PWAs are the future of web development.",
     imageUrl:
@@ -237,7 +237,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "16",
+    id: 16,
     title: "Advanced Jest Testing for React Applications",
     description:
       "Write more reliable tests with Jest and React Testing Library.",
@@ -253,7 +253,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "17",
+    id: 17,
     title: "A Guide to Web Performance Optimization",
     description:
       "Tips and tricks to improve the speed of your web applications.",
@@ -269,7 +269,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "18",
+    id: 18,
     title: "Exploring AI in Web Development",
     description: "How AI tools are transforming the web development process.",
     imageUrl:
@@ -284,7 +284,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "19",
+    id: 19,
     title: "Introduction to Remix: The Future of React Frameworks",
     description: "Why Remix is the framework to watch in 2024.",
     imageUrl:
@@ -299,7 +299,7 @@ export const blogPosts = [
     tech: "Frontend Development",
   },
   {
-    _id: "20",
+    id: 20,
     title: "Vue 3 Composition API: Everything You Need to Know",
     description: "Master Vue 3 Composition API with this comprehensive guide.",
     imageUrl:

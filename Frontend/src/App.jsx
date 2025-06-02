@@ -14,6 +14,7 @@ import ProtectedRoute from "./Components/ProtectedRoute"
 import PersistLogin from "./Components/PersistLogin"
 import OtherUserProfile from "./Pages/OtherUserProfile"
 import Blog from "./Pages/Blog"
+import BlogView from "./Pages/BlogView"
 import Communities from "./Pages/Communities"
 import CommunitiesByTags from "./Pages/CommunitiesByTags"
 import Tags from "./Pages/Tags"
@@ -44,8 +45,8 @@ function App() {
               <Route path="/notifications" element={<Notifications/>} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/tagSection/:id" element={<TagSection />} />
-              <Route path="/tagSection/:id/question/:id" element={<QuestionView />} />
               <Route path="/blog" element={<Blog/>} />
+              <Route path="/blogview/:id" element={<BlogView/>} />
               <Route path="/messages" element={<Messages/>} />
               <Route path="/question/:id" element={<QuestionView/>} />
             </Route>
