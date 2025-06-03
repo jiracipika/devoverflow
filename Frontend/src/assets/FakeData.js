@@ -6,7 +6,7 @@ const articles = [
       "author": "John Doe",
       "likes": 345,
       "views": 1200,
-      "asked": "3 Minutes Ago",
+      "asked": "10 Minutes Ago",
       "tags":["Web Development"],
       "comments": [
         {
@@ -27,7 +27,7 @@ const articles = [
       "likes": 512,
       "tags": ["Javascript"],
       "views": 3400,
-      "asked": "3 Minutes Ago",
+      "asked": "56 Minutes Ago",
       "comments": [
         {
           "comment": "I'm excited to learn more about these frameworks, especially TypeScript.",
@@ -47,7 +47,7 @@ const articles = [
       "tags":["Node.js", "React"],
       "likes": 678,
       "views": 4500,
-      "asked": "3 Minutes Ago",
+      "asked": "2 Days Ago",
       "comments": [
         {
           "comment": "This guide is so helpful! I just started using React and needed something like this.",
@@ -67,7 +67,7 @@ const articles = [
       "likes": 234,
       "tags": ["CSS"],
       "views": 1890,
-      "asked": "3 Minutes Ago",
+      "asked": "7 Hours Ago",
       "comments": [
         {
           "comment": "CSS Grid has changed the way I approach layouts. This guide is so clear and helpful!",
@@ -87,7 +87,7 @@ const articles = [
       "likes": 821,
       "views": 5200,
       "tags": ["Optimization", "Web Development"],
-      "asked": "3 Minutes Ago",
+      "asked": "Just Now",
       "comments": [
         {
           "comment": "Great tips! I’ve already implemented lazy loading on my site, and it's made a big difference.",
@@ -177,7 +177,6 @@ const articles = [
     "views": 16700,
     "asked": "10 Minutes Ago",
     "tags":["Javascript"],
-    "answered": false,
     "comments": [
       {
         "comment": "Comment 1",
@@ -198,7 +197,6 @@ const articles = [
     "views": 16700,
     "asked": "33 Minutes Ago",
     "tags":["HTML", "CSS"],
-    "answered": true,
     "comments": [
       {
         "comment": "Comment 1",
@@ -223,7 +221,6 @@ const articles = [
     "views": 12700,
     "asked": "20 Hours Ago",
     "tags":["Web Development"],
-    "answered": false,
     "comments": [
       {
         "comment": "Comment 1",
@@ -244,7 +241,6 @@ const articles = [
     "views": 56700,
     "asked": "10 Minutes Ago",
     "tags":["React", "Tailwind"],
-    "answered": false,
     "comments": [
       {
         "comment": "Comment 1",
@@ -265,7 +261,6 @@ const articles = [
     "views": 1700,
     "asked": "38 Minutes Ago",
     "tags":["HTML", "CSS"],
-    "answered": true,
     "comments": [
       {
         "comment": "Comment 1",

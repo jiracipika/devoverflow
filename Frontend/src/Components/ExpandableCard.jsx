@@ -3,7 +3,7 @@ import articles from '../assets/FakeData.js'
 import Tag from './Tag.jsx'
 import { FaThumbsUp, FaComment, FaEye, FaRegStar} from 'react-icons/fa6'
 
-const ExpandableCard = ({title, author, createdDate, votes, answers, views, tags, id, imgSrc}) => {
+const ExpandableCard = ({title, author, asked, votes, answers, views, tags, id, imgSrc}) => {
   return (
     <div id={id} className='p-6 rounded-lg shadow-md bg-[#0B0D12]'>
         <div className="flex mb-3 justify-between">
@@ -24,8 +24,7 @@ const ExpandableCard = ({title, author, createdDate, votes, answers, views, tags
             <div className='flex gap-2'>
                 <img className='w-6 h-6 rounded-full' src={imgSrc || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuYdLEzBvwemix8pwsncUkLLOQqnByncadg&s"} alt="" />
                 <p className="text-white font-semibold max-[1500px]:text-[14px]">{author || "user"}</p>
-                {<p className="text-white font-semibold max-[1500px]:text-[14px]">{createdDate || "12-12-2024"} </p>}
-                <span className="text-gray-500 max-[1500px]:text-[14px] max-[1362px]:text-[12px]">• asked 3 mins ago</span>
+                <span className="text-gray-500 max-[1500px]:text-[14px] max-[1362px]:text-[12px]">• {asked || "Asked 3 minutes ago"}</span>
             </div>
             <div className='flex gap-4'>
                 <button className='flex items-center gap-2'><FaThumbsUp  className='text-[#1DA1F2]'/><span className='max-[1418px]:text-[11px]'>Votes {votes || "25" }</span></button>

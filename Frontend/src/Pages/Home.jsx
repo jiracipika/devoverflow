@@ -12,7 +12,7 @@ const Home = () => {
   console.log("auth from the home page ", auth)
   const [searchQuery,setSearchQuery] = useState("")
   const [filterQuery, setFilterQuery] = useState("")
-
+  const [itemsToShow, setItemsToShow] = useState(5)
 
   const handleSearch = (userquery) =>{
     setSearchQuery(userquery)
@@ -24,6 +24,10 @@ const Home = () => {
     console.log(userquery)
   }
 
+  const handleShowMore = () => {
+    setItemsToShow(prev => prev + 5)
+  }
+
   return (
     <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       <header className='flex justify-between'>
@@ -32,10 +36,14 @@ const Home = () => {
       </header>
       <SearchInput onSearchChange={handleSearch} placeholderText={"Search a Question here"} classNames={"w-full"} />
       <FilterQuestionTab onChosenFilter={handleFilterChosen} />
-      {articles.map((item) =>{
+      {articles.slice(0, itemsToShow).map((item) =>{
         return (<Link to={`question/${item.id}`}><ExpandableCard key={item.id} {...item}/></Link>)
-
       })}
+      {itemsToShow < articles.length && (
+      <div className='flex justify-center mt-4'>
+        <button onClick={handleShowMore} className='bg-custom-gradient p-4 rounded-lg font-semibold'>Show More</button>
+      </div>
+      )}
     </div>
   )
 }
