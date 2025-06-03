@@ -1,10 +1,14 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Searchbar from './TopSection';
 
 const Layout = () => {
+  const location = useLocation();
+  const hideFooterOnPaths = ['/profile', '/editProfile']; // Add paths where you want to hide the footer
+  const shouldHideFooter = hideFooterOnPaths.includes(location.pathname);
+
   return (
     <section className='flex'>
       <header className='w-[266px]'>
@@ -12,11 +16,13 @@ const Layout = () => {
       </header>
       <section className='relative w-[calc(100%-266px)]'>
         <Searchbar placeholderText={"Search anything globally"}/>
-        <div className=" relative flex top-[100px]">
+        <div className="relative flex top-[100px]">
           <Outlet />
-          <footer className='w-[330px]'>
-            <Footer />
-          </footer>
+          {!shouldHideFooter && (
+            <footer className='w-[330px]'>
+              <Footer />
+            </footer>
+          )}
         </div>
       </section>
     </section>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const ProfileFilterTab = ({onChosenFilter}) => {
-    const [chosenFilter, setChosenFilter] = useState("");
+    const [chosenFilter, setChosenFilter] = useState("Top Posts");
 
     const handleClick = (e) =>{
         setChosenFilter(e.target.innerText)
