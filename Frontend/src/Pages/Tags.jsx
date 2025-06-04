@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import SearchInput from '../Components/SearchInput';
 import TagCard from '../Components/TagCard.jsx';
 import TagCardInfo from '../assets/TagSampleData.js';
@@ -10,6 +10,7 @@ const Tags = () => {
     const [filterQuery, setFilterQuery] = useState("")
     const [filteredTags, setFilteredTags] = useState(TagCardInfo);
     const [selectedTag, setSelectedTag] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const handleSearch = (userquery) =>{
         setSearchQuery(userquery)
@@ -38,6 +39,13 @@ const Tags = () => {
         setSelectedTag(null); // Clear selection after deletion
     }
 
+    // For Admin Check
+    //useEffect(() => {
+        // Example using localStorage - replace with your actual auth system
+    //    const user = JSON.parse(localStorage.getItem('user') || '{}');
+     //   setIsAdmin(user.role === 'admin');
+    //}, []);
+
     return (
         <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
             <SearchInput onSearchChange={handleSearch} placeholderText={"Search by Tag Name"} classNames={"w-[100%] p-2 rounded-lg"} />
@@ -45,7 +53,9 @@ const Tags = () => {
             <p>A tag is a keyword or label that categorizes your question with other, similar questions. Using the right tags makes it easier for others to find and answer your question.</p>
             <div className='flex justify-between'>
                 <TagFilterTab onChosenFilter={handleFilterChosen}/>
-                <button onClick={handleDelete} className='bg-custom-gradient p-4 rounded-lg font-semibold w-[15%] max-[1435px]:text-[15px] max-[1435px]:p-3' >Delete Tag</button>
+                {isAdmin && (
+                    <button onClick={handleDelete} className='bg-custom-gradient p-4 rounded-lg font-semibold w-[15%] max-[1435px]:text-[15px] max-[1435px]:p-3'>Delete Tag</button>
+                )}
             </div>
             <div className='grid grid-cols-3 flex gap-2'>
             {filteredTags.map((item, index) =>{
