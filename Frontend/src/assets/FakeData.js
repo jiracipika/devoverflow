@@ -95,7 +95,7 @@ const articles = [
       "asked": "1 Minute Ago",
       "comments": [
         {
-          "comment": "Great tips! I’ve already implemented lazy loading on my site, and it's made a big difference.",
+          "comment": "Great tips! I've already implemented lazy loading on my site, and it's made a big difference.",
           "author": "Lily Roberts"
         },
         {
