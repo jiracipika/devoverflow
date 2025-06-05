@@ -11,8 +11,43 @@ const Home = () => {
   const auth = useSelector((state) => state.auth)
   console.log("auth from the home page ", auth)
   const [searchQuery,setSearchQuery] = useState("")
-  const [filterQuery, setFilterQuery] = useState("")
+  const [filterQuery, setFilterQuery] = useState("Newest")
   const [itemsToShow, setItemsToShow] = useState(5)
+  const [filteredArticles, setFilteredArticles] = useState(articles)
+
+  // Helper function to convert time strings to minutes
+  const parseTimeToMinutes = (timeString) => {
+
+    // Handle special case for "Just Now"
+    if (timeString.toLowerCase() === "just now") {
+      return 0;
+    }
+
+    // Try to match the pattern "number unit"
+    const matches = timeString.match(/(\d+)\s+(\w+)/);
+    if (!matches) {
+      console.warn('Invalid time format:', timeString);
+      return 0;
+    }
+
+    const number = matches[1];
+    const unit = matches[2].toLowerCase();
+
+     // Create a map of unit multipliers
+     const unitMultipliers = {
+      'minutes': 1,
+      'minute': 1,
+      'hours': 60,
+      'hour': 60,
+      'days': 24 * 60,
+      'day': 24 * 60
+    }
+
+    const multiplier = unitMultipliers[unit] || 1;
+    const num = parseInt(number);
+
+    return num * multiplier;
+  }
 
   const handleSearch = (userquery) =>{
     setSearchQuery(userquery)
@@ -22,7 +57,28 @@ const Home = () => {
   const handleFilterChosen = (userquery) =>{
     setFilterQuery(userquery)
     console.log(userquery)
+
+    if (userquery == "Newest") {
+      const sortedArticles = [...articles].sort((a, b) => {
+        const timeA = parseTimeToMinutes(a.asked)
+        console.log(timeA)
+        const timeB = parseTimeToMinutes(b.asked)
+        return timeA - timeB
+      })
+      setFilteredArticles(sortedArticles)
+
+    }
+    else if (userquery == "Recommended") {
+      setFilteredArticles(articles.sort((a, b) => b.votes - a.votes))
+    }
+    else if (userquery == "Frequent") {
+      setFilteredArticles(articles.sort((a, b) => b.views - a.views))
+    }
+    else if (userquery == "Unanswered") {
+      setFilteredArticles(articles.filter(article => article.comments.length === 0))
+    }
   }
+
 
   const handleShowMore = () => {
     setItemsToShow(prev => prev + 5)
@@ -36,10 +92,10 @@ const Home = () => {
       </header>
       <SearchInput onSearchChange={handleSearch} placeholderText={"Search a Question here"} classNames={"w-full"} />
       <FilterQuestionTab onChosenFilter={handleFilterChosen} />
-      {articles.slice(0, itemsToShow).map((item) =>{
+      {filteredArticles.slice(0, itemsToShow).map((item) =>{
         return (<Link to={`question/${item.id}`}><ExpandableCard key={item.id} {...item}/></Link>)
       })}
-      {itemsToShow < articles.length && (
+      {itemsToShow < filteredArticles.length && (
       <div className='flex justify-center mt-4'>
         <button onClick={handleShowMore} className='bg-custom-gradient p-4 rounded-lg font-semibold'>Show More</button>
       </div>

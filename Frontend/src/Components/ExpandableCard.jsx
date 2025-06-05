@@ -3,7 +3,7 @@ import articles from '../assets/FakeData.js'
 import Tag from './Tag.jsx'
 import { FaThumbsUp, FaComment, FaEye, FaRegStar} from 'react-icons/fa6'
 
-const ExpandableCard = ({title, author, asked, votes, answers, views, tags, id, imgSrc}) => {
+const ExpandableCard = ({title, author, asked, votes, comments, views, tags, id, imgSrc}) => {
   return (
     <div id={id} className='p-6 rounded-lg shadow-md bg-[#0B0D12]'>
         <div className="flex mb-3 justify-between">
@@ -28,7 +28,7 @@ const ExpandableCard = ({title, author, asked, votes, answers, views, tags, id, 
             </div>
             <div className='flex gap-4'>
                 <button className='flex items-center gap-2'><FaThumbsUp  className='text-[#1DA1F2]'/><span className='max-[1418px]:text-[11px]'>Votes {votes || "25" }</span></button>
-                <button className='flex items-center gap-2'><FaComment className='text-[#1DA1F2]'/><span className='max-[1418px]:text-[11px]'>Answers {answers || "10" }</span></button>
+                <button className='flex items-center gap-2'><FaComment className='text-[#1DA1F2]'/><span className='max-[1418px]:text-[11px]'>Answers {comments.length || "0" }</span></button>
                 <button className='flex items-center gap-2'><FaEye className='text-[#1DA1F2]'/><span className='max-[1418px]:text-[11px]'>Views {views || "100" }</span></button>
             </div>
         </div>

@@ -6,6 +6,7 @@ const articles = [
       "author": "John Doe",
       "likes": 345,
       "views": 1200,
+      "votes": 13,
       "asked": "10 Minutes Ago",
       "tags":["Web Development"],
       "comments": [
@@ -27,6 +28,7 @@ const articles = [
       "likes": 512,
       "tags": ["Javascript"],
       "views": 3400,
+      "votes": 10,
       "asked": "56 Minutes Ago",
       "comments": [
         {
@@ -47,6 +49,7 @@ const articles = [
       "tags":["Node.js", "React"],
       "likes": 678,
       "views": 4500,
+      "votes": 25,
       "asked": "2 Days Ago",
       "comments": [
         {
@@ -64,9 +67,10 @@ const articles = [
       "title": "Understanding CSS Grid: A Beginner's Guide",
       "content": "CSS Grid is a powerful layout system that allows developers to create complex and responsive designs with ease. Unlike traditional CSS layout techniques, CSS Grid enables two-dimensional layouts, making it easier to align elements in both rows and columns. In this beginner’s guide, we’ll cover the basics of CSS Grid, including how to set up a grid container, define grid items, and control their placement. We’ll also look at some common use cases and real-world examples of how CSS Grid can be used to create modern, responsive layouts.",
       "author": "Sophia White",
-      "likes": 234,
       "tags": ["CSS"],
+      "likes": 234,
       "views": 1890,
+      "votes": 20,
       "asked": "7 Hours Ago",
       "comments": [
         {
@@ -86,8 +90,9 @@ const articles = [
       "author": "Matthew Johnson",
       "likes": 821,
       "views": 5200,
+      "votes": 29,
       "tags": ["Optimization", "Web Development"],
-      "asked": "Just Now",
+      "asked": "1 Minute Ago",
       "comments": [
         {
           "comment": "Great tips! I’ve already implemented lazy loading on my site, and it's made a big difference.",
@@ -175,6 +180,7 @@ const articles = [
     "author": "Daotama",
     "likes": 3453,
     "views": 16700,
+    "votes": 17,
     "asked": "10 Minutes Ago",
     "tags":["Javascript"],
     "comments": [
@@ -195,6 +201,7 @@ const articles = [
     "author": "John Doe",
     "likes": 3453,
     "views": 16700,
+    "votes": 38,
     "asked": "33 Minutes Ago",
     "tags":["HTML", "CSS"],
     "comments": [
@@ -219,6 +226,7 @@ const articles = [
     "author": "Daotama",
     "likes": 253,
     "views": 12700,
+    "votes": 29,
     "asked": "20 Hours Ago",
     "tags":["Web Development"],
     "comments": [
@@ -239,6 +247,7 @@ const articles = [
     "author": "Daotama",
     "likes": 8453,
     "views": 56700,
+    "votes": 48,
     "asked": "10 Minutes Ago",
     "tags":["React", "Tailwind"],
     "comments": [
@@ -259,6 +268,7 @@ const articles = [
     "author": "Jane Smith",
     "likes": 33,
     "views": 1700,
+    "votes": 9,
     "asked": "38 Minutes Ago",
     "tags":["HTML", "CSS"],
     "comments": [
@@ -274,6 +284,20 @@ const articles = [
         "comment": "Comment 3",
         "author": "Daotama"
       },
+    ]
+  },
+  {
+    "id": 14,
+    "title": "How would I start coding when I start it out?",
+    "content": "Content Here",
+    "author": "David Brown",
+    "likes": 35,
+    "views": 1600,
+    "votes": 8,
+    "asked": "48 Minutes Ago",
+    "tags":["HTML", "CSS"],
+    "comments": [
+
     ]
   },
 ]

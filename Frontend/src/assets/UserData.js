@@ -30,6 +30,22 @@ const UserDataInfo = [
         "Bio": "Frontend Developer",
         "tags": ["Javascript", "Angular"]
     },
+
+    {
+        "id": 5,
+        "Name": "Sarah Miller",
+        "Username": "SaraMills",
+        "Bio": "Javascript Developer",
+        "tags": ["Javascript", "Tailwind"]
+    },
+
+    {
+        "id": 6,
+        "Name": "Sarah Miller",
+        "Username": "SaraMills",
+        "Bio": "Javascript Developer",
+        "tags": ["Javascript", "Tailwind"]
+    },
 ]
 
 export default UserDataInfo

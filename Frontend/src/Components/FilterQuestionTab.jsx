@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const FilterQuestionTab = ({onChosenFilter}) => {
-    const [chosenFilter, setChosenFilter] = useState("");
+    const [chosenFilter, setChosenFilter] = useState("Newest");
 
     const handleClick = (e) =>{
         setChosenFilter(e.target.innerText)
