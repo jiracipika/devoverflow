@@ -23,14 +23,16 @@ import Messages from "./Pages/Messages"
 import ForgotPassword from "./Pages/ForgotPassword"
 import ThankYouPassword from "./Pages/ThankYouPassword"
 import ResetPassword from "./Pages/ResetPassword"
+import { TagsProvider } from './context/TagsContext';
 
 function App() {
 
   return (
     <>
     <BrowserRouter>
-      <Routes>
-        {/*<Route element={<PersistLogin />}>*/}
+      <TagsProvider>
+        <Routes>
+          {/*<Route element={<PersistLogin />}>*/}
           {/*<Route element={<ProtectedRoute />}>*/}
             <Route path="/" element={<Layout />}>
               <Route path="" element={<Home />} />
@@ -58,6 +60,7 @@ function App() {
         <Route path="/thankyoupassword" element={<ThankYouPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
       </Routes>
+      </TagsProvider>
     </BrowserRouter>
       
     </>
