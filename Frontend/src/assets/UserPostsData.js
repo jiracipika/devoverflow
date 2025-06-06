@@ -1,4 +1,27 @@
 const UserPosts = [
+  {
+    "id": 8,
+    "title": "JavaScript validation for a form stops the form data from being submitted to mysql database",
+    "content": "Contents Here",
+    "author": "Amir Beckett",
+    "userPic": "https://image.api.playstation.com/cdn/UP2538/CUSA05620_00/cKQCz5nP7YeQo5Wpot7DlvZptrxrhBSe.png?w=440&thumb=false",
+    "likes": 2600,
+    "views": 14200,
+    "votes": 70,
+    "answers": 2,
+    "asked": "7 Hours Ago",
+    "tags": ["Javascript", "Mysql"],
+    "comments": [
+        {
+          "comment": "Comment 1",
+          "author": "Jane Smith"
+        },
+        {
+          "comment": "Comment 2",
+          "author": "Chris Lee"
+        }
+      ]
+  },
     {
         "id": 9,
         "title": "Help with Javascript",

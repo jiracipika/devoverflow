@@ -41,10 +41,10 @@ const UserDataInfo = [
 
     {
         "id": 6,
-        "Name": "Sarah Miller",
-        "Username": "SaraMills",
-        "Bio": "Javascript Developer",
-        "tags": ["Javascript", "Tailwind"]
+        "Name": "Amir Beckett",
+        "Username": "Becket43",
+        "Bio": "Software Engineer",
+        "tags": ["Javascript", "React", "Assembly", "Typescript"]
     },
 ]
 

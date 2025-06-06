@@ -24,9 +24,8 @@ const Communities = () => {
       <div className='grid grid-cols-3 flex gap-2'>
       {filteredUsers.map((item) =>{
         return (
-        <Link to={`/otherUserProfile/${item.id}`} >
             <UserCard key={item.id} {...item}/>
-        </Link>)
+        )
 
       })}  
       </div>

@@ -1,37 +1,49 @@
 import React, { useState, useEffect } from 'react'
-import {Link} from "react-router-dom";
 import ProfileFilterTab from '../Components/ProfileFilterTab'
 import UserDataInfo from '../assets/UserData.js';
 import ExpandableCard from '../Components/ExpandableCard.jsx';
 import articles from '../assets/FakeData.js';
 import AvatarPic from '../Components/AvatarPic';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const OtherUserProfile = () => {
 
-    const [user, setUser] = useState(null);
+    const [filterQuery, setFilterQuery] = useState("Top Posts")
+    const [userData, setUserData] = useState(null)
+    const [filteredPosts, setFilterPosts] = useState([])
     
     let params = useParams();
 
-    //const { id } = useParams();
-    //console.log(id)
-
-    //const filteredUser = UserDataInfo.filter(user => user.tags.includes(id));
-    //console.log(filteredUser)
-    //console.log(filteredUser)
-
-    useEffect(()=> {
+    useEffect(() => {
         const data = UserDataInfo.find(x => x.id == params.id);
-        console.log(data)
-    setUser(data);
-    }, [])
+        setUserData(data);
+        // Initial post filtering when user data is loaded
+        if (data) {
+            setFilterPosts(articles.filter(article => article.author === data.Name));
+        }
+    }, [params.id]);
 
-    const [filterQuery, setFilterQuery] = useState("")
+    useEffect(() => {
+        if (!userData) return;
 
-    const handleFilterChosen = (userquery) =>{
-        setFilterQuery(userquery)
-        console.log(userquery)
-      }
+        let filteredPosts = articles.filter(article => article.author === userData.Name);
+        
+        if (filterQuery === "Top Posts") {
+            // Sort by likes or other criteria for top posts
+            filteredPosts = filteredPosts.sort((a, b) => b.likes - a.likes);
+        } else if (filterQuery === "Answered") {
+            // Filter posts where the user has commented
+            filteredPosts = articles.filter(article => 
+                article.comments.some(comment => comment.author === userData.Name)
+            );
+        }
+        
+        setFilterPosts(filteredPosts);
+    }, [filterQuery, userData]);
+
+    const handleFilterChosen = (userquery) => {
+        setFilterQuery(userquery);
+    }
     
 
     return (
@@ -39,17 +51,17 @@ const OtherUserProfile = () => {
             <AvatarPic />
             <div className='rounded-md bg-[#0A0B10] h-full rounded-[20px] left-[157px] top-[101px]'>
                 <button className='ml-[1000px] bg-custom-gradient text-[white] font-bold py-2 px-4 rounded'>Follow</button>
-                {user && (
+                {userData && (
                 <>
-                <h1 className='text-[white] text-4xl'>{user.Name}</h1>
-                <h3 className='text-[white] text-sm'>@{user.Username}</h3>
-                <p className='text-[white]'>{user.Bio}</p>
+                <h1 className='text-[white] text-4xl'>{userData.Name}</h1>
+                <h3 className='text-[white] text-sm'>@{userData.Username}</h3>
+                <p className='text-[white]'>{userData.Bio}</p>
                 </>
             )}
             </div>
             <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
                 <ProfileFilterTab onChosenFilter={handleFilterChosen}/>
-                {articles.map((item) =>{
+                {filteredPosts.map((item) =>{
                     return (<Link to={`question/${item.id}`}><ExpandableCard key={item.id} {...item}/></Link>)
       })}
             </div>
