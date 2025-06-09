@@ -1,5 +1,5 @@
 import React from 'react'
-import articles from '../assets/FakeData.js'
+import { Link } from 'react-router-dom'
 import Tag from './Tag.jsx'
 import { FaThumbsUp, FaComment, FaEye, FaRegStar} from 'react-icons/fa6'
 
@@ -7,7 +7,7 @@ const ExpandableCard = ({title, author, asked, votes, comments, views, tags, id,
   return (
     <div id={id} className='p-6 rounded-lg shadow-md bg-[#0B0D12]'>
         <div className="flex mb-3 justify-between">
-            <h1 className='text-lg font-semibold pr-6 max-[1500px]:text-[16px]'>{title || "The Lightning Component c:LWC_PizzaTracker generated invalid output for field status. Error How to solve this"}</h1>
+            <Link to={`question/${id}`}><h1 className='text-lg font-semibold pr-6 max-[1500px]:text-[16px]'>{title || "The Lightning Component c:LWC_PizzaTracker generated invalid output for field status. Error How to solve this"}</h1></Link>
             <FaRegStar className="text-yellow-500 text-xl flex-none" />
         </div>
         <div className='flex flex-wrap gap-2 mb-3'>

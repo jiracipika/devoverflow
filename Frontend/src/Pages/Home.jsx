@@ -49,36 +49,57 @@ const Home = () => {
     return num * multiplier;
   }
 
-  const handleSearch = (userquery) =>{
+  const handleSearch = (userquery) => {
     setSearchQuery(userquery)
     console.log(userquery)
+
+    // Filter articles based on search query
+    const filtered = articles.filter(article => {
+      const searchLower = userquery.toLowerCase()
+      const titleMatch = article.title.toLowerCase().includes(searchLower)
+      const contentMatch = article.content.toLowerCase().includes(searchLower)
+      const tagsMatch = article.tags.some(tag => tag.toLowerCase().includes(searchLower))
+      return titleMatch || contentMatch || tagsMatch
+    })
+
+    setFilteredArticles(filtered)
   }
 
-  const handleFilterChosen = (userquery) =>{
+  const handleFilterChosen = (userquery) => {
     setFilterQuery(userquery)
     console.log(userquery)
 
-    if (userquery == "Newest") {
+    // If there's a search query, keep it filtered
+    if (searchQuery) {
+      const filtered = articles.filter(article => {
+        const searchLower = searchQuery.toLowerCase()
+        const titleMatch = article.title.toLowerCase().includes(searchLower)
+        const contentMatch = article.content.toLowerCase().includes(searchLower)
+        const tagsMatch = article.tags.some(tag => tag.toLowerCase().includes(searchLower))
+        return titleMatch || contentMatch || tagsMatch
+      })
+      setFilteredArticles(filtered)
+      return
+    }
+
+    if (userquery === "Newest") {
       const sortedArticles = [...articles].sort((a, b) => {
         const timeA = parseTimeToMinutes(a.asked)
-        console.log(timeA)
         const timeB = parseTimeToMinutes(b.asked)
         return timeA - timeB
       })
       setFilteredArticles(sortedArticles)
-
     }
-    else if (userquery == "Recommended") {
+    else if (userquery === "Recommended") {
       setFilteredArticles(articles.sort((a, b) => b.votes - a.votes))
     }
-    else if (userquery == "Frequent") {
+    else if (userquery === "Frequent") {
       setFilteredArticles(articles.sort((a, b) => b.views - a.views))
     }
-    else if (userquery == "Unanswered") {
+    else if (userquery === "Unanswered") {
       setFilteredArticles(articles.filter(article => article.comments.length === 0))
     }
   }
-
 
   const handleShowMore = () => {
     setItemsToShow(prev => prev + 5)
@@ -93,7 +114,7 @@ const Home = () => {
       <SearchInput onSearchChange={handleSearch} placeholderText={"Search a Question here"} classNames={"w-full"} />
       <FilterQuestionTab onChosenFilter={handleFilterChosen} />
       {filteredArticles.slice(0, itemsToShow).map((item) =>{
-        return (<Link to={`question/${item.id}`}><ExpandableCard key={item.id} {...item}/></Link>)
+        return (<ExpandableCard key={item.id} {...item}/>)
       })}
       {itemsToShow < filteredArticles.length && (
       <div className='flex justify-center mt-4'>
