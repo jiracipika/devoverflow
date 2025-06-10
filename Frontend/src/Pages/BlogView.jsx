@@ -1,50 +1,117 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link }  from 'react-router-dom';
-import {blogPosts} from "../data/blogData.js";
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { blogPosts } from "../data/blogData.js";
 import Tag from '../Components/Tag.jsx'
+import ShareIcon from '../assets/Icons/share-icon.svg';
+import CommentIcon from '../assets/Icons/comment-icon.svg';
+import LikeIcon from '../assets/Icons/like-icon.svg';
 
 const BlogView = () => {
-
   const [user, setUser] = useState(null);
+  const [likes, setLikes] = useState(0);
+  const [comments, setComments] = useState([]);
+  const navigate = useNavigate();
 
   let params = useParams();
 
-  useEffect(()=> {
+  useEffect(() => {
     const data = blogPosts.find(post => post.id == params.id);
-    console.log(data)
     setUser(data);
-  }, [])
+  }, [params.id])
+
+  const getReadingTime = (text) => {
+    const words = text.split(' ').length;
+    return Math.ceil(words / 200); // Assuming 200 words per minute
+  };
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: user?.title,
+        text: user?.description,
+        url: window.location.href
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+    }
+  };
+
+  const handleLike = () => {
+    setLikes(prev => prev + 1);
+  };
 
   return (
     <div className='min-h-screen text-white p-6 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+      <div className="flex justify-between items-center mb-6">
+        <Link to="/blog" className="text-blue-400 hover:text-blue-300">
+          ← Back to Blog
+        </Link>
+        <button 
+          onClick={handleShare}
+          className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/10 transition-colors"
+        >
+          <img src={ShareIcon} alt="Share" className="w-5 h-5" />
+          Share
+        </button>
+      </div>
+
       {user && (
         <>
-        <img src={user.imageUrl} alt="" />
-        <h1>{user.title}</h1>
+          <div className="mb-6">
+            <img src={user.imageUrl} alt="" className="rounded-lg mb-4" />
+            <h1 className="text-3xl font-bold mb-2">{user.title}</h1>
+            <div className="flex items-center gap-4 text-gray-400 text-sm mb-4">
+              <span>{user.date}</span>
+              <span>•</span>
+              <span>{getReadingTime(user.description)} min read</span>
+            </div>
 
-        <div className='flex flex-wrap gap-2 mb-3'>
-          {
-          user.tags ? user.tags.map((item) =>{ 
-            return (<Link key={item} to={`/tags`} ><Tag text={item}/></Link>)
-          })
-          :
-          <Tag text={"hello"}/>
-          }
-        </div>
+            <div className='flex flex-wrap gap-2 mb-3'>
+              {user.tags ? user.tags.map((item) => (
+                <Link key={item} to={`/tags`}>
+                  <Tag text={item} />
+                </Link>
+              )) : <Tag text={"hello"} />}
+            </div>
 
-        <div className='flex items-center gap-2'>
-          <h3>{user.date}</h3>
-          <div className='inline-flex items-center justify-end gap-2'>
-            <h3 className=''>{user.author.name}</h3>
-            <img className="w-[20%] rounded-[50px]" src={user.author.avatar} alt="" />
+            <div className="flex items-center gap-4 mb-8">
+              <div className="flex items-center gap-2">
+                <h3 className="text-gray-400">{user.author.name}</h3>
+                <img 
+                  className="w-10 h-10 rounded-full"
+                  src={user.author.avatar} 
+                  alt="" 
+                />
+              </div>
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={handleLike}
+                  className="flex items-center gap-2 text-blue-400 hover:text-blue-300"
+                >
+                  <img src={LikeIcon} alt="Like" className="w-5 h-5" />
+                  {likes}
+                </button>
+              </div>
+            </div>
+
+            <div className="prose prose-invert max-w-none">
+              <p>{user.description}</p>
+            </div>
+
+            <div className="mt-12 border-t border-gray-700 pt-6">
+              <h2 className="text-2xl font-bold mb-4">Comments</h2>
+              <div className="space-y-4">
+                {comments.map((comment, index) => (
+                  <div key={index} className="p-4 bg-gray-800 rounded-lg">
+                    <p className="text-gray-300">{comment.text}</p>
+                    <div className="text-xs text-gray-500 mt-2">
+                      {comment.author} • {comment.date}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div>
-          <p>{user.description}</p>
-        </div>
-
-
         </>
       )}
     </div>
