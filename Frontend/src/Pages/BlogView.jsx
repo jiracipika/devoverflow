@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { blogPosts } from "../data/blogData.js";
 import Tag from '../Components/Tag.jsx'
 import ShareIcon from '../assets/Icons/share-icon.svg';
-import CommentIcon from '../assets/Icons/comment-icon.svg';
 import LikeIcon from '../assets/Icons/like-icon.svg';
 
 const BlogView = () => {
   const [user, setUser] = useState(null);
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
-  const navigate = useNavigate();
 
   let params = useParams();
 

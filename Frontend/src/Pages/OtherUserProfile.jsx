@@ -9,22 +9,27 @@ import { useParams, Link } from 'react-router-dom';
 const OtherUserProfile = () => {
 
     const [filterQuery, setFilterQuery] = useState("Top Posts")
-    const [userData, setUserData] = useState(null)
+    const [userData, setUserData] = useState({})
     const [filteredPosts, setFilterPosts] = useState([])
     
     let params = useParams();
+    console.log(params)
 
     useEffect(() => {
-        const data = UserDataInfo.find(x => x.id == params.id);
-        setUserData(data);
-        // Initial post filtering when user data is loaded
+        const userid = Number(params.id)
+        console.log(userid)
+        const data = UserDataInfo.find(x => x.id === userid);
         if (data) {
+            setUserData(data);
+            // Initial post filtering when user data is loaded
             setFilterPosts(articles.filter(article => article.author === data.Name));
+        } else {
+            console.error('User not found:', params.id);
         }
     }, [params.id]);
 
     useEffect(() => {
-        if (!userData) return;
+        if (!userData || !userData.Name) return;
 
         let filteredPosts = articles.filter(article => article.author === userData.Name);
         

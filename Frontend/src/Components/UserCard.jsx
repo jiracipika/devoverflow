@@ -9,7 +9,7 @@ const UserCard = ({Name, Username, tags, id}) => {
     return(
         <div id={id} className='bg-card-gradient flex flex-col gap-3 p-10 rounded-lg'>
             <AvatarPic/>
-            <Link to={`/otherUserProfile/${id}`}><label className='font-semibold text-[20px] p-2 rounded-lg cursor-pointer'>{Name|| "Name"}</label></Link>
+            <Link to={`/${id}`}><label className='font-semibold text-[20px] p-2 rounded-lg cursor-pointer'>{Name|| "Name"}</label></Link>
             <label className='text-[10px] p-2 rounded-lg'>{Username|| "Username"}</label>
                 <div className='flex flex-wrap gap-2 max-w-full'>
                 {
