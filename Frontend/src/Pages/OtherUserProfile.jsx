@@ -55,7 +55,10 @@ const OtherUserProfile = () => {
         <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-full p-6 flex-col'>
             <AvatarPic />
             <div className='rounded-md bg-[#0A0B10] h-full rounded-[20px] left-[157px] top-[101px]'>
-                <button className='ml-[1000px] bg-custom-gradient text-[white] font-bold py-2 px-4 rounded'>Follow</button>
+                <div className='flex gap-4 justify-end'>
+                    <button className='bg-custom-gradient text-[white] font-bold py-2 px-4 rounded'>Follow</button>
+                    <button className='bg-custom-gradient text-[white] font-bold py-2 px-4 rounded'>Message</button>
+                </div>
                 {userData && (
                 <>
                 <h1 className='text-[white] text-4xl'>{userData.Name}</h1>

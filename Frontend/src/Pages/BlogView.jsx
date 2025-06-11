@@ -5,13 +5,12 @@ import Tag from '../Components/Tag.jsx'
 import ShareIcon from '../assets/Icons/share-icon.svg';
 import CommentIcon from '../assets/Icons/comment-icon.svg';
 import LikeIcon from '../assets/Icons/like-icon.svg';
+import PostAComment from '../Components/PostAComment';
 
 const BlogView = () => {
   const [user, setUser] = useState(null);
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [authorName, setAuthorName] = useState('');
 
   let params = useParams();
@@ -42,32 +41,25 @@ const BlogView = () => {
     setLikes(prev => prev + 1);
   };
 
-  const handleSubmitComment = (e) => {
-    e.preventDefault();
-    if (!newComment.trim() || !authorName.trim()) return;
-
-    setIsSubmitting(true);
-    try {
-      const newCommentData = {
-        id: Date.now(),
-        text: newComment,
-        author: authorName,
-        date: new Date().toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }),
-        avatar: 'default-avatar.png'
-      };
-
-      setComments(prev => [newCommentData, ...prev]);
-      setNewComment('');
-      setAuthorName('');
-    } catch (error) {
-      console.error('Error posting comment:', error);
-    } finally {
-      setIsSubmitting(false);
+  const handleCommentSubmit = async (commentText) => {
+    if (!authorName.trim()) {
+      throw new Error('Please enter your name');
     }
+
+    const newCommentData = {
+      id: Date.now(),
+      text: commentText,
+      author: authorName,
+      date: new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }),
+      avatar: 'default-avatar.png'
+    };
+
+    setComments(prev => [newCommentData, ...prev]);
+    setAuthorName('');
   };
 
   return (
@@ -131,37 +123,21 @@ const BlogView = () => {
             <div className="mt-12 border-t border-gray-700 pt-6">
               <h2 className="text-2xl font-bold mb-4">Comments</h2>
               
+              {/* Author Name Input */}
+              <div className="mb-4">
+                <label className="text-gray-400 block mb-2">Your Name</label>
+                <input
+                  type="text"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
+                  placeholder="Enter your name"
+                  className="w-full p-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
               {/* Comment Form */}
               <div className="mb-6">
-                <form onSubmit={handleSubmitComment} className="space-y-4">
-                  <div className="space-y-2">
-                    <label className="text-gray-400">Your Name</label>
-                    <input
-                      type="text"
-                      value={authorName}
-                      onChange={(e) => setAuthorName(e.target.value)}
-                      placeholder="Enter your name"
-                      className="w-full p-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      required
-                      disabled={isSubmitting}
-                    />
-                  </div>
-                  <textarea
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    placeholder="Write a comment..."
-                    className="w-full p-4 rounded-lg bg-gray-800 text-white resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    rows={3}
-                    disabled={isSubmitting}
-                  />
-                  <button
-                    type="submit"
-                    disabled={isSubmitting || !newComment.trim() || !authorName.trim()}
-                    className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? 'Posting...' : 'Post Comment'}
-                  </button>
-                </form>
+                <PostAComment onCommentSubmit={handleCommentSubmit} />
               </div>
 
               {/* Comments List */}
