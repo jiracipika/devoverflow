@@ -26,7 +26,7 @@ function App() {
   const isLoggedIn = true; // Changed to true to show the Add Blog button
 
   return (
-    <div className="min-h-screen bg-dark-100">
+    <div className="min-h-screen bg-dark-100 w-[calc(100%-330px)]">
      
      <main className="transition-all duration-300 md:ml-20 p-8">
         <BlogContent {...blogData} isLoggedIn={isLoggedIn} />

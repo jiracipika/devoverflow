@@ -6,7 +6,7 @@ import Searchbar from './TopSection';
 
 const Layout = () => {
   const location = useLocation();
-  const hideFooterOnPaths = ['/profile', '/editProfile']; // Add paths where you want to hide the footer
+  const hideFooterOnPaths = []; // Add paths where you want to hide the footer
   const shouldHideFooter = hideFooterOnPaths.includes(location.pathname);
 
   return (

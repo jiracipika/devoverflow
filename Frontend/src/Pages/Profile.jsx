@@ -29,7 +29,7 @@ const profile = () => {
     
 
     return (
-        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-full p-6 flex-col'>
+        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-[calc(100%-330px)] p-6 flex-col'>
             <AvatarPic />
             <div className='rounded-md bg-[#0A0B10] h-full rounded-[20px] flex flex-col p-6 mt-4'>
                 <div className='justify-between items-start mb-4 py-1'>
@@ -44,7 +44,7 @@ const profile = () => {
             <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
                 <ProfileFilterTab onChosenFilter={handleFilterChosen}/>
                 {filteredPosts.map((item) =>{
-        return (<Link to={`/question/${item.id}`}><ExpandableCard key={item.id} {...item}/></Link>)
+        return (<ExpandableCard key={item.id} {...item}/>)
 
       })}
             </div>

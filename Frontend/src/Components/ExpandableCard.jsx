@@ -52,7 +52,7 @@ const ExpandableCard = ({title, author, asked, votes, comments, views, tags, id,
     return (
     <div id={id} className='p-6 rounded-lg shadow-md bg-[#0B0D12]'>
         <div className="flex mb-3 justify-between">
-            <Link to={`question/${id}`}><h1 className='text-lg font-semibold pr-6 max-[1500px]:text-[16px]'>{title || "Title Here"}</h1></Link>
+            <Link to={`/question/${id}`}><h1 className='text-lg font-semibold pr-6 max-[1500px]:text-[16px]'>{title || "Title Here"}</h1></Link>
             <button onClick={toggleBookmark} className='text-yellow-500 text-xl flex-none'>
                 {isBookmarked ? <FaStar /> : <FaRegStar />}
             </button>
