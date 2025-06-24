@@ -1,12 +1,16 @@
-import { FaRegStar, FaRegThumbsUp, FaEye, FaComment } from "react-icons/fa";
+import { FaStar, FaRegStar, FaRegThumbsUp, FaEye, FaComment } from "react-icons/fa";
 
 const CollectionCard = ({title, author, asked, votes, answers, views, tags, id, imgSrc}) => {
+
+
   return (
     <div id={id} className="p-8 rounded-lg shadow-md bg-[#0B0D12]">
       {/* Question Title and Star Icon */}
       <div className="flex mb-4 justify-between">
         <h3 className="text-xl font-semibold pr-6">{title}</h3>
-        <FaRegStar className="text-yellow-500 text-xl flex-none ml-4" />
+        <button onClick={handleToggleBookmark} className="text-yellow-500 text-xl flex-none ml-4">
+          {isBookmarked ? <FaStar /> : <FaRegStar />}
+        </button>
       </div>
 
       {/* Tags */}

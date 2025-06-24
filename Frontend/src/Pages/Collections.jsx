@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import CollectionCard from '../Components/CollectionCard'
+import ExpandableCard from '../Components/ExpandableCard'
 
 const Collections = () => {
   const [bookmarkedCards, setBookmarkedCards] = useState([])
@@ -19,9 +19,7 @@ const Collections = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {bookmarkedCards.map((item) => (
-            <Link key={item.id} to={`/question/${item.id}`} className="block">
-              <CollectionCard {...item} />
-            </Link>
+              <ExpandableCard {...item} isBookmarked={true} />
           ))}
         </div>
       )}

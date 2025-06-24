@@ -30,9 +30,7 @@ const TagSection = () => {
             
             {filteredArticles.map((item) =>{
                 return (
-                    <Link to={`/question/${item.id}`}>
-                        <ExpandableCard key={item.id} {...item}/>
-                    </Link>
+                    <ExpandableCard key={item.id} {...item}/>
                 )
             })}
             
