@@ -63,7 +63,7 @@ const BlogView = () => {
   };
 
   return (
-    <div className='min-h-screen text-white p-6 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+    <div className='min-h-screen text-white p-6 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       <div className="flex justify-between items-center mb-6">
         <Link to="/blog" className="text-blue-400 hover:text-blue-300">
           ← Back to Blog

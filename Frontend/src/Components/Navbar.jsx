@@ -27,11 +27,8 @@ const Navbar = () => {
           <NavLink to={"/blog"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><img src={blogSvgSrc} alt='Blog-icon' /> Blog</NavLink>
           <NavLink to={"/messages"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><img src={messagesSvgSrc} alt='Messages-icon' />Messages</NavLink>
         </ul>
-
+        <NavLink to={"/signin"}className="px-4 py-2.5 gap-2 flex items-center text-[18px]"> <img src={logoutSvgSrc} alt='Exit-icon' /> Log Out</NavLink>
       </div>
-
-
-      <NavLink to={"/signin"}className="px-4 py-2.5 gap-2 flex items-center text-[18px]"> <img src={logoutSvgSrc} alt='Exit-icon' /> Log Out</NavLink>
     </nav>
   )
 }

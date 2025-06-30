@@ -42,7 +42,7 @@ const Communities = () => {
   };
 
   return (
-    <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+    <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       <SearchInput onSearchChange={handleSearch} placeholderText={"Search by Username"} classNames={"w-full"} />
       <button 
         onClick={handleJoin} 
@@ -54,7 +54,7 @@ const Communities = () => {
       >
         {hasJoined ? 'Leave Community' : 'Join Community'}
       </button>
-      <div className='grid grid-cols-3 flex gap-2'>
+      <div className='grid grid-cols-3 max-[1500px]:grid-cols-2 max-[1230px]:grid-cols-1 flex gap-2'>
       {filteredUsers.map((item) =>{
         return (
             <UserCard key={item.id} {...item}/>

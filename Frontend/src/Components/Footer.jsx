@@ -5,11 +5,11 @@ import UserDataInfo from '../assets/UserData'
 
 const Footer = () => {
   const [randomSelectedUsers, setRandomSelectedUsers] = useState([])
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1000)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
+      setIsMobile(window.innerWidth < 1000)
     }
 
     window.addEventListener('resize', handleResize)
