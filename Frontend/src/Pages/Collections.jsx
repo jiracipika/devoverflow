@@ -12,7 +12,7 @@ const Collections = () => {
   }, [])
 
   return (
-    <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+    <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       <h2 className="text-2xl font-bold mb-6">Saved Questions</h2>
       {bookmarkedCards.length === 0 ? (
         <p className="text-gray-400 text-center py-12">No questions saved yet</p>

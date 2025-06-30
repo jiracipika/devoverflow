@@ -19,7 +19,7 @@ const Layout = () => {
         <div className="relative flex top-[100px]">
           <Outlet />
           {!shouldHideFooter && (
-            <footer className='w-[330px]'>
+            <footer className=''>
               <Footer />
             </footer>
           )}

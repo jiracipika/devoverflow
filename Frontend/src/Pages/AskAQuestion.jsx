@@ -63,7 +63,7 @@ const AskAQuestion = () => {
   }
 
   return (
-    <section className='text-white Ask a py-6 px-20 question bg-gradient-to-r w-[calc(100%-330px)] from-[#0A0B10] to-black min-h-screen max-h-fit'>
+    <section className='text-white Ask a py-6 px-20 question bg-gradient-to-r w-full lg:w-[calc(100%-330px)] from-[#0A0B10] to-black min-h-screen max-h-fit'>
       <ToastContainer />
       <form action="" className='flex flex-col gap-5'>
         <h1 className='text-2xl font-bold'>Ask a public question</h1>

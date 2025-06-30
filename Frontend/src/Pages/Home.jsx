@@ -48,7 +48,7 @@ const Home = () => {
 
     return num * multiplier;
   }
-  // Test
+
   const handleSearch = (userquery) => {
     setSearchQuery(userquery)
     console.log(userquery)
@@ -106,20 +106,40 @@ const Home = () => {
   }
 
   return (
-    <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
-      <header className='flex justify-between'>
-        <h1 className='text-[30px] font-bold'>All Questions</h1>
-        <Link className='bg-custom-gradient p-4 rounded-lg font-semibold' to="ask-a-question">Ask a Question</Link>
+    <div className='min-h-screen text-white py-4 md:py-8 px-4 md:px-8 w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+      <header className='flex flex-col sm:flex-row justify-between gap-4 mb-6'>
+        <h1 className='text-2xl sm:text-3xl font-bold'>All Questions</h1>
+        <Link 
+          className='bg-custom-gradient p-3 sm:p-4 rounded-lg font-semibold text-sm sm:text-base text-center whitespace-nowrap'
+          to="ask-a-question"
+        >
+          Ask a Question
+        </Link>
       </header>
-      <SearchInput onSearchChange={handleSearch} placeholderText={"Search a Question here"} classNames={"w-full"} />
-      <FilterQuestionTab onChosenFilter={handleFilterChosen} />
-      {filteredArticles.slice(0, itemsToShow).map((item) =>{
-        return (<ExpandableCard key={item.id} {...item}/>)
-      })}
-      {itemsToShow < filteredArticles.length && (
-      <div className='flex justify-center mt-4'>
-        <button onClick={handleShowMore} className='bg-custom-gradient p-4 rounded-lg font-semibold'>Show More</button>
+      <div className='mb-6'>
+        <SearchInput 
+          onSearchChange={handleSearch} 
+          placeholderText={"Search a Question here"} 
+          classNames={"w-full"} 
+        />
       </div>
+      <div className='mb-6 overflow-x-auto'>
+        <FilterQuestionTab onChosenFilter={handleFilterChosen} />
+      </div>
+      <div className='space-y-4'>
+        {filteredArticles.slice(0, itemsToShow).map((item) => (
+          <ExpandableCard key={item.id} {...item}/>
+        ))}
+      </div>
+      {itemsToShow < filteredArticles.length && (
+        <div className='flex justify-center mt-6'>
+          <button 
+            onClick={handleShowMore} 
+            className='bg-custom-gradient px-6 py-3 rounded-lg font-semibold text-sm sm:text-base'
+          >
+            Show More
+          </button>
+        </div>
       )}
     </div>
   )
