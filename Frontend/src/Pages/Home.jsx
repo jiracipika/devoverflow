@@ -48,7 +48,7 @@ const Home = () => {
 
     return num * multiplier;
   }
-
+  // Test
   const handleSearch = (userquery) => {
     setSearchQuery(userquery)
     console.log(userquery)
