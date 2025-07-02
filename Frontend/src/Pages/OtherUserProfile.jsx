@@ -72,7 +72,7 @@ const OtherUserProfile = () => {
 
 
     return (
-        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-[calc(100%-330px)] p-6 flex-col'>
+        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-full lg:w-[calc(100%-330px)] p-6 flex-col'>
             <AvatarPic />
             <div className='rounded-md bg-[#0A0B10] h-full rounded-[20px] left-[157px] top-[101px]'>
                 <div className='flex gap-4 justify-end'>

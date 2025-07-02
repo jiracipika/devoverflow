@@ -40,7 +40,7 @@ const QuestionView = () => {
   };
 
   return (
-    <div className='min-h-screen text-white p-6 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+    <div className='min-h-screen text-white p-6 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       {article && (
         <>
         <h1 className='text-4xl font-bold mb-4'>{article.title}</h1>

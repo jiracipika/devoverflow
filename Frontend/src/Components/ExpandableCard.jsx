@@ -1,17 +1,15 @@
-import React, { useState, useEffect }  from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Tag from './Tag.jsx'
-import { FaThumbsUp, FaComment, FaEye, FaRegStar, FaStar} from 'react-icons/fa6'
+import { FaThumbsUp, FaComment, FaEye, FaRegStar, FaStar } from 'react-icons/fa6'
 
-const ExpandableCard = ({title, author, asked, votes, comments, views, tags, id, imgSrc}) => {
-
+const ExpandableCard = ({ title, author, asked, votes, comments, views, tags, id, imgSrc }) => {
     const [isBookmarked, setIsBookmarked] = useState(false)
 
     useEffect(() => {
         const savedCollections = JSON.parse(localStorage.getItem('collections') || '[]')
         const isAlreadyBookmarked = savedCollections.some(item => item.id === id)
         setIsBookmarked(isAlreadyBookmarked)
-
     }, [id])
 
     const saveToCollections = (cardData) => {
@@ -48,39 +46,60 @@ const ExpandableCard = ({title, author, asked, votes, comments, views, tags, id,
         setIsBookmarked(!isBookmarked)
     }
 
-
     return (
-    <div id={id} className='p-6 rounded-lg shadow-md bg-[#0B0D12]'>
-        <div className="flex mb-3 justify-between">
-            <Link to={`/question/${id}`}><h1 className='text-lg font-semibold pr-6 max-[1500px]:text-[16px]'>{title || "Title Here"}</h1></Link>
-            <button onClick={toggleBookmark} className='text-yellow-500 text-xl flex-none'>
-                {isBookmarked ? <FaStar /> : <FaRegStar />}
-            </button>
-        </div>
-        <div className='flex flex-wrap gap-2 mb-3'>
-            {
-                tags ? tags.map((item) =>{
-                    return (<Tag text={item}/>)
-                })
-                :
-                <Tag text={"hello"}/>
-                
-            }
-        </div>
-        <div className='flex justify-between'>
-            <div className='flex gap-2'>
-                <img className='w-6 h-6 rounded-full' src={imgSrc || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuYdLEzBvwemix8pwsncUkLLOQqnByncadg&s"} alt="" />
-                <p className="text-white font-semibold max-[1500px]:text-[14px]">{author || "user"}</p>
-                <span className="text-gray-500 max-[1500px]:text-[14px] max-[1362px]:text-[12px]">• {asked || "Asked 3 minutes ago"}</span>
+        <div id={id} className='p-4 sm:p-6 rounded-lg shadow-md bg-[#0B0D12] transition-all duration-200 hover:shadow-lg'>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
+                <div className="flex-1">
+                    <Link to={`/question/${id}`} className="block">
+                        <h1 className='text-xl max-[1500px]:text-[16px] font-semibold pr-6 truncate w-[300px] sm:w-auto'>
+                            {title || "Title Here"}
+                        </h1>
+                    </Link>
+                </div>
+                <button 
+                    onClick={toggleBookmark} 
+                    className='text-yellow-500 text-xl flex-none transition-colors hover:text-yellow-400'
+                >
+                    {isBookmarked ? <FaStar /> : <FaRegStar />}
+                </button>
             </div>
-            <div className='flex gap-4'>
-                <button className='flex items-center gap-2'><FaThumbsUp  className='text-[#1DA1F2]'/><span className='max-[1418px]:text-[11px]'>Votes {votes || "25" }</span></button>
-                <button className='flex items-center gap-2'><FaComment className='text-[#1DA1F2]'/><span className='max-[1418px]:text-[11px]'>Answers {comments.length || "0" }</span></button>
-                <button className='flex items-center gap-2'><FaEye className='text-[#1DA1F2]'/><span className='max-[1418px]:text-[11px]'>Views {views || "100" }</span></button>
+
+            <div className='flex flex-wrap gap-2 mb-4 sm:mb-3'>
+                {tags?.map((item) => (
+                    <Tag key={item} text={item} className="text-xs sm:text-sm" />
+                )) || <Tag text="hello" className="text-xs sm:text-sm" />}
+            </div>
+
+            <div className='flex flex-col sm:flex-row justify-between w-full'>
+                <div className='flex items-center gap-2 mb-2 sm:mb-0'>
+                    <img 
+                        className='w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover' 
+                        src={imgSrc || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuYdLEzBvwemix8pwsncUkLLOQqnByncadg&s"} 
+                        alt="User" 
+                    />
+                    <div className="flex flex-col">
+                        <p className="text-white font-semibold text-sm sm:text-base">{author || "user"}</p>
+                        <span className="text-gray-500 text-xs sm:text-sm">• {asked || "Asked 3 minutes ago"}</span>
+                    </div>
+                </div>
+
+                <div className='flex flex-col sm:flex-row gap-2 sm:gap-4 items-start sm:items-center w-full sm:w-auto'>
+                    <div className='flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start'>
+                        <FaThumbsUp className='text-[#1DA1F2] text-xl max-[1500px]:text-[16px]' />
+                        <span className='text-base max-[1500px]:text-[16px]'>Votes {votes || "25"}</span>
+                    </div>
+                    <div className='flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start'>
+                        <FaComment className='text-[#1DA1F2] text-xl max-[1500px]:text-[16px]' />
+                        <span className='text-base max-[1500px]:text-[16px]'>Answers {comments.length || "0"}</span>
+                    </div>
+                    <div className='flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start'>
+                        <FaEye className='text-[#1DA1F2] text-xl max-[1500px]:text-[16px]' />
+                        <span className='text-base max-[1500px]:text-[16px]'>Views {views || "100"}</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default ExpandableCard

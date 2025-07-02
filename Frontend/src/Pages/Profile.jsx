@@ -29,7 +29,7 @@ const profile = () => {
     
 
     return (
-        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-[calc(100%-330px)] p-6 flex-col'>
+        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-full lg:w-[calc(100%-330px)] p-6 flex-col'>
             <AvatarPic />
             <div className='rounded-md bg-[#0A0B10] h-full rounded-[20px] flex flex-col p-6 mt-4'>
                 <div className='justify-between items-start mb-4 py-1'>
@@ -41,7 +41,7 @@ const profile = () => {
                     <p className='text-[white] leading-relaxed'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 </div>
             </div>
-            <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+            <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-full  bg-gradient-to-r from-[#0A0B10] to-black'>
                 <ProfileFilterTab onChosenFilter={handleFilterChosen}/>
                 {filteredPosts.map((item) =>{
         return (<ExpandableCard key={item.id} {...item}/>)
