@@ -50,13 +50,6 @@ const Searchbar = () => {
           >
             Profile
           </Link>
-          <Link 
-            to="/settings" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Settings
-          </Link>
         </div>
         )}
       </div>

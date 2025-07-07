@@ -5,11 +5,11 @@ import UserDataInfo from '../assets/UserData'
 
 const Footer = () => {
   const [randomSelectedUsers, setRandomSelectedUsers] = useState([])
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1000)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1000)
+      setIsMobile(window.innerWidth < 1024)
     }
 
     window.addEventListener('resize', handleResize)
@@ -53,7 +53,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className='hidden md:flex flex-col justify-between p-4 gap-6 h-screen w-[330px] fixed top-0 right-0 bg-[#0A0B10] overflow-y-auto text-gray-200'>
+    <footer className='hidden lg:flex flex-col justify-between p-4 gap-6 h-screen w-[330px] fixed top-0 right-0 bg-[#0A0B10] overflow-y-auto text-gray-200'>
       <div className='mt-24'>
         <h3 className='text-lg font-semibold mb-4 text-white'>Who to follow</h3>
         <div className='flex flex-col gap-4'>

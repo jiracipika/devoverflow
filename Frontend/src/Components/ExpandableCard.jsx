@@ -51,7 +51,7 @@ const ExpandableCard = ({ title, author, asked, votes, comments, views, tags, id
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
                 <div className="flex-1">
                     <Link to={`/question/${id}`} className="block">
-                        <h1 className='text-xl max-[1500px]:text-[16px] font-semibold pr-6 truncate w-[300px] sm:w-auto'>
+                        <h1 className='text-sm lg:text-xl font-semibold pr-6 truncate w-[300px] sm:w-auto'>
                             {title || "Title Here"}
                         </h1>
                     </Link>
@@ -66,8 +66,8 @@ const ExpandableCard = ({ title, author, asked, votes, comments, views, tags, id
 
             <div className='flex flex-wrap gap-2 mb-4 sm:mb-3'>
                 {tags?.map((item) => (
-                    <Tag key={item} text={item} className="text-xs sm:text-sm" />
-                )) || <Tag text="hello" className="text-xs sm:text-sm" />}
+                    <Tag key={item} text={item} className="text-xs lg:text-base" />
+                )) || <Tag text="hello" className="text-xs lg:text-base" />}
             </div>
 
             <div className='flex flex-col sm:flex-row justify-between w-full'>

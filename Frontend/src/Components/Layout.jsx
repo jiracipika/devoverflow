@@ -10,7 +10,7 @@ const Layout = () => {
   const shouldHideFooter = hideFooterOnPaths.includes(location.pathname);
 
   return (
-    <section className='flex'>
+    <div className='min-h-screen flex'>
       <header className='w-[266px]'>
         <Navbar />
       </header>
@@ -25,7 +25,7 @@ const Layout = () => {
           )}
         </div>
       </section>
-    </section>
+    </div>
   )
 }
 

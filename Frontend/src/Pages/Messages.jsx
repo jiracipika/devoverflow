@@ -7,7 +7,7 @@ const Messages = () => {
   return (
     <MessageProvider>
       <div className='w-full lg:w-[calc(100%-330px)] h-[90vh] flex bg-[#0F1117]' alt='Background'>
-        <div className='w-[90%] h-[80%] rounded-[10px] flex overflow-hidden' alt='Container'>
+        <div className='w-[90%] max-[767px]:w-full h-[80%] max-[767px]:h-[90%] rounded-[10px] flex overflow-hidden' alt='Container'>
           <ChatSideBar/>
           <ChatBox/>
         </div>

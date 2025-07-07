@@ -17,7 +17,7 @@ const Collections = () => {
       {bookmarkedCards.length === 0 ? (
         <p className="text-gray-400 text-center py-12">No questions saved yet</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className='space-y-4'>
           {bookmarkedCards.map((item) => (
               <ExpandableCard {...item} isBookmarked={true} />
           ))}

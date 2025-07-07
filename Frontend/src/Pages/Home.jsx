@@ -106,7 +106,7 @@ const Home = () => {
   }
 
   return (
-    <div className='min-h-screen text-white py-4 md:py-8 px-4 md:px-8 w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+    <div className='min-h-screen max-lg:h-auto text-white py-4 md:py-8 px-4 md:px-8 w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
       <header className='flex flex-col sm:flex-row justify-between gap-4 mb-6'>
         <h1 className='text-2xl sm:text-3xl font-bold'>All Questions</h1>
         <Link 
