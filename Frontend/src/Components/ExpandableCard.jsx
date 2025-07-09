@@ -51,7 +51,7 @@ const ExpandableCard = ({ title, author, asked, votes, comments, views, tags, id
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
                 <div className="flex-1">
                     <Link to={`/question/${id}`} className="block">
-                        <h1 className='text-sm lg:text-xl font-semibold pr-6 truncate w-[300px] sm:w-auto'>
+                        <h1 className='text-xs lg:text-base font-semibold pr-6 text-wrap w-[300px] sm:w-auto'>
                             {title || "Title Here"}
                         </h1>
                     </Link>
@@ -66,8 +66,8 @@ const ExpandableCard = ({ title, author, asked, votes, comments, views, tags, id
 
             <div className='flex flex-wrap gap-2 mb-4 sm:mb-3'>
                 {tags?.map((item) => (
-                    <Tag key={item} text={item} className="text-xs lg:text-base" />
-                )) || <Tag text="hello" className="text-xs lg:text-base" />}
+                    <Tag key={item} text={item} className="text-xs lg:text-sm" />
+                )) || <Tag text="hello" className="text-xs lg:text-sm" />}
             </div>
 
             <div className='flex flex-col sm:flex-row justify-between w-full'>
@@ -86,15 +86,15 @@ const ExpandableCard = ({ title, author, asked, votes, comments, views, tags, id
                 <div className='flex flex-col sm:flex-row gap-2 sm:gap-4 items-start sm:items-center w-full sm:w-auto'>
                     <div className='flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start'>
                         <FaThumbsUp className='text-[#1DA1F2] text-xl max-[1500px]:text-[16px]' />
-                        <span className='text-base max-[1500px]:text-[16px]'>Votes {votes || "25"}</span>
+                        <span className='text-base max-lg:text-[12px]'>Votes {votes || "25"}</span>
                     </div>
                     <div className='flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start'>
                         <FaComment className='text-[#1DA1F2] text-xl max-[1500px]:text-[16px]' />
-                        <span className='text-base max-[1500px]:text-[16px]'>Answers {comments.length || "0"}</span>
+                        <span className='text-base max-lg:text-[12px]'>Answers {comments.length || "0"}</span>
                     </div>
                     <div className='flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start'>
-                        <FaEye className='text-[#1DA1F2] text-xl max-[1500px]:text-[16px]' />
-                        <span className='text-base max-[1500px]:text-[16px]'>Views {views || "100"}</span>
+                        <FaEye className='text-[#1DA1F2] text-xl max-[100px]:text-[16px]' />
+                        <span className='text-base max-lg:text-[12px]'>Views {views || "100"}</span>
                     </div>
                 </div>
             </div>

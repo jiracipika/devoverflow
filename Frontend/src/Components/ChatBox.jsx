@@ -6,8 +6,9 @@ import add_friend from '../assets/Images/add-friend.png'
 import more_icon from '../assets/Images/more.png'
 import MessageBoxes from './MessageBoxes'
 import MessageInput from './MessageInput'
+import { FaArrowLeft } from "react-icons/fa6";
 
-const ChatBox = () => {
+const ChatBox = ({ onToggleSidebar, showSidebar }) => {
   const { currentChat, chats, updateChats } = useMessages();
   const [showMoreMenu, setShowMoreMenu] = useState(false);
 
@@ -55,6 +56,10 @@ const ChatBox = () => {
   return (
     <div className='w-[80%] flex-2' alt='chat'>
       <div className='h-[50px] bg-[#5d5b8d] flex items-center justify-between p-[10px] text-[lightgray]' alt='chatInfo'>
+        <FaArrowLeft 
+          className='hidden max-[767px]:flex cursor-pointer' 
+          onClick={onToggleSidebar}
+        />
         <span>{currentChat?.name || 'No chat selected'}</span>
         <div className='flex gap-[15px]' alt='chatIcons'>
           <img 
