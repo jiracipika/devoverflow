@@ -2,64 +2,46 @@
 
 import { useState, useEffect } from "react"
 
-interface ApiState<T> {
+interface UseApiResult<T> {
   data: T | null
   loading: boolean
   error: string | null
+  refetch: () => void
 }
 
-export function useApi<T>(endpoint: string, options?: RequestInit): ApiState<T> {
-  const [state, setState] = useState<ApiState<T>>({
-    data: null,
-    loading: true,
-    error: null,
-  })
+export function useApi<T = any>(endpoint: string): UseApiResult<T> {
+  const [data, setData] = useState<T | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchData = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+
+      const response = await fetch(`/api${endpoint}`)
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const result = await response.json()
+      setData(result.questions || result.data || result)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true, error: null }))
-
-        const response = await fetch(`/api${endpoint}`, {
-          credentials: "include",
-          ...options,
-        })
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const data = await response.json()
-        setState({ data, loading: false, error: null })
-      } catch (error) {
-        setState({
-          data: null,
-          loading: false,
-          error: error instanceof Error ? error.message : "An error occurred",
-        })
-      }
-    }
-
     fetchData()
   }, [endpoint])
 
-  return state
-}
-
-export async function apiRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
-  const response = await fetch(`/api${endpoint}`, {
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      ...options?.headers,
-    },
-    ...options,
-  })
-
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ message: "Request failed" }))
-    throw new Error(error.message || `HTTP error! status: ${response.status}`)
+  return {
+    data,
+    loading,
+    error,
+    refetch: fetchData,
   }
-
-  return response.json()
 }

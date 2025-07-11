@@ -1,64 +1,51 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { MongoClient } from "mongodb"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-
-const client = new MongoClient(process.env.MONGODB_URI!)
+import { connectDB } from "@/lib/database"
+import User from "@/models/User"
 
 export async function POST(request: NextRequest) {
   try {
+    await connectDB()
+
     const { email, password } = await request.json()
 
     if (!email || !password) {
       return NextResponse.json({ message: "Email and password are required" }, { status: 400 })
     }
 
-    await client.connect()
-    const db = client.db("devoverflow")
-    const users = db.collection("users")
+    // Find user by email
+    const user = await User.findOne({ email }).select("+password")
 
-    const user = await users.findOne({ email })
     if (!user) {
-      return NextResponse.json({ message: "Invalid email or password" }, { status: 401 })
+      return NextResponse.json({ message: "Invalid credentials" }, { status: 401 })
     }
 
-    const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch) {
-      return NextResponse.json({ message: "Invalid email or password" }, { status: 401 })
+    // Check password
+    const isPasswordValid = await bcrypt.compare(password, user.password)
+
+    if (!isPasswordValid) {
+      return NextResponse.json({ message: "Invalid credentials" }, { status: 401 })
     }
 
-    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, { expiresIn: "15m" })
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET || "fallback-secret", {
+      expiresIn: "7d",
+    })
 
-    const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_REFRESH_SECRET!, { expiresIn: "7d" })
-
-    // Store refresh token in database
-    await db
-      .collection("tokens")
-      .findOneAndReplace(
-        { userId: user._id },
-        { userId: user._id, refreshToken, createdAt: new Date() },
-        { upsert: true },
-      )
-
+    // Create response
     const response = NextResponse.json({
-      success: true,
       message: "Login successful",
       user: {
         id: user._id,
         email: user.email,
         name: user.name,
+        avatar: user.avatar,
       },
     })
 
-    // Set HTTP-only cookies
-    response.cookies.set("accessToken", accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 15 * 60 * 1000, // 15 minutes
-    })
-
-    response.cookies.set("refreshToken", refreshToken, {
+    // Set HTTP-only cookie
+    response.cookies.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
@@ -68,8 +55,6 @@ export async function POST(request: NextRequest) {
     return response
   } catch (error) {
     console.error("Login error:", error)
-    return NextResponse.json({ message: "Server error" }, { status: 500 })
-  } finally {
-    await client.close()
+    return NextResponse.json({ message: "Internal server error" }, { status: 500 })
   }
 }

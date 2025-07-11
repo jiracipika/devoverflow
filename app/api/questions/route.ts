@@ -1,115 +1,117 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { MongoClient } from "mongodb"
-
-const client = new MongoClient(process.env.MONGODB_URI!)
+import { connectDB } from "@/lib/database"
+import Question from "@/models/Question"
 
 export async function GET(request: NextRequest) {
   try {
+    await connectDB()
+
     const { searchParams } = new URL(request.url)
-    const search = searchParams.get("search")
-    const tag = searchParams.get("tag")
+    const search = searchParams.get("search") || ""
     const filter = searchParams.get("filter") || "newest"
+    const page = Number.parseInt(searchParams.get("page") || "1")
+    const limit = Number.parseInt(searchParams.get("limit") || "10")
 
-    await client.connect()
-    const db = client.db("devoverflow")
-    const questions = db.collection("questions")
-
+    // Build query
     const query: any = {}
 
     if (search) {
-      query.$or = [{ title: { $regex: new RegExp(search, "i") } }, { content: { $regex: new RegExp(search, "i") } }]
+      query.$or = [{ title: { $regex: search, $options: "i" } }, { content: { $regex: search, $options: "i" } }]
     }
 
-    if (tag) {
-      query.tags = { $in: [new RegExp(tag, "i")] }
-    }
-
-    let sortQuery: any = { time: -1 } // Default: newest
-
+    // Build sort
+    let sort: any = {}
     switch (filter) {
-      case "recommended":
-        sortQuery = { votes: -1 }
+      case "newest":
+        sort = { createdAt: -1 }
         break
       case "frequent":
-        sortQuery = { views: -1 }
+        sort = { views: -1 }
         break
       case "unanswered":
-        query.numberOfAnswers = 0
+        query.answers = { $size: 0 }
+        sort = { createdAt: -1 }
         break
+      case "recommended":
+        sort = { votes: -1, views: -1 }
+        break
+      default:
+        sort = { createdAt: -1 }
     }
 
-    const questionList = await questions.find(query).sort(sortQuery).toArray()
+    const questions = await Question.find(query)
+      .populate("author", "name avatar")
+      .populate("tags", "name")
+      .sort(sort)
+      .skip((page - 1) * limit)
+      .limit(limit)
 
-    const formatted = questionList.map((q) => ({
-      id: q._id.toString(),
-      title: q.title,
-      content: q.body,
-      author: q.userInformation,
-      votes: q.likes || 0,
-      views: q.views || 0,
-      comments: [], // Populate from comments collection if needed
-      asked: formatTimeAgo(q.time),
-      tags: Array.isArray(q.tag) ? q.tag : [q.tag].filter(Boolean),
-      imgSrc: "/default-avatar.png",
-    }))
+    const total = await Question.countDocuments(query)
 
-    return NextResponse.json(formatted)
+    return NextResponse.json({
+      questions: questions.map((q) => ({
+        id: q._id,
+        title: q.title,
+        content: q.content,
+        author: q.author,
+        tags: q.tags.map((t: any) => t.name),
+        votes: q.votes || 0,
+        answers: q.answers?.length || 0,
+        views: q.views || 0,
+        createdAt: q.createdAt,
+      })),
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit),
+      },
+    })
   } catch (error) {
-    console.error("Error fetching questions:", error)
+    console.error("Questions fetch error:", error)
     return NextResponse.json({ message: "Failed to fetch questions" }, { status: 500 })
-  } finally {
-    await client.close()
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const { title, body, tag, userInformation } = await request.json()
+    await connectDB()
 
-    await client.connect()
-    const db = client.db("devoverflow")
-    const questions = db.collection("questions")
+    const { title, content, tags, authorId } = await request.json()
 
-    const newQuestion = {
-      title,
-      body,
-      tag,
-      time: new Date(),
-      userInformation,
-      likes: 0,
-      numberOfAnswers: 0,
-      views: 0,
-      lastEditedTime: null,
+    if (!title || !content || !authorId) {
+      return NextResponse.json({ message: "Title, content, and author are required" }, { status: 400 })
     }
 
-    const result = await questions.insertOne(newQuestion)
+    const question = await Question.create({
+      title,
+      content,
+      author: authorId,
+      tags: tags || [],
+      votes: 0,
+      views: 0,
+      answers: [],
+    })
 
-    return NextResponse.json(
-      {
-        message: "Question created successfully",
-        questionID: result.insertedId.toString(),
+    await question.populate("author", "name avatar")
+    await question.populate("tags", "name")
+
+    return NextResponse.json({
+      message: "Question created successfully",
+      question: {
+        id: question._id,
+        title: question.title,
+        content: question.content,
+        author: question.author,
+        tags: question.tags.map((t: any) => t.name),
+        votes: question.votes,
+        answers: question.answers.length,
+        views: question.views,
+        createdAt: question.createdAt,
       },
-      { status: 201 },
-    )
+    })
   } catch (error) {
-    console.error("Error creating question:", error)
+    console.error("Question creation error:", error)
     return NextResponse.json({ message: "Failed to create question" }, { status: 500 })
-  } finally {
-    await client.close()
   }
-}
-
-function formatTimeAgo(date: Date): string {
-  const now = new Date()
-  const diffInMs = now.getTime() - date.getTime()
-  const diffInMinutes = Math.floor(diffInMs / (1000 * 60))
-
-  if (diffInMinutes < 1) return "Just now"
-  if (diffInMinutes < 60) return `${diffInMinutes} minutes ago`
-
-  const diffInHours = Math.floor(diffInMinutes / 60)
-  if (diffInHours < 24) return `${diffInHours} hours ago`
-
-  const diffInDays = Math.floor(diffInHours / 24)
-  return `${diffInDays} days ago`
 }

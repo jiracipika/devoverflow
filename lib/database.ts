@@ -1,30 +1,38 @@
-import { MongoClient, type Db } from "mongodb"
+import mongoose from "mongoose"
 
-let client: MongoClient
-let db: Db
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/devoverflow"
 
-export async function connectToDatabase() {
-  if (!client) {
-    client = new MongoClient(process.env.MONGODB_URI!)
-    await client.connect()
-    db = client.db("devoverflow")
-  }
-
-  return { client, db }
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable")
 }
 
-export async function closeDatabaseConnection() {
-  if (client) {
-    await client.close()
-  }
+let cached = (global as any).mongoose
+
+if (!cached) {
+  cached = (global as any).mongoose = { conn: null, promise: null }
 }
 
-// Database collections
-export const collections = {
-  users: "users",
-  blogs: "blogs",
-  questions: "questions",
-  communities: "communities",
-  tokens: "tokens",
-  tags: "tags",
+export async function connectDB() {
+  if (cached.conn) {
+    return cached.conn
+  }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    }
+
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      return mongoose
+    })
+  }
+
+  try {
+    cached.conn = await cached.promise
+  } catch (e) {
+    cached.promise = null
+    throw e
+  }
+
+  return cached.conn
 }
