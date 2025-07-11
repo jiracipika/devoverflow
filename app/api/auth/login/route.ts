@@ -11,50 +11,64 @@ export async function POST(request: NextRequest) {
     const { email, password } = await request.json()
 
     if (!email || !password) {
-      return NextResponse.json({ message: "Email and password are required" }, { status: 400 })
+      return NextResponse.json({ error: "Email and password are required" }, { status: 400 })
     }
 
-    // Find user by email
+    // Find user
     const user = await User.findOne({ email }).select("+password")
-
     if (!user) {
-      return NextResponse.json({ message: "Invalid credentials" }, { status: 401 })
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
     }
 
     // Check password
     const isPasswordValid = await bcrypt.compare(password, user.password)
-
     if (!isPasswordValid) {
-      return NextResponse.json({ message: "Invalid credentials" }, { status: 401 })
+      return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
     }
 
-    // Generate JWT token
-    const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET || "fallback-secret", {
+    // Generate JWT tokens
+    const accessToken = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET || "fallback-secret", {
+      expiresIn: "15m",
+    })
+
+    const refreshToken = jwt.sign({ userId: user._id }, process.env.JWT_REFRESH_SECRET || "fallback-refresh-secret", {
       expiresIn: "7d",
     })
 
+    // Update user's last login
+    await User.findByIdAndUpdate(user._id, { lastLogin: new Date() })
+
     // Create response
     const response = NextResponse.json({
-      message: "Login successful",
+      success: true,
       user: {
         id: user._id,
-        email: user.email,
         name: user.name,
+        email: user.email,
         avatar: user.avatar,
+        reputation: user.reputation,
+        badges: user.badges,
       },
     })
 
-    // Set HTTP-only cookie
-    response.cookies.set("token", token, {
+    // Set HTTP-only cookies
+    response.cookies.set("accessToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: 15 * 60, // 15 minutes
+    })
+
+    response.cookies.set("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60, // 7 days
     })
 
     return response
   } catch (error) {
     console.error("Login error:", error)
-    return NextResponse.json({ message: "Internal server error" }, { status: 500 })
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }

@@ -1,45 +1,78 @@
 import mongoose from "mongoose"
 
-const questionSchema = new mongoose.Schema(
-  {
-    title: {
+const QuestionSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  tags: [
+    {
       type: String,
-      required: true,
       trim: true,
     },
-    content: {
-      type: String,
-      required: true,
-    },
-    author: {
+  ],
+  votes: {
+    type: Number,
+    default: 0,
+  },
+  upvotes: [
+    {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
-    tags: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Tag",
-      },
-    ],
-    votes: {
-      type: Number,
-      default: 0,
+  ],
+  downvotes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
-    views: {
-      type: Number,
-      default: 0,
-    },
-    answers: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Answer",
-      },
-    ],
+  ],
+  answers: {
+    type: Number,
+    default: 0,
   },
-  {
-    timestamps: true,
+  views: {
+    type: Number,
+    default: 0,
   },
-)
+  isAnswered: {
+    type: Boolean,
+    default: false,
+  },
+  acceptedAnswer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Answer",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+  lastActivity: {
+    type: Date,
+    default: Date.now,
+  },
+})
 
-export default mongoose.models.Question || mongoose.model("Question", questionSchema)
+// Indexes for better performance
+QuestionSchema.index({ author: 1 })
+QuestionSchema.index({ tags: 1 })
+QuestionSchema.index({ createdAt: -1 })
+QuestionSchema.index({ votes: -1 })
+QuestionSchema.index({ views: -1 })
+QuestionSchema.index({ title: "text", content: "text" })
+
+export default mongoose.models.Question || mongoose.model("Question", QuestionSchema)

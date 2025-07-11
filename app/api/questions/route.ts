@@ -1,65 +1,70 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { connectDB } from "@/lib/database"
 import Question from "@/models/Question"
+import { verifyToken } from "@/lib/auth"
 
 export async function GET(request: NextRequest) {
   try {
     await connectDB()
 
     const { searchParams } = new URL(request.url)
-    const search = searchParams.get("search") || ""
-    const filter = searchParams.get("filter") || "newest"
     const page = Number.parseInt(searchParams.get("page") || "1")
     const limit = Number.parseInt(searchParams.get("limit") || "10")
+    const sortBy = searchParams.get("sortBy") || "newest"
+    const tags = searchParams.get("tags")?.split(",").filter(Boolean) || []
+    const answered = searchParams.get("answered") || "all"
+    const search = searchParams.get("search") || ""
 
     // Build query
     const query: any = {}
 
+    if (tags.length > 0) {
+      query.tags = { $in: tags }
+    }
+
+    if (answered === "answered") {
+      query.answers = { $gt: 0 }
+    } else if (answered === "unanswered") {
+      query.answers = 0
+    }
+
     if (search) {
-      query.$or = [{ title: { $regex: search, $options: "i" } }, { content: { $regex: search, $options: "i" } }]
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { content: { $regex: search, $options: "i" } },
+        { tags: { $in: [new RegExp(search, "i")] } },
+      ]
     }
 
     // Build sort
     let sort: any = {}
-    switch (filter) {
-      case "newest":
-        sort = { createdAt: -1 }
+    switch (sortBy) {
+      case "oldest":
+        sort = { createdAt: 1 }
         break
-      case "frequent":
-        sort = { views: -1 }
+      case "most-votes":
+        sort = { votes: -1 }
         break
-      case "unanswered":
-        query.answers = { $size: 0 }
-        sort = { createdAt: -1 }
-        break
-      case "recommended":
-        sort = { votes: -1, views: -1 }
+      case "most-answers":
+        sort = { answers: -1 }
         break
       default:
         sort = { createdAt: -1 }
     }
 
+    // Execute query
     const questions = await Question.find(query)
-      .populate("author", "name avatar")
-      .populate("tags", "name")
+      .populate("author", "name avatar reputation")
       .sort(sort)
       .skip((page - 1) * limit)
       .limit(limit)
+      .lean()
 
     const total = await Question.countDocuments(query)
 
     return NextResponse.json({
-      questions: questions.map((q) => ({
-        id: q._id,
-        title: q.title,
-        content: q.content,
-        author: q.author,
-        tags: q.tags.map((t: any) => t.name),
-        votes: q.votes || 0,
-        answers: q.answers?.length || 0,
-        views: q.views || 0,
-        createdAt: q.createdAt,
-      })),
+      success: true,
+      questions,
       pagination: {
         page,
         limit,
@@ -68,8 +73,8 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error) {
-    console.error("Questions fetch error:", error)
-    return NextResponse.json({ message: "Failed to fetch questions" }, { status: 500 })
+    console.error("Get questions error:", error)
+    return NextResponse.json({ error: "Failed to fetch questions" }, { status: 500 })
   }
 }
 
@@ -77,41 +82,40 @@ export async function POST(request: NextRequest) {
   try {
     await connectDB()
 
-    const { title, content, tags, authorId } = await request.json()
-
-    if (!title || !content || !authorId) {
-      return NextResponse.json({ message: "Title, content, and author are required" }, { status: 400 })
+    // Verify authentication
+    const user = await verifyToken(request)
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const { title, content, tags } = await request.json()
+
+    if (!title || !content) {
+      return NextResponse.json({ error: "Title and content are required" }, { status: 400 })
+    }
+
+    // Create question
     const question = await Question.create({
       title,
       content,
-      author: authorId,
       tags: tags || [],
+      author: user.userId,
       votes: 0,
+      answers: 0,
       views: 0,
-      answers: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
     })
 
-    await question.populate("author", "name avatar")
-    await question.populate("tags", "name")
+    // Populate author info
+    await question.populate("author", "name avatar reputation")
 
     return NextResponse.json({
-      message: "Question created successfully",
-      question: {
-        id: question._id,
-        title: question.title,
-        content: question.content,
-        author: question.author,
-        tags: question.tags.map((t: any) => t.name),
-        votes: question.votes,
-        answers: question.answers.length,
-        views: question.views,
-        createdAt: question.createdAt,
-      },
+      success: true,
+      question,
     })
   } catch (error) {
-    console.error("Question creation error:", error)
-    return NextResponse.json({ message: "Failed to create question" }, { status: 500 })
+    console.error("Create question error:", error)
+    return NextResponse.json({ error: "Failed to create question" }, { status: 500 })
   }
 }

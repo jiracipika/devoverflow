@@ -1,42 +1,38 @@
 import jwt from "jsonwebtoken"
 import type { NextRequest } from "next/server"
 
-export interface User {
-  id: string
+interface TokenPayload {
+  userId: string
   email: string
-  name: string
+  iat: number
+  exp: number
 }
 
-export function verifyToken(token: string): User | null {
+export async function verifyToken(request: NextRequest): Promise<TokenPayload | null> {
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any
-    return decoded
-  } catch (error) {
-    return null
-  }
-}
+    const accessToken = request.cookies.get("accessToken")?.value
 
-export function getUserFromRequest(request: NextRequest): User | null {
-  const token = request.cookies.get("accessToken")?.value
-
-  if (!token) {
-    return null
-  }
-
-  return verifyToken(token)
-}
-
-export function requireAuth(handler: (request: NextRequest, user: User) => Promise<Response>) {
-  return async (request: NextRequest) => {
-    const user = getUserFromRequest(request)
-
-    if (!user) {
-      return new Response(JSON.stringify({ message: "Unauthorized" }), {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
-      })
+    if (!accessToken) {
+      return null
     }
 
-    return handler(request, user)
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET || "fallback-secret") as TokenPayload
+
+    return decoded
+  } catch (error) {
+    console.error("Token verification error:", error)
+    return null
   }
+}
+
+export function generateTokens(userId: string, email: string) {
+  const accessToken = jwt.sign({ userId, email }, process.env.JWT_SECRET || "fallback-secret", {
+    expiresIn: "15m",
+  })
+
+  const refreshToken = jwt.sign({ userId }, process.env.JWT_REFRESH_SECRET || "fallback-refresh-secret", {
+    expiresIn: "7d",
+  })
+
+  return { accessToken, refreshToken }
 }
