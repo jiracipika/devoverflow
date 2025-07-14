@@ -37,6 +37,13 @@ const Searchbar = () => {
           onClick={closeDropdown}
         >
           <Link 
+            to="/" 
+            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
+            onClick={closeDropdown}
+          >
+            Home
+          </Link>
+          <Link 
             to="/notifications" 
             className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
             onClick={closeDropdown}
@@ -49,6 +56,48 @@ const Searchbar = () => {
             onClick={closeDropdown}
           >
             Profile
+          </Link>
+          <Link 
+            to="/collections" 
+            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
+            onClick={closeDropdown}
+          >
+            Collections
+          </Link>
+          <Link 
+            to="/tags" 
+            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
+            onClick={closeDropdown}
+          >
+            Tags
+          </Link>
+          <Link 
+            to="/communitiesbytags" 
+            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
+            onClick={closeDropdown}
+          >
+            Communities
+          </Link>
+          <Link 
+            to="/ask-a-question" 
+            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
+            onClick={closeDropdown}
+          >
+            Ask a Question
+          </Link>
+          <Link 
+            to="/blog" 
+            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
+            onClick={closeDropdown}
+          >
+            Blog
+          </Link>
+          <Link 
+            to="/messages" 
+            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
+            onClick={closeDropdown}
+          >
+            Messages
           </Link>
         </div>
         )}
