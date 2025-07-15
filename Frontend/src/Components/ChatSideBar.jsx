@@ -4,7 +4,7 @@ import ChatLists from './ChatLists'
 
 const ChatSideBar = () => {
   return (
-    <div className='flex-1 border-r-[#3e3c61] border-r border-solid bg-[#3e3c61] '>
+    <div className='flex border-r-[#3e3c61] border-r border-solid bg-[#3e3c61] '>
       <ChatSearchInput/>
       <ChatLists/>
     </div>

@@ -15,7 +15,7 @@ const UserCard = ({Name, Username, tags, id}) => {
                 </div>
                 <div className='text-center sm:text-left w-full'>
                     <Link to={`/${id}`} className='group block'>
-                        <h3 className='font-semibold text-lg sm:text-xl 2xl:text-2xl text-white group-hover:text-blue-400 transition-colors leading-tight'>
+                        <h3 className='font-semibold text-lg sm:text-xl 2xl:text-2xl text-white group-hover:text-purple-400 transition-colors leading-tight'>
                             {Name || "Name"}
                         </h3>
                     </Link>

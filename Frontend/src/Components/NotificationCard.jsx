@@ -5,8 +5,7 @@ import NotifData from '../assets/NotifData.js'
 const NotificationCard = ({title, text, category, friendRequest, id, imgSrc, userQuery }) => {
     const classOnTheBasisOfCategory = {
         Messages: "text-white",
-        Requests: "text-yellow-500",
-        Schedule: "text-orange-500"
+        Requests: "text-yellow-500"
     }
 
     const [classForNotification, setClassForNotification] = useState()

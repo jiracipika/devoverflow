@@ -16,22 +16,18 @@ const OtherUserProfile = () => {
     let params = useParams();
 
     useEffect(() => {
-        const userid = Number(params.id)
-        console.log(userid)
-        const data = UserDataInfo.find(x => x.id === userid);
+        const username = params.username;
+        console.log('Looking for username:', username);
+        const data = UserDataInfo.find(x => x.Name === username);
         if (data) {
             setUserData(data);
-            // Check if user is already following this user
-            // This would typically come from an API call
-            // For now, we'll just initialize it as false
             setIsFollowing(false);
-            // Initial post filtering when user data is loaded
             setFilterPosts(articles.filter(article => article.author === data.Name));
         } else {
-            console.error('User not found:', params.id);
+            console.error('User not found:', username);
         }
-    }, [params.id]);
-
+    }, [params.username]);
+    
     useEffect(() => {
         if (!userData || !userData.Name) return;
 

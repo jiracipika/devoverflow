@@ -128,7 +128,7 @@ const Home = () => {
       </div>
       <div className='space-y-4'>
         {filteredArticles.slice(0, itemsToShow).map((item) => (
-          <ExpandableCard key={item.id} {...item}/>
+          <ExpandableCard key={item.id} {...item} />
         ))}
       </div>
       {itemsToShow < filteredArticles.length && (

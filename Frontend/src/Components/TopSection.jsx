@@ -22,7 +22,7 @@ const Searchbar = () => {
   
 
   return (
-    <div className={`bg-[#0A0B10] z-10 w-[calc(100%-266px)] fixed top-0 h-[100px] text-white flex justify-around items-center `}>
+    <div className={`bg-[#0A0B10] z-10 w-full lg:w-[calc(100%-266px)] fixed top-0 h-[100px] text-white flex justify-around items-center `}>
       
       
     <SearchInput onSearchChange={handleSearch} placeholderText={"Search anything globally"} classNames={"w-[566px]"}/>

@@ -11,10 +11,10 @@ const Layout = () => {
 
   return (
     <div className='min-h-screen flex'>
-      <header className='w-[266px]'>
+      <header className='w-[266px] max-[767px]:hidden'>
         <Navbar />
       </header>
-      <section className='relative w-[calc(100%-266px)]'>
+      <section className='relative w-full lg:w-[calc(100%-266px)]'>
         <Searchbar placeholderText={"Search anything globally"}/>
         <div className="relative flex top-[100px]">
           <Outlet />

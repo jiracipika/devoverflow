@@ -54,7 +54,7 @@ const ChatBox = ({ onToggleSidebar, showSidebar }) => {
   };
 
   return (
-    <div className='w-[80%] flex-2' alt='chat'>
+    <div className='w-full lg:w-[80%] flex-2' alt='chat'>
       <div className='h-[50px] bg-[#5d5b8d] flex items-center justify-between p-[10px] text-[lightgray]' alt='chatInfo'>
         <FaArrowLeft 
           className='hidden max-[767px]:flex cursor-pointer' 
@@ -62,18 +62,6 @@ const ChatBox = ({ onToggleSidebar, showSidebar }) => {
         />
         <span>{currentChat?.name || 'No chat selected'}</span>
         <div className='flex gap-[15px]' alt='chatIcons'>
-          <img 
-            className='h-[24px] cursor-pointer hover:opacity-70 transition-opacity' 
-            src={audio_call} 
-            alt="Audio Call" 
-            onClick={() => console.log('Audio call clicked')}
-          />
-          <img 
-            className='h-[24px] cursor-pointer hover:opacity-70 transition-opacity' 
-            src={video_call} 
-            alt="Video Call" 
-            onClick={() => console.log('Video call clicked')}
-          />
           <img 
             className='h-[24px] cursor-pointer hover:opacity-70 transition-opacity' 
             src={add_friend} 

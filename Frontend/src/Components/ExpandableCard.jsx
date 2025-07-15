@@ -51,7 +51,7 @@ const ExpandableCard = ({ title, author, asked, votes, comments, views, tags, id
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
                 <div className="flex-1">
                     <Link to={`/question/${id}`} className="block">
-                        <h1 className='text-xs lg:text-base font-semibold pr-6 text-wrap w-[300px] sm:w-auto'>
+                        <h1 className='text-xs lg:text-base font-semibold pr-6 text-wrap w-[300px] sm:w-auto hover:text-purple-400 transition-colors leading-tight'>
                             {title || "Title Here"}
                         </h1>
                     </Link>
@@ -78,7 +78,7 @@ const ExpandableCard = ({ title, author, asked, votes, comments, views, tags, id
                         alt="User" 
                     />
                     <div className="flex flex-col">
-                        <p className="text-white font-semibold text-sm sm:text-base">{author || "user"}</p>
+                        <Link to={`/user/${author}`} className="text-white font-semibold text-sm sm:text-base hover:underline">{author || "user"}</Link>
                         <span className="text-gray-500 text-xs sm:text-sm">• {asked || "Asked 3 minutes ago"}</span>
                     </div>
                 </div>

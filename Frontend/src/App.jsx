@@ -40,7 +40,7 @@ function App() {
               <Route path="ask-a-question" element={<AskAQuestion />} />
               <Route path="profile" element={<Profile />} />
               <Route path="/editProfile" element={<EditProfile />} />
-              <Route path="/:id" element={<OtherUserProfile />} />
+              <Route path="/user/:username" element={<OtherUserProfile />} />
               <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
               <Route path="communities/:TagName" element={<Communities />} />
               <Route path="/schedule" element={<Schedule />} />

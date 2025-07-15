@@ -17,7 +17,6 @@ const NotificationFilterTab = ({onChosenFilter}) => {
              onClick={handleClick} 
             className={`rounded-lg p-4 transition-all bg-[#151821] text-[#7B8EC8]`}> <span className={`${chosenFilter === "Messages" ? "bg-clip-text text-transparent bg-custom-gradient" : ""}`}>Messages</span> </Link>
             <Link onClick={handleClick} className='rounded-lg transition-all p-4 bg-[#151821] text-[#7B8EC8]'> <span className={`${chosenFilter === "Requests" ? "bg-clip-text text-transparent bg-custom-gradient" : ""}`}>Requests</span> </Link>
-            <Link onClick={handleClick} className='rounded-lg p-4 transition-all bg-[#151821] text-[#7B8EC8]'> <span className={`${chosenFilter === "Schedule" ? "bg-clip-text text-transparent bg-custom-gradient" : ""}`}>Schedule</span> </Link>
         </section>
       )
 }
