@@ -1,21 +1,23 @@
 const CommunityDatabyTags = [
     {
         "id": 1,
-        "TagName": "Javascript",
-        "Users": 342,
+        "TagName": "Javascript"
     },
 
     {
         "id": 2,
-        "TagName": "Typescript",
-        "Users": 52,
+        "TagName": "Typescript"
     },
 
     {
         "id": 3,
-        "TagName": "CSS",
-        "Users": 252,
+        "TagName": "CSS"
     },
+
+    {
+        "id": 4,
+        "TagName": "React"
+    }
 
 ]
 export default CommunityDatabyTags

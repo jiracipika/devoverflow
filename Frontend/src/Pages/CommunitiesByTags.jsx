@@ -1,11 +1,25 @@
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import SearchInput from '../Components/SearchInput';
+import UserDataInfo from '../assets/UserData';
 import CommunityDatabyTags from '../assets/CommunityDatabyTags';
 import CommunityCard from '../Components/CommunityCards';
 
 const CommunitiesByTags = () => {
     const [searchQuery,setSearchQuery] = useState("")
     const [filteredCards, setFilteredCards] = useState(CommunityDatabyTags)
+
+    const userCounts = useMemo(() => {
+        const counts = {};
+        UserDataInfo.forEach(user =>{
+            console.log(user.tags)
+            if (user.tags) {
+                user.tags.forEach(tag => {
+                    counts[tag] = (counts[tag] || 0) + 1;
+                })
+            }
+        })
+        return counts
+      }, []);
       
     const handleSearch = (userquery) =>{
         setSearchQuery(userquery)
@@ -21,7 +35,7 @@ const CommunitiesByTags = () => {
             <div className='grid grid-cols-4 max-[1400px]:grid-cols-2 max-[1085px]:grid-cols-1 gap-4 md:gap-6'>
             {filteredCards.map((item, index) =>{
                 return (
-                <CommunityCard key={index} id={index} TagName={item.TagName} Users={item.Users}/>)
+                <CommunityCard key={index} id={index} TagName={item.TagName} Users={userCounts[item.TagName] || 0}/>)
             })}  
             </div>
         </section>

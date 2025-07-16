@@ -3,37 +3,38 @@ const TagCardInfo = [
     {
         "id": 0,
         "title": "Javascript",
-        "description": "JavaScript (a dialect of ECMAScript) is a high-level, multi-paradigm, object-oriented, prototype-based, dynamically-typed, and interpreted language traditionally used for client-side scripting in web browsers.",
-        "questions": 1423,
+        "description": "JavaScript (a dialect of ECMAScript) is a high-level, multi-paradigm, object-oriented, prototype-based, dynamically-typed, and interpreted language traditionally used for client-side scripting in web browsers."
     },
 
     {
         "id": 1,
         "title": "Web Development",
-        "description": "Wordpress, Shopify or maybe something more QOL friendly?",
-        "questions": 3259,
+        "description": "Wordpress, Shopify or maybe something more QOL friendly?"
     },
 
     {
         "id": 2,
         "title": "CSS",
-        "description": "CSS, or Cascading Style Sheets, is a language used to control the visual presentation of documents written in a markup language, including HTML, XML, XHTML, SVG, and XUL.",
-        "questions": 23423,
+        "description": "CSS, or Cascading Style Sheets, is a language used to control the visual presentation of documents written in a markup language, including HTML, XML, XHTML, SVG, and XUL."
     },
 
     {
         "id": 3,
         "title": "React",
-        "description": "React is a JavaScript library for building user interfaces. It uses a declarative, component-based paradigm and aims to be efficient and flexible.",
-        "questions": 423,
+        "description": "React is a JavaScript library for building user interfaces. It uses a declarative, component-based paradigm and aims to be efficient and flexible."
     },
 
     {
         "id": 4,
         "title": "Node.js",
-        "description": "Node.js is an open-source, cross-platform JavaScript runtime environment that executes JavaScript code outside of a web browser. It is built on Chrome's V8 JavaScript engine, which allows it to be performant. Node.js uses an event-driven, non-blocking I/O model that makes it suitable for building scalable network applications.",
-        "questions": 872,
-    }
+        "description": "Node.js is an open-source, cross-platform JavaScript runtime environment that executes JavaScript code outside of a web browser. It is built on Chrome's V8 JavaScript engine, which allows it to be performant. Node.js uses an event-driven, non-blocking I/O model that makes it suitable for building scalable network applications."
+    },
+
+    {
+        "id": 5,
+        "title": "Tailwind",
+        "description": "Tailwind CSS is an open-source CSS framework. Unlike other frameworks, like Bootstrap, it does not provide a series of predefined classes for elements such as buttons or tables. Instead, it creates a list of 'utility' CSS classes that can be used to style each element by mixing and matching."
+    },
 ]
 
 export default TagCardInfo

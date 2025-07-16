@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import { useParams, Link } from 'react-router-dom';
 import articles from '../assets/FakeData.js'
 import ExpandableCard from '../Components/ExpandableCard.jsx';
@@ -6,10 +6,13 @@ import { useTags } from '../context/TagsContext.jsx';
 
 const TagSection = () => {
     const { id } = useParams();
+    console.log(id)
     const { filteredTags } = useTags();
+    console.log(filteredTags)
     
     // Find the tag from filteredTags instead of original TagCardInfo
     const selectedData = filteredTags.find((data) => data.id === parseInt(id));
+    console.log(selectedData)
 
     const findArticlesByTag = (tags) => {
         return articles.filter(article => 

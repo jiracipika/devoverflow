@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import SearchInput from '../Components/SearchInput'
 import TagCard from '../Components/TagCard.jsx'
 import TagFilterTab from '../Components/TagFilterTab.jsx'
 import { useTags } from '../context/TagsContext';
+import articles from '../assets/FakeData';
 
 const Tags = () => {
   const {
@@ -15,6 +16,19 @@ const Tags = () => {
     setSelectedTag,
     isAdmin
   } = useTags()
+
+  // Count questions per tag from articles data
+  const tagCounts = useMemo(() => {
+    const counts = {};
+    articles.forEach(article => {
+      if (article.tags) {
+        article.tags.forEach(tag => {
+          counts[tag] = (counts[tag] || 0) + 1;
+        });
+      }
+    });
+    return counts;
+  }, []);
 
   const handleSearch = (userquery) => {
     setSearchQuery(userquery)
@@ -51,7 +65,7 @@ const Tags = () => {
               id={item.id}
               title={item.title}
               description={item.description}
-              questions={item.questions}
+              questions={tagCounts[item.title] || 0}
               isSelected={selectedTag === item}
               onSelect={() => setSelectedTag(item)}
             />
