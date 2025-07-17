@@ -110,7 +110,7 @@ const Home = () => {
       <header className='flex flex-col sm:flex-row justify-between gap-4 mb-6'>
         <h1 className='text-2xl sm:text-3xl font-bold'>All Questions</h1>
         <Link 
-          className='bg-custom-gradient p-3 sm:p-4 rounded-lg font-semibold text-sm sm:text-base text-center whitespace-nowrap'
+          className='bg-custom-gradient p-3 sm:p-4 rounded-lg font-semibold text-sm sm:text-base text-center whitespace-nowrap transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'
           to="ask-a-question"
         >
           Ask a Question
@@ -135,7 +135,7 @@ const Home = () => {
         <div className='flex justify-center mt-6'>
           <button 
             onClick={handleShowMore} 
-            className='bg-custom-gradient px-6 py-3 rounded-lg font-semibold text-sm sm:text-base'
+            className='bg-custom-gradient px-6 py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'
           >
             Show More
           </button>

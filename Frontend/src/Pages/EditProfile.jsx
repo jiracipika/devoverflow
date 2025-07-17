@@ -87,7 +87,7 @@ const EditProfile = () => {
                 />
                 <button 
                     type="submit" 
-                    className='bg-gradient-to-r from-[#FF7000] to-[#E2995F] text-white font-bold py-2 px-4 rounded w-full transition-all'
+                    className='bg-gradient-to-r from-[#FF7000] to-[#E2995F] text-white font-bold py-2 px-4 rounded w-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'
                 >
                     Update Profile
                 </button>

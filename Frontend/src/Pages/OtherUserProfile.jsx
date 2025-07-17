@@ -74,11 +74,11 @@ const OtherUserProfile = () => {
                 <div className='flex gap-4 justify-end'>
                     <button 
                         onClick={handleFollow}
-                        className='bg-custom-gradient text-[white] font-bold py-2 px-4 rounded'
+                        className='bg-custom-gradient text-[white] font-bold py-2 px-4 rounded transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'
                     >
                         {isFollowing ? 'Following' : 'Follow'}
                     </button>
-                    <button className='bg-custom-gradient text-[white] font-bold py-2 px-4 rounded'>Message</button>
+                    <button className='bg-custom-gradient text-[white] font-bold py-2 px-4 rounded transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'>Message</button>
                 </div>
                 {userData && (
                 <>

@@ -11,7 +11,6 @@ const CommunitiesByTags = () => {
     const userCounts = useMemo(() => {
         const counts = {};
         UserDataInfo.forEach(user =>{
-            console.log(user.tags)
             if (user.tags) {
                 user.tags.forEach(tag => {
                     counts[tag] = (counts[tag] || 0) + 1;

@@ -14,7 +14,7 @@ const UserCard = ({Name, Username, tags, id}) => {
                     <AvatarPic size="lg" className="w-16 h-16 sm:w-20 sm:h-20 2xl:w-24 2xl:h-24" />
                 </div>
                 <div className='text-center sm:text-left w-full'>
-                    <Link to={`/${id}`} className='group block'>
+                    <Link to={`/user/${Name}`} className='group block'>
                         <h3 className='font-semibold text-lg sm:text-xl 2xl:text-2xl text-white group-hover:text-purple-400 transition-colors leading-tight'>
                             {Name || "Name"}
                         </h3>

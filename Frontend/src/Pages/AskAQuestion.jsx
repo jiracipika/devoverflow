@@ -113,7 +113,7 @@ const AskAQuestion = () => {
 
           </div>
         </div>
-        <button onClick={handleSubmit} className='bg-custom-gradient p-3 w-fit rounded-md self-end'>Ask a question</button>
+        <button onClick={handleSubmit} className='bg-custom-gradient p-3 w-fit rounded-md self-end transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'>Ask a question</button>
       </form>
     </section>
   )

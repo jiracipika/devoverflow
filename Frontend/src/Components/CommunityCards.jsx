@@ -11,7 +11,7 @@ const CommunityCard = ({TagName, Users, id}) => {
             </div>
             <label className='font-semibold text-[20px] flex items-center justify-center p-2 rounded-lg'>{TagName || "TagName"}</label>
             <Link to={`/Communities/${TagName}`}>
-                <button className='bg-gradient-to-r from-[#FF7000] to-[#E2995F] text-m basis-[48%] h-10 w-full rounded-md text-white font-medium border-0 outline-none' type="button">
+                <button className='bg-gradient-to-r from-[#FF7000] to-[#E2995F] text-m basis-[48%] h-10 w-full rounded-md text-white font-medium border-0 outline-none transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30' type="button">
                     View
                 </button>
             </Link>

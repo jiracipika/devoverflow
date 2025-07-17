@@ -104,7 +104,7 @@ const QuestionView = () => {
         <div className='flex justify-center mt-8 gap-4'>
           <button 
             onClick={() => setShowCommentForm(!showCommentForm)}
-            className='bg-custom-gradient p-4 rounded-lg font-semibold'
+            className='bg-custom-gradient p-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'
           >
             Post a Comment
           </button>
