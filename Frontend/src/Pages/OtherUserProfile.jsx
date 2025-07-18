@@ -4,10 +4,11 @@ import UserDataInfo from '../assets/UserData.js';
 import ExpandableCard from '../Components/ExpandableCard.jsx';
 import articles from '../assets/FakeData.js';
 import AvatarPic from '../Components/AvatarPic';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const OtherUserProfile = () => {
 
+    const navigate = useNavigate();
     const [filterQuery, setFilterQuery] = useState("Top Posts")
     const [userData, setUserData] = useState({})
     const [filteredPosts, setFilterPosts] = useState([])
@@ -66,6 +67,11 @@ const OtherUserProfile = () => {
         }
     }
 
+    const handleMessage = () => {
+        if (userData && userData.Username) {
+            navigate(`/messages`)
+        }
+    }
 
     return (
         <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-full lg:w-[calc(100%-330px)] p-6 flex-col'>
@@ -78,7 +84,12 @@ const OtherUserProfile = () => {
                     >
                         {isFollowing ? 'Following' : 'Follow'}
                     </button>
-                    <button className='bg-custom-gradient text-[white] font-bold py-2 px-4 rounded transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'>Message</button>
+                    <button
+                        onClick={handleMessage}
+                        className='bg-custom-gradient text-[white] font-bold py-2 px-4 rounded transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'
+                    >
+                        Message
+                    </button>
                 </div>
                 {userData && (
                 <>

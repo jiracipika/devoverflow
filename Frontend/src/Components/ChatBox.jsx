@@ -66,7 +66,14 @@ const ChatBox = ({ onToggleSidebar, showSidebar }) => {
             className='h-[24px] cursor-pointer hover:opacity-70 transition-opacity' 
             src={add_friend} 
             alt="Add Friend" 
-            onClick={() => console.log('Add friend clicked')}
+            onClick={() => {
+              if (!currentChat) {
+                alert('Please select a chat first');
+                return;
+              }
+              console.log('Add friend clicked for:', currentChat.name);
+              // Add your add friend logic here
+            }}
           />
           <div className='relative'>
             <img 
