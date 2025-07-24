@@ -49,13 +49,32 @@ const AskAQuestion = () => {
   const handleSubmit = (e) =>{
     e.preventDefault();
     
+    // Check if title is empty
+    if (!titleInputVal.trim()) {
+      toast.error("Please enter a question title");
+      return;
+    }
+
+    // Check if editor content is empty
+    if (!textEditorData || !textEditorData.trim()) {
+      toast.error("Please provide a detailed explanation of your problem");
+      return;
+    }
+
+    // Check if at least one tag is added
+    if (tags.length === 0) {
+      toast.error("Please add at least one tag");
+      return;
+    }
+    
     const data = {
-      titleInputVal,
-      textEditorData,
+      titleInputVal: titleInputVal.trim(),
+      textEditorData: textEditorData.trim(),
       tags: [...tags]
     }
 
     console.log(data)
+    // Here you would typically make an API call to submit the form
   }
 
   const getEditorData = (data) =>{

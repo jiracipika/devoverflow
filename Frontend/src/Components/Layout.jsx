@@ -11,7 +11,7 @@ const Layout = () => {
 
   return (
     <div className='min-h-screen flex'>
-      <header className='w-[266px] max-[767px]:hidden'>
+      <header className='w-[266px] max-lg:hidden'>
         <Navbar />
       </header>
       <section className='relative w-full lg:w-[calc(100%-266px)]'>

@@ -99,6 +99,13 @@ const Searchbar = () => {
           >
             Messages
           </Link>
+          <Link 
+            to="/signin" 
+            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
+            onClick={closeDropdown}
+          >
+            Log Out
+          </Link>
         </div>
         )}
       </div>

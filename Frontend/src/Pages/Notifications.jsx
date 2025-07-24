@@ -35,6 +35,7 @@ const Notifications = () => {
                         text={item.text}
                         imgSrc={item.imgSrc}
                         friendRequest={item.category === "Requests"}
+                        messageView={item.category === "Messages"}
                         onRemove={handleRemoveNotification}
                     />
                 ))}

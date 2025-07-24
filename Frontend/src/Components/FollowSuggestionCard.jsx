@@ -15,6 +15,7 @@ const FollowSuggestionCard = ({id, Name, Username, imgSrc}) => {
         // 1. Make an API call to follow/unfollow the user
         // 2. Update the UI based on the response
         // 3. Handle any errors that might occur
+        
     } catch (error) {
         console.error('Error following user:', error);
         // In a real app, you would show an error message to the user

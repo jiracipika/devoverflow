@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import articles from '../assets/FakeData.js'
 import Tag from '../Components/Tag.jsx'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import PostAComment from '../Components/PostAComment.jsx'
 
 const QuestionView = () => {
@@ -83,7 +83,7 @@ const QuestionView = () => {
                     <div className='flex items-center gap-3'>
                       <div className='w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center text-sm font-medium'>{comment.author.charAt(0).toUpperCase()}</div>
                       <div>
-                        <p className='font-medium'>{comment.author}</p>
+                        <Link to={`/user/${comment.author}`} ><p className='font-medium'>{comment.author}</p></Link>
                         <p className='text-sm text-gray-400'>Commented {comment.date || 'today'}</p>
                       </div>
                     </div>

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const NotificationCard = ({ 
     title, 
     text, 
     category, 
-    friendRequest, 
+    friendRequest,
+    messageView,
     id, 
     imgSrc, 
     onRemove 
 }) => {
+    
+    const navigate = useNavigate();
+
     const classOnTheBasisOfCategory = {
         Messages: "text-white",
         Requests: "text-yellow-500"
@@ -32,6 +37,10 @@ const NotificationCard = ({
             onRemove(id);
         }
     };
+
+    const handleMessageView = () => {
+        navigate(`/messages`)
+    }
 
     return (
         <div id={`notification-${id}`} className='bg-card-gradient flex flex-col gap-3 p-4 sm:p-6 rounded-lg'>
@@ -65,6 +74,17 @@ const NotificationCard = ({
                             Decline
                         </button>
                     </div>
+                )}
+
+                {messageView && (
+                    <div className='flex flex-col sm:flex-row gap-2 mt-2 sm:mt-0'>
+                        <button 
+                            onClick={() => handleMessageView()} 
+                            className='bg-custom-gradient p-2 sm:p-3 rounded-lg text-sm sm:text-base w-full sm:w-auto transition-colors hover:opacity-90'
+                        >
+                            View
+                        </button>
+                </div>
                 )}
             </div>
         </div>

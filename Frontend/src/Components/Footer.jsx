@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import FollowSuggestionCard from './FollowSuggestionCard'
 import Tag from './Tag'
 import UserDataInfo from '../assets/UserData'
@@ -33,15 +34,6 @@ const Footer = () => {
       <footer className='fixed bottom-0 left-0 w-full bg-[#0A0B10] border-t border-gray-800 p-4 z-10'>
         <div className='flex justify-between items-center'>
           <div className='flex space-x-2 overflow-x-auto pb-2 hide-scrollbar'>
-            {randomSelectedUsers.map((user) => (
-              <div key={user.id} className='flex-shrink-0 w-10 h-10'>
-                <img 
-                  src={user.avatar} 
-                  alt={user.name} 
-                  className='w-full h-full rounded-full object-cover'
-                />
-              </div>
-            ))}
           </div>
           <div className='flex space-x-4'>
             <Tag text="About" className="text-gray-200 hover:text-white" />
