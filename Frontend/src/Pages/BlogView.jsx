@@ -10,6 +10,7 @@ import PostAComment from '../Components/PostAComment';
 const BlogView = () => {
   const [user, setUser] = useState(null);
   const [likes, setLikes] = useState(0);
+  const [hasLiked, setHasLiked] = useState(false);
   const [comments, setComments] = useState([]);
   const [authorName, setAuthorName] = useState('');
 
@@ -18,6 +19,12 @@ const BlogView = () => {
   useEffect(() => {
     const data = blogPosts.find(post => post.id == params.id);
     setUser(data);
+    
+    // Check if user has already liked this post
+    const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '{}');
+    if (likedPosts[params.id]) {
+      setHasLiked(true);
+    }
   }, [params.id])
 
   const getReadingTime = (text) => {
@@ -38,7 +45,21 @@ const BlogView = () => {
   };
 
   const handleLike = () => {
-    setLikes(prev => prev + 1);
+    const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '{}');
+    
+    if (hasLiked) {
+      // Unlike the post
+      setLikes(prev => Math.max(0, prev - 1));
+      delete likedPosts[params.id];
+      setHasLiked(false);
+    } else {
+      // Like the post
+      setLikes(prev => prev + 1);
+      likedPosts[params.id] = true;
+      setHasLiked(true);
+    }
+    
+    localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
   };
 
   const handleCommentSubmit = async (commentText) => {
@@ -108,9 +129,13 @@ const BlogView = () => {
               <div className="flex items-center gap-4">
                 <button 
                   onClick={handleLike}
-                  className="flex items-center gap-2 text-blue-400 hover:text-blue-300"
+                  className={`flex items-center gap-2 ${hasLiked ? 'text-blue-400' : 'text-gray-400 hover:text-blue-300'}`}
                 >
-                  <img src={LikeIcon} alt="Like" className="w-5 h-5" />
+                  <img 
+                    src={LikeIcon} 
+                    alt={hasLiked ? 'Unlike' : 'Like'} 
+                    className={`w-5 h-5 ${hasLiked ? 'fill-current' : ''}`}
+                  />
                   {likes}
                 </button>
               </div>
