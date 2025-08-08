@@ -4,19 +4,19 @@ import axios from 'axios'
 
 const ThankYouPassword = () => {
 
-    const resend = () =>{
+    const resend = async () =>{
         //Send Email
-            //try {
-            //    const response = await axios.post('', {
-            //        email: email,
-            //    });
-            //    if (response.status === 200) {
+            try {
+                const response = await axios.post('', {
+                    email: email,
+                });
+                if (response.status === 200) {
                     // If the email was sent successfully
-            //      }
-            //} catch (error) {
-            //    console.error('Email send failed:', error);
-            //}
-            //navigate('/resetpassword')
+                    alert('Email Sent Successfully')
+                  }
+            } catch (error) {
+                console.error('Email send failed:', error);
+            }
     }
     return (
     <section className='w-full h-fit bg-[#0F1117]'>

@@ -8,7 +8,7 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         //e.preventDefault();
         if (!validator.isEmail(email)) {
             alert("Invalid Email")
@@ -16,19 +16,20 @@ const ForgotPassword = () => {
         }
         else{
             //Send Email
-            //try {
-            //    const response = await axios.post('', {
-            //        email: email,
-            //    });
-            //    if (response.status === 200) {
+            try {
+            const response = await axios.post('/api/auth/ResetPassword', {
+                    email: email,
+            });
+                if (response.status === 200) {
                     // If the email was sent successfully, navigate
-                    //navigate('/thankyoupassword');
-                    navigate('/resetpassword')
-            //      }
-            //} catch (error) {
-            //    console.error('Email send failed:', error);
-            //}
-            //navigate('/resetpassword')
+                    alert('Email Sent Successfully')
+                    navigate('/thankyoupassword');
+                    //navigate('/resetpassword')
+                  }
+            } catch (error) {
+                console.error('Email send failed:', error);
+                alert('Email send failed:', error);
+            }
         }
         
     }

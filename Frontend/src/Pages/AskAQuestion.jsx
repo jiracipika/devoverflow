@@ -3,8 +3,7 @@ import TextEditor from '../Components/TextEditor'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaX } from 'react-icons/fa6'
-
-
+import axios from '../utils/axios'
 
 const AskAQuestion = () => {
 
@@ -46,7 +45,7 @@ const AskAQuestion = () => {
     
   }
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = async (e) =>{
     e.preventDefault();
     
     // Check if title is empty
@@ -75,6 +74,16 @@ const AskAQuestion = () => {
 
     console.log(data)
     // Here you would typically make an API call to submit the form
+
+    try {
+      const response = await axios.post('', { 
+        data
+      });
+      toast("Question Posted")
+    } catch (error) {
+      toast.error("Question Posted Failed");
+    }
+    
   }
 
   const getEditorData = (data) =>{
