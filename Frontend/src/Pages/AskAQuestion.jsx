@@ -73,10 +73,11 @@ const AskAQuestion = () => {
     }
 
     console.log(data)
+    
     // Here you would typically make an API call to submit the form
 
     try {
-      const response = await axios.post('', { 
+      const response = await axios.post('api/AskAQuestion', { 
         data
       });
       toast("Question Posted")
