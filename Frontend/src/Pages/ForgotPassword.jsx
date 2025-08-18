@@ -8,24 +8,26 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
-        //e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         if (!validator.isEmail(email)) {
             alert("Invalid Email")
             return;
         }
         else{
+            console.log("Sending Email....")
             //Send Email
             try {
-            const response = await axios.post('/api/auth/ResetPassword', {
-                    email: email,
+                const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
+                    from: "defoverflow@gmail.com",
+                    to: email,
+                    subject: "Reset Password Link",
+                    message: "Here's Link to Reset Password Here"
             });
-                if (response.status === 200) {
-                    // If the email was sent successfully, navigate
-                    alert('Email Sent Successfully')
-                    navigate('/thankyoupassword');
-                    //navigate('/resetpassword')
-                  }
+                // If the email was sent successfully, navigate
+                alert('Email Sent Successfully')
+                navigate('/thankyoupassword');
+
             } catch (error) {
                 console.error('Email send failed:', error);
                 alert('Email send failed:', error);

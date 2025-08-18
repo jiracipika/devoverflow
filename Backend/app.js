@@ -10,6 +10,7 @@ const userRoutes = require('./routes/userRoutes');
 const communityRoutes = require('./routes/communityRoutes');
 const questionRoutes = require('./routes/questionRoutes');
 const cors = require('cors');
+const nodemailer = require("nodemailer");
 
 const app = express();
 
@@ -22,6 +23,30 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
   credentials: true, // Allow credentials if necessary
 }))
+
+//nodemailer for reset password
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    username: "mygmail@gmail.com",
+    password: "password" 
+  }
+});
+
+app.post("/api/send", (req, res) => {
+  const mailOptions = {
+    from: req.body.from,
+    to: req.body.to,
+    subject: req.body.subject,
+    html: req.body.message
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+     if(error){
+       return res.status(500).send(error);
+     }
+     res.status(200).send("Email sent successfully");
+  });
+});
 
 // database connection
 mongoose.connect(process.env.MONGO_URI)

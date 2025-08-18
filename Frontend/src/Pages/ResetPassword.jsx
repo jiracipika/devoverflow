@@ -18,7 +18,7 @@ const ResetPassword = () => {
         else{
             //Do the Api Call here
             try {
-                const response = await axios.put('', {
+                const response = await axios.put('https://jsonplaceholder.typicode.com/posts/1', {
                     NewPassword: NewPassword,
                 });
         

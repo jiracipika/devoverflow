@@ -76,14 +76,17 @@ const AskAQuestion = () => {
     
     // Here you would typically make an API call to submit the form
 
-    try {
-      const response = await axios.post('api/AskAQuestion', { 
-        data
+    await axios.post('https://jsonplaceholder.typicode.com/posts', {
+      data
+    })
+      .then(response => {
+        toast("Question Posted")
+        console.log(response.data);
+      })
+      .catch(error => {
+        toast.error("Question Posted Failed")
+        console.error(error);
       });
-      toast("Question Posted")
-    } catch (error) {
-      toast.error("Question Posted Failed");
-    }
     
   }
 

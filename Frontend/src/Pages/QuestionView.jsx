@@ -80,7 +80,15 @@ const QuestionView = () => {
     setArticle(updatedArticle);
 
     // In a real app, you would make an API call here
-    // await api.postComment(article.id, commentText)
+    await axios.post('https://jsonplaceholder.typicode.com/posts', {
+      newComment
+    })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   if (isLoading) {
