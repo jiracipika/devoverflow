@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from '../utils/axios'
 import articles from '../assets/FakeData.js'
 import Tag from '../Components/Tag.jsx'
 import { Link, useParams } from 'react-router-dom'
@@ -11,6 +12,7 @@ const QuestionView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [showCommentForm, setShowCommentForm] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [hasLiked, setHasLiked] = useState(false);
   let params = useParams();
 
@@ -91,6 +93,30 @@ const QuestionView = () => {
       });
   };
 
+  const handleShare = async () => {
+    const shareData = {
+      title: article?.title || 'Check out this question',
+      text: article?.content?.substring(0, 100) + '...' || 'Interesting question I found',
+      url: window.location.href
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        // Fallback: Copy link to clipboard
+        await navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard!');
+      }
+    } catch (err) {
+      console.error('Error sharing:', err);
+      // If clipboard API fails, show a prompt with the link
+      if (err.name !== 'AbortError') {
+        prompt('Copy this link:', window.location.href);
+      }
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-[#0A0B10] to-black">
@@ -147,7 +173,7 @@ const QuestionView = () => {
 
         <div className='flex items-center gap-2 justify-self-end text-sm text-gray-400'>
           <p>Asked By</p>
-          <p>{article.author}</p>
+          <Link to={`/user/${article.author}`} className="text-white font-semibold text-sm sm:text-base hover:underline">{article.author}</Link>
         </div>
       </div>
 
@@ -172,8 +198,7 @@ const QuestionView = () => {
                   </div>
                 </div>
                 <div className='flex gap-2'>
-                  <button className='text-sm text-blue-400 hover:text-blue-500 transition-colors'>Share</button>
-                  <button className='text-sm text-blue-400 hover:text-blue-500 transition-colors'>Follow</button>
+                  <button onClick={handleShare} className='text-sm text-blue-400 hover:text-blue-500 transition-colors'>Share</button>
                 </div>
               </div>
               <div className='prose prose-sm prose-invert max-w-none'>

@@ -18,8 +18,10 @@ const Navbar = () => {
 
   const handleLogOut = async (e) => {
     e.preventDefault()
+    
+    
     try {
-          const response = await axios.post('', { 
+          const response = await axios.post('https://jsonplaceholder.typicode.com/posts', { 
             
           });
           console.log("User logged out successfully")

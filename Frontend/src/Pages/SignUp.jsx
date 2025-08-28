@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 import validator from "validator"
 import axios from 'axios'
 
@@ -8,15 +9,19 @@ const signUp = () => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [strength, setStrength] = useState("");
-    const [confirmPass, setConfirmPass] = useState('')
+    const [confirmPass, setConfirmPass] = useState('');
     const [name, setName] = useState('');
+
+    let navigate = useNavigate();
 
     const confirmName = () => {
         if (name == "") {
+            alert("Please enter your name");
             console.log("Please enter your name");
             return false
         }
         else if (name.length < 3) {
+            alert("Name is too short");
             console.log("Name is too short");
             return false
         }
@@ -97,7 +102,8 @@ const signUp = () => {
         }
     
         try {
-            const response = axios.post('https://6ecc-72-138-28-18.ngrok-free.app/api/auth/register', {
+            //https://6ecc-72-138-28-18.ngrok-free.app/api/auth/register
+            const response = axios.post('https://jsonplaceholder.typicode.com/posts', {
                 name: name,
                 email: email,
                 password: pass,
@@ -105,6 +111,8 @@ const signUp = () => {
     
             console.log('Registration successful:', response.data);
             alert('Registration successful!');
+            navigate('/');
+            
         } catch (error) {
             console.error('Error during registration:', error.response ? error.response.data : error.message);
             alert('Registration failed. Please try again.');
@@ -133,7 +141,13 @@ const signUp = () => {
                         <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
                             <input value={pass} onChange={(e) => {setPass(e.target.value); setStrength(evaluatePasswordStrength(e.target.value))}} type="password" placeholder="Password" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
                         </div>
-                        <small className='text-[#858EAD]'>Password Strength: {strength}</small>
+                        <small className={`${
+                            strength === 'Weak' ? 'text-red-500' : 
+                            strength === 'Medium' ? 'text-yellow-500' : 
+                            strength === 'Strong' ? 'text-green-500' : 'text-[#858EAD]'
+                        }`}>
+                            Password Strength: {strength}
+                        </small>
                         <div className='bg-[#212734] flex items-center mx-0 my-[15px] rounded-[3px]'>
                             <input value={confirmPass} onChange={(e) => setConfirmPass(e.target.value)} type="password" placeholder="Confirm Password" className='bg-transparent text-[#858EAD] w-full px-[15px] py-[18px] border-0 outline-none placeholder-#858EAD'/>
                         </div>

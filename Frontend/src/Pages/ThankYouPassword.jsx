@@ -5,18 +5,22 @@ import axios from 'axios'
 const ThankYouPassword = () => {
 
     const resend = async () =>{
+        console.log("Sending Email....")
         //Send Email
-            try {
-                const response = await axios.post('', {
-                    email: email,
-                });
-                if (response.status === 200) {
-                    // If the email was sent successfully
-                    alert('Email Sent Successfully')
-                  }
-            } catch (error) {
-                console.error('Email send failed:', error);
-            }
+        try {
+            await axios.post('https://jsonplaceholder.typicode.com/posts', {
+                from: "defoverflow@gmail.com",
+                to: email,
+                subject: "Reset Password Link",
+                message: "Here's the link to reset password here"
+        });
+            // If the email was sent successfully, navigate
+            alert('Email Sent Successfully')
+
+        } catch (error) {
+            console.error('Email send failed:', error);
+            alert('Email send failed:', error);
+        }
     }
     return (
     <section className='w-full h-fit bg-[#0F1117]'>

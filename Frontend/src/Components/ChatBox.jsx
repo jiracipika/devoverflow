@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { useMessages } from '../context/MessageContext'
-import audio_call from '../assets/Images/telecommunication.png'
-import video_call from '../assets/Images/video.png'
 import add_friend from '../assets/Images/add-friend.png'
 import more_icon from '../assets/Images/more.png'
 import MessageBoxes from './MessageBoxes'
@@ -11,11 +9,36 @@ import { FaArrowLeft } from "react-icons/fa6";
 const ChatBox = ({ onToggleSidebar, showSidebar }) => {
   const { currentChat, chats, updateChats } = useMessages();
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false)
 
   const handleMoreClick = (e) => {
     e.stopPropagation();
     setShowMoreMenu(!showMoreMenu);
   };
+
+  const handleFollow = async () => {
+    if (!currentChat) {
+      alert('Please select a chat first');
+      return;
+    }
+    // Add your add friend logic here
+    try {
+      // Toggle follow state
+      const newFollowState = !isFollowing;
+      setIsFollowing(newFollowState);
+                
+      // Make API call to update follow status
+      await axios.put('https://jsonplaceholder.typicode.com/posts/1', {
+        status: newFollowState ? 'Followed' : 'Unfollowed'
+      });
+                
+      console.log(`User ${newFollowState ? 'followed' : 'unfollowed'} successfully`);
+      } catch (error) {
+        // Revert state on error
+        setIsFollowing(!isFollowing);
+        console.error('Error updating follow status:', error);
+      }
+  }
 
   const handleOptionClick = (option) => {
     setShowMoreMenu(false);
@@ -66,14 +89,7 @@ const ChatBox = ({ onToggleSidebar, showSidebar }) => {
             className='h-[24px] cursor-pointer hover:opacity-70 transition-opacity' 
             src={add_friend} 
             alt="Add Friend" 
-            onClick={() => {
-              if (!currentChat) {
-                alert('Please select a chat first');
-                return;
-              }
-              console.log('Add friend clicked for:', currentChat.name);
-              // Add your add friend logic here
-            }}
+            onClick={handleFollow}
           />
           <div className='relative'>
             <img 

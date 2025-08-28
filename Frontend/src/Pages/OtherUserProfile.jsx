@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import axios from '../utils/axios'
 import ProfileFilterTab from '../Components/ProfileFilterTab'
 import UserDataInfo from '../assets/UserData.js';
 import ExpandableCard from '../Components/ExpandableCard.jsx';
@@ -18,7 +19,6 @@ const OtherUserProfile = () => {
 
     useEffect(() => {
         const username = params.username;
-        console.log('Looking for username:', username);
         const data = UserDataInfo.find(x => x.Name === username);
         if (data) {
             setUserData(data);
@@ -56,19 +56,22 @@ const OtherUserProfile = () => {
 
     const handleFollow = async () => {
         try {
-            // Here you would typically make an API call to follow the user
-            // For now, we'll just toggle the state
-            setIsFollowing(!isFollowing);
+            // Toggle follow state
+            const newFollowState = !isFollowing;
+            setIsFollowing(newFollowState);
             
-            // In a real application, you would:
-            // 1. Make an API call to follow/unfollow the user
-            // 2. Update the UI based on the response
-            // 3. Handle any errors that might occur
+            // Make API call to update follow status
+            await axios.put('https://jsonplaceholder.typicode.com/posts/1', {
+                status: newFollowState ? 'Followed' : 'Unfollowed'
+            });
+            
+            console.log(`User ${newFollowState ? 'followed' : 'unfollowed'} successfully`);
         } catch (error) {
-            console.error('Error following user:', error);
-            // In a real app, you would show an error message to the user
+            // Revert state on error
+            setIsFollowing(!isFollowing);
+            console.error('Error updating follow status:', error);
         }
-    }
+    };
 
     const handleMessage = () => {
         if (userData && userData.Username) {

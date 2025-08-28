@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from '../utils/axios'
 import { useNavigate } from 'react-router-dom';
 
 const NotificationCard = ({ 
@@ -25,11 +26,15 @@ const NotificationCard = ({
         setClassForNotification(classOnTheBasisOfCategory[category] || "");
     }, [category]);
 
-    const handleAction = (accepted = false) => {
+    const handleAction = async (accepted = false) => {
         // If it's a friend request and accepted, you might want to handle the acceptance logic here
         if (friendRequest && accepted) {
             console.log("Friend request accepted for:", title);
             // Add friend logic would go here
+            await axios.put('https://jsonplaceholder.typicode.com/posts/1', {
+                status: accepted ? 'accepted' : 'declined'
+            })
+            
         }
         
         // Call the onRemove callback with the notification id

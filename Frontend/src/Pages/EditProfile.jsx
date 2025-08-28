@@ -4,6 +4,7 @@ import AvatarPic from '../Components/AvatarPic';
 import axios from 'axios';
 
 const EditProfile = () => {
+    const [isSuccessful, setisSuccessful] = useState(false)
     const [name, setName] = useState("")
     const [username, setUserName] = useState ("")
     const [bio, setBio] = useState("")
@@ -14,8 +15,10 @@ const EditProfile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         updateInfo();
-        console.log("Updated Profile:", { name, bio });
-        navigate('/profile'); 
+        console.log("Updated Profile:", { name, bio, image });
+        if (isSuccessful == true) {
+            navigate('/profile'); 
+        }
     }
 
     const handleImageChange = (e) => {
@@ -31,12 +34,14 @@ const EditProfile = () => {
             alert("Empty Input");
             return
         }
-
+        //https://58ea-72-138-28-18.ngrok-free.app/api/user/editProfile
         try {
-            const response = axios.put('https://58ea-72-138-28-18.ngrok-free.app/api/user/editProfile', {name: name, bio: bio});
+            const response = axios.put('https://jsonplaceholder.typicode.com/posts/1', {name: name, bio: bio, image: image});
 
             console.log('Edit Success', response.data);
             alert('Editing Success');
+            setisSuccessful(!isSuccessful)
+            console.log(isSuccessful)
         } catch (error) {
             console.error('Error during editing:', error.response ? error.response.data : error.message);
             alert('Editing failed. Please try again.');
