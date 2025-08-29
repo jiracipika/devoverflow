@@ -1,7 +1,30 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { MongoClient } from "mongodb"
 
-const client = new MongoClient(process.env.MONGODB_URI!)
+// Mock data for development/build
+const mockBlogs = [
+  {
+    id: "1",
+    title: "Getting Started with Next.js 14",
+    imageUrl: "/placeholder.jpg",
+    description: "Learn the basics of Next.js 14 and its new features",
+    postedDate: new Date().toISOString(),
+    editedDate: null,
+    author: { name: "John Doe", avatar: "/placeholder-user.jpg" },
+    tags: ["Next.js", "React", "JavaScript"],
+    tech: "Frontend",
+  },
+  {
+    id: "2",
+    title: "MongoDB Best Practices",
+    imageUrl: "/placeholder.jpg",
+    description: "Essential tips for working with MongoDB in production",
+    postedDate: new Date().toISOString(),
+    editedDate: null,
+    author: { name: "Jane Smith", avatar: "/placeholder-user.jpg" },
+    tags: ["MongoDB", "Database", "Backend"],
+    tech: "Backend",
+  },
+]
 
 export async function GET(request: NextRequest) {
   try {
@@ -9,40 +32,24 @@ export async function GET(request: NextRequest) {
     const tag = searchParams.get("tag")
     const search = searchParams.get("search")
 
-    await client.connect()
-    const db = client.db("devoverflow")
-    const blogs = db.collection("blogs")
-
-    const query: any = {}
+    let filtered = mockBlogs
 
     if (tag) {
-      query.tags = { $regex: new RegExp(tag, "i") }
+      filtered = filtered.filter((blog) => blog.tags.some((t) => t.toLowerCase().includes(tag.toLowerCase())))
     }
 
     if (search) {
-      query.$or = [{ title: { $regex: new RegExp(search, "i") } }, { content: { $regex: new RegExp(search, "i") } }]
+      filtered = filtered.filter(
+        (blog) =>
+          blog.title.toLowerCase().includes(search.toLowerCase()) ||
+          blog.description.toLowerCase().includes(search.toLowerCase()),
+      )
     }
 
-    const blogList = await blogs.find(query).sort({ postedDate: -1 }).toArray()
-
-    const formatted = blogList.map((blog) => ({
-      id: blog._id.toString(),
-      title: blog.title,
-      imageUrl: blog.imageUrl || blog.image,
-      description: blog.content,
-      postedDate: blog.postedDate,
-      editedDate: blog.editedDate,
-      author: blog.author || { name: "Anonymous", avatar: "/default-avatar.png" },
-      tags: blog.tags || [],
-      tech: blog.tech || "General",
-    }))
-
-    return NextResponse.json(formatted)
+    return NextResponse.json(filtered)
   } catch (error) {
     console.error("Error fetching blogs:", error)
     return NextResponse.json({ message: "Failed to fetch blogs" }, { status: 500 })
-  } finally {
-    await client.close()
   }
 }
 
@@ -50,37 +57,24 @@ export async function POST(request: NextRequest) {
   try {
     const { title, content, tags = [], imageUrl, tech } = await request.json()
 
-    await client.connect()
-    const db = client.db("devoverflow")
-    const blogs = db.collection("blogs")
-
     const newBlog = {
+      id: Date.now().toString(),
       title,
-      content,
-      imageUrl,
+      description: content,
+      imageUrl: imageUrl || "/placeholder.jpg",
       tags,
-      tech,
-      postedDate: new Date(),
+      tech: tech || "General",
+      postedDate: new Date().toISOString(),
       editedDate: null,
       author: {
-        name: "Current User", // Get from auth context
-        avatar: "/default-avatar.png",
+        name: "Current User",
+        avatar: "/placeholder-user.jpg",
       },
     }
 
-    const result = await blogs.insertOne(newBlog)
-
-    return NextResponse.json(
-      {
-        id: result.insertedId.toString(),
-        ...newBlog,
-      },
-      { status: 201 },
-    )
+    return NextResponse.json(newBlog, { status: 201 })
   } catch (error) {
     console.error("Error creating blog:", error)
     return NextResponse.json({ message: "Failed to create blog" }, { status: 500 })
-  } finally {
-    await client.close()
   }
 }

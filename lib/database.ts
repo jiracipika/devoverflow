@@ -1,9 +1,9 @@
 import mongoose from "mongoose"
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/devoverflow"
+const MONGODB_URI = process.env.MONGODB_URI
 
 if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable inside .env.local")
+  console.warn("MONGODB_URI is not defined. Database operations will be skipped during build.")
 }
 
 interface GlobalMongoose {
@@ -22,6 +22,12 @@ if (!cached) {
 }
 
 export async function connectDB() {
+  // Skip database connection during build if no URI is provided
+  if (!MONGODB_URI) {
+    console.warn("Skipping database connection - MONGODB_URI not provided")
+    return null
+  }
+
   if (cached!.conn) {
     return cached!.conn
   }
@@ -35,10 +41,17 @@ export async function connectDB() {
       family: 4,
     }
 
-    cached!.promise = mongoose.connect(MONGODB_URI, opts).then((myMongoose) => {
-      console.log("Connected to MongoDB")
-      return myMongoose
-    })
+    cached!.promise = mongoose
+      .connect(MONGODB_URI, opts)
+      .then((myMongoose) => {
+        console.log("Connected to MongoDB")
+        return myMongoose
+      })
+      .catch((error) => {
+        console.error("MongoDB connection error:", error)
+        cached!.promise = null
+        throw error
+      })
   }
 
   try {

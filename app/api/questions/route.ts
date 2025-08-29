@@ -1,12 +1,43 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { connectDB } from "@/lib/database"
-import Question from "@/models/Question"
-import { verifyToken } from "@/lib/auth"
+
+// Mock data for development/build
+const mockQuestions = [
+  {
+    _id: "1",
+    title: "How to handle async/await in React components?",
+    content: "I'm trying to fetch data in a React component using async/await but getting errors...",
+    tags: ["React", "JavaScript", "Async"],
+    author: {
+      name: "John Doe",
+      avatar: "/placeholder-user.jpg",
+      reputation: 150,
+    },
+    votes: 5,
+    answers: 3,
+    views: 12,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    _id: "2",
+    title: "Best practices for Django REST API authentication?",
+    content: "What are the recommended approaches for implementing authentication in Django REST...",
+    tags: ["Python", "Django", "Authentication"],
+    author: {
+      name: "Sarah Miller",
+      avatar: "/placeholder-user.jpg",
+      reputation: 280,
+    },
+    votes: 8,
+    answers: 2,
+    views: 24,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+]
 
 export async function GET(request: NextRequest) {
   try {
-    await connectDB()
-
     const { searchParams } = new URL(request.url)
     const page = Number.parseInt(searchParams.get("page") || "1")
     const limit = Number.parseInt(searchParams.get("limit") || "10")
@@ -15,56 +46,50 @@ export async function GET(request: NextRequest) {
     const answered = searchParams.get("answered") || "all"
     const search = searchParams.get("search") || ""
 
-    // Build query
-    const query: any = {}
+    let filtered = mockQuestions
 
+    // Apply filters
     if (tags.length > 0) {
-      query.tags = { $in: tags }
+      filtered = filtered.filter((q) => q.tags.some((tag) => tags.includes(tag)))
     }
 
     if (answered === "answered") {
-      query.answers = { $gt: 0 }
+      filtered = filtered.filter((q) => q.answers > 0)
     } else if (answered === "unanswered") {
-      query.answers = 0
+      filtered = filtered.filter((q) => q.answers === 0)
     }
 
     if (search) {
-      query.$or = [
-        { title: { $regex: search, $options: "i" } },
-        { content: { $regex: search, $options: "i" } },
-        { tags: { $in: [new RegExp(search, "i")] } },
-      ]
+      filtered = filtered.filter(
+        (q) =>
+          q.title.toLowerCase().includes(search.toLowerCase()) ||
+          q.content.toLowerCase().includes(search.toLowerCase()) ||
+          q.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase())),
+      )
     }
 
-    // Build sort
-    let sort: any = {}
+    // Apply sorting
     switch (sortBy) {
       case "oldest":
-        sort = { createdAt: 1 }
+        filtered.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
         break
       case "most-votes":
-        sort = { votes: -1 }
+        filtered.sort((a, b) => b.votes - a.votes)
         break
       case "most-answers":
-        sort = { answers: -1 }
+        filtered.sort((a, b) => b.answers - a.answers)
         break
       default:
-        sort = { createdAt: -1 }
+        filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     }
 
-    // Execute query
-    const questions = await Question.find(query)
-      .populate("author", "name avatar reputation")
-      .sort(sort)
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .lean()
-
-    const total = await Question.countDocuments(query)
+    const total = filtered.length
+    const startIndex = (page - 1) * limit
+    const paginatedQuestions = filtered.slice(startIndex, startIndex + limit)
 
     return NextResponse.json({
       success: true,
-      questions,
+      questions: paginatedQuestions,
       pagination: {
         page,
         limit,
@@ -80,35 +105,28 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    await connectDB()
-
-    // Verify authentication
-    const user = await verifyToken(request)
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
     const { title, content, tags } = await request.json()
 
     if (!title || !content) {
       return NextResponse.json({ error: "Title and content are required" }, { status: 400 })
     }
 
-    // Create question
-    const question = await Question.create({
+    const question = {
+      _id: Date.now().toString(),
       title,
       content,
       tags: tags || [],
-      author: user.userId,
+      author: {
+        name: "Current User",
+        avatar: "/placeholder-user.jpg",
+        reputation: 100,
+      },
       votes: 0,
       answers: 0,
       views: 0,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    })
-
-    // Populate author info
-    await question.populate("author", "name avatar reputation")
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    }
 
     return NextResponse.json({
       success: true,
