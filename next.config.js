@@ -1,12 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-    API_URL: process.env.API_URL,
-  },
-  images: {
-    domains: ["images.unsplash.com", "blob.v0.dev"],
-    unoptimized: true,
+  experimental: {
+    appDir: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -14,13 +9,17 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: `${process.env.API_URL || "http://localhost:5173/api"}/:path*`,
-      },
-    ]
+  images: {
+    domains: ["localhost", "res.cloudinary.com"],
+    unoptimized: true,
+  },
+  env: {
+    MONGODB_URI: process.env.MONGODB_URI,
+    JWT_SECRET: process.env.JWT_SECRET,
+    JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
   },
 }
 

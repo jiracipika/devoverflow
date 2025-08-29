@@ -2,14 +2,15 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { AuthProvider } from "@/components/providers/auth-provider"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "DevOverflow - Developer Community",
-  description: "A platform for developers to ask questions, share knowledge, and build community",
-    generator: 'v0.dev'
+  title: "DevOverflow - Developer Community Platform",
+  description: "A community-driven platform for developers to ask questions, share knowledge, and connect with peers.",
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
@@ -18,9 +19,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )
