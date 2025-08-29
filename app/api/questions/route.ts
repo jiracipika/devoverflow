@@ -8,47 +8,39 @@ export async function GET() {
     if (!connection) {
       // Return mock data during build
       return NextResponse.json({
+        success: true,
         questions: [
           {
-            id: "1",
+            id: 1,
             title: "How to implement authentication in Next.js 14?",
-            content: "I'm trying to understand the best practices for authentication in Next.js 14...",
-            author: {
-              id: "user1",
-              name: "John Developer",
-              avatar: null,
-              reputation: 1250,
-            },
+            content: "I'm trying to understand the best practices for SSR in the latest version of Next.js.",
+            author: "alex_dev",
             tags: ["nextjs", "authentication", "react"],
             votes: 15,
             answers: 3,
             views: 245,
             createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
           },
           {
-            id: "2",
+            id: 2,
             title: "TypeScript generic constraints with conditional types",
-            content: "I'm working with complex TypeScript generics and need help...",
-            author: {
-              id: "user2",
-              name: "TypeScript Guru",
-              avatar: null,
-              reputation: 2340,
-            },
+            content: "I'm working with complex TypeScript generics and need help understanding constraints.",
+            author: "typescript_guru",
             tags: ["typescript", "generics", "types"],
             votes: 23,
             answers: 5,
             views: 412,
             createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
           },
         ],
       })
     }
 
-    // In a real app, this would fetch from the database
-    return NextResponse.json({ questions: [] })
+    // In a real implementation, you would fetch from database here
+    return NextResponse.json({
+      success: true,
+      questions: [],
+    })
   } catch (error) {
     console.error("Questions API error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
@@ -60,7 +52,13 @@ export async function POST(request: Request) {
     const connection = await connectDB()
 
     if (!connection) {
-      return NextResponse.json({ error: "Database not available during build" }, { status: 503 })
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Database not available during build",
+        },
+        { status: 503 },
+      )
     }
 
     const { title, content, tags } = await request.json()
@@ -71,24 +69,21 @@ export async function POST(request: Request) {
 
     // Mock successful question creation
     const mockQuestion = {
-      id: "new-question-id",
+      id: Date.now(),
       title,
       content,
       tags: tags || [],
-      author: {
-        id: "mock-user-id",
-        name: "Mock User",
-        avatar: null,
-        reputation: 1,
-      },
+      author: "mock-user",
       votes: 0,
       answers: 0,
       views: 0,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
     }
 
-    return NextResponse.json({ question: mockQuestion }, { status: 201 })
+    return NextResponse.json({
+      success: true,
+      question: mockQuestion,
+    })
   } catch (error) {
     console.error("Create question error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
