@@ -12,7 +12,7 @@ if (!cached) {
   cached = (global as any).mongoose = { conn: null, promise: null }
 }
 
-export async function connectDB() {
+async function connectDB() {
   if (!MONGODB_URI) {
     return null
   }
@@ -40,3 +40,5 @@ export async function connectDB() {
 
   return cached.conn
 }
+
+export default connectDB
