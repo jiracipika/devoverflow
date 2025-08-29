@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
+import connectDB from "@/lib/database"
 
 // Mock question data for development/build
 const mockQuestions = [
@@ -58,53 +59,61 @@ const mockQuestions = [
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url)
-    const search = searchParams.get("search") || ""
-    const filter = searchParams.get("filter") || "newest"
-    const tag = searchParams.get("tag") || ""
+    const db = await connectDB()
 
-    let filteredQuestions = [...mockQuestions]
+    if (!db) {
+      // Return mock data when database is not available
+      const { searchParams } = new URL(request.url)
+      const search = searchParams.get("search") || ""
+      const filter = searchParams.get("filter") || "newest"
+      const tag = searchParams.get("tag") || ""
 
-    // Apply search filter
-    if (search) {
-      filteredQuestions = filteredQuestions.filter(
-        (question) =>
-          question.title.toLowerCase().includes(search.toLowerCase()) ||
-          question.content.toLowerCase().includes(search.toLowerCase()) ||
-          question.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase())),
-      )
+      let filteredQuestions = [...mockQuestions]
+
+      // Apply search filter
+      if (search) {
+        filteredQuestions = filteredQuestions.filter(
+          (question) =>
+            question.title.toLowerCase().includes(search.toLowerCase()) ||
+            question.content.toLowerCase().includes(search.toLowerCase()) ||
+            question.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase())),
+        )
+      }
+
+      // Apply tag filter
+      if (tag) {
+        filteredQuestions = filteredQuestions.filter((question) => question.tags.includes(tag.toLowerCase()))
+      }
+
+      // Apply sorting
+      switch (filter) {
+        case "oldest":
+          filteredQuestions.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+          break
+        case "votes":
+          filteredQuestions.sort((a, b) => b.votes - a.votes)
+          break
+        case "answers":
+          filteredQuestions.sort((a, b) => b.answers - a.answers)
+          break
+        case "unanswered":
+          filteredQuestions = filteredQuestions.filter((q) => !q.isAnswered)
+          break
+        case "newest":
+        default:
+          filteredQuestions.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+          break
+      }
+
+      return NextResponse.json({
+        success: true,
+        data: filteredQuestions,
+        total: filteredQuestions.length,
+      })
     }
 
-    // Apply tag filter
-    if (tag) {
-      filteredQuestions = filteredQuestions.filter((question) => question.tags.includes(tag.toLowerCase()))
-    }
-
-    // Apply sorting
-    switch (filter) {
-      case "oldest":
-        filteredQuestions.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-        break
-      case "votes":
-        filteredQuestions.sort((a, b) => b.votes - a.votes)
-        break
-      case "answers":
-        filteredQuestions.sort((a, b) => b.answers - a.answers)
-        break
-      case "unanswered":
-        filteredQuestions = filteredQuestions.filter((q) => !q.isAnswered)
-        break
-      case "newest":
-      default:
-        filteredQuestions.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        break
-    }
-
-    return NextResponse.json({
-      success: true,
-      data: filteredQuestions,
-      total: filteredQuestions.length,
-    })
+    // Database operations would go here
+    return NextResponse.json({ questions: [] })
   } catch (error) {
     console.error("Error fetching questions:", error)
     return NextResponse.json({ success: false, error: "Failed to fetch questions" }, { status: 500 })

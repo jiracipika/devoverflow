@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Input } from "@/components/ui/input"
@@ -205,10 +205,8 @@ export default function HomePage() {
           <aside className="lg:w-80 space-y-6">
             {/* Popular Tags */}
             <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Popular Tags</CardTitle>
-              </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold mb-4">Popular Tags</h3>
                 <div className="space-y-2">
                   {[
                     { name: "javascript", count: "2.1M" },
@@ -228,10 +226,8 @@ export default function HomePage() {
 
             {/* Community Stats */}
             <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Community Stats</CardTitle>
-              </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold mb-4">Community Stats</h3>
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Questions</span>
@@ -255,10 +251,8 @@ export default function HomePage() {
 
             {/* Top Contributors */}
             <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Top Contributors</CardTitle>
-              </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold mb-4">Top Contributors</h3>
                 <div className="space-y-3">
                   {[
                     { name: "john_dev", reputation: "125k", avatar: "J" },
