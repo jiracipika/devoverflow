@@ -71,7 +71,6 @@
     "less": "latest",
     "lightningcss": "latest",
     "lucide-react": "^0.454.0",
-    "mongodb": "^6.0.0",
     "mongoose": "latest",
     "next": "14.2.16",
     "next-themes": "latest",
