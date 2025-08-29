@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Users, MessageSquare, Award } from "lucide-react"
+import { ArrowRight, Code, Users, MessageSquare, Trophy } from "lucide-react"
 
 export default function LandingPage() {
   return (
@@ -15,26 +15,16 @@ export default function LandingPage() {
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600"></div>
               <span className="text-xl font-bold">DevOverflow</span>
             </div>
-
-            <nav className="hidden md:flex items-center space-x-6">
-              <Link href="#features" className="text-sm font-medium hover:text-blue-600">
-                Features
+            <div className="flex items-center space-x-4">
+              <Link href="/home">
+                <Button variant="ghost">Browse Questions</Button>
               </Link>
-              <Link href="#community" className="text-sm font-medium hover:text-blue-600">
-                Community
+              <Link href="/auth/login">
+                <Button variant="outline">Log in</Button>
               </Link>
-              <Link href="#about" className="text-sm font-medium hover:text-blue-600">
-                About
+              <Link href="/auth/register">
+                <Button>Sign up</Button>
               </Link>
-            </nav>
-
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/auth/signin">Log in</Link>
-              </Button>
-              <Button size="sm" asChild>
-                <Link href="/auth/signup">Sign up</Link>
-              </Button>
             </div>
           </div>
         </div>
@@ -43,118 +33,80 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto text-center">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Every Developer Has Questions
-            </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-              Join millions of developers sharing knowledge, solving problems, and building the future together.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700" asChild>
-                <Link href="/home">
-                  Get Started <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+          <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Where Developers Learn, Share & Build the Future
+          </h1>
+          <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto">
+            Join millions of developers asking questions, sharing knowledge, and building their careers on the world's
+            largest developer community.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/home">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+                Start Exploring <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/questions">Browse Questions</Link>
+            </Link>
+            <Link href="/auth/register">
+              <Button size="lg" variant="outline">
+                Join the Community
               </Button>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4 bg-white dark:bg-slate-900">
+      <section className="py-16 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose DevOverflow?</h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-              Built by developers, for developers. Get the help you need and help others grow.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Choose DevOverflow?</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Card className="text-center">
               <CardHeader>
-                <div className="mx-auto mb-4 h-12 w-12 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
-                  <MessageSquare className="h-6 w-6 text-blue-600" />
-                </div>
-                <CardTitle>Ask & Answer</CardTitle>
-                <CardDescription>
-                  Get help with your coding problems and share your expertise with the community.
-                </CardDescription>
+                <Code className="h-12 w-12 mx-auto text-blue-600 mb-4" />
+                <CardTitle>Expert Answers</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription>Get answers from experienced developers and industry experts</CardDescription>
+              </CardContent>
             </Card>
 
             <Card className="text-center">
               <CardHeader>
-                <div className="mx-auto mb-4 h-12 w-12 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center">
-                  <Users className="h-6 w-6 text-green-600" />
-                </div>
-                <CardTitle>Build Your Network</CardTitle>
-                <CardDescription>
-                  Connect with developers worldwide and build meaningful professional relationships.
-                </CardDescription>
+                <Users className="h-12 w-12 mx-auto text-green-600 mb-4" />
+                <CardTitle>Active Community</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription>Join millions of developers sharing knowledge and helping each other</CardDescription>
+              </CardContent>
             </Card>
 
             <Card className="text-center">
               <CardHeader>
-                <div className="mx-auto mb-4 h-12 w-12 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
-                  <Award className="h-6 w-6 text-purple-600" />
-                </div>
-                <CardTitle>Earn Recognition</CardTitle>
-                <CardDescription>
-                  Build your reputation by providing quality answers and helping fellow developers.
-                </CardDescription>
+                <MessageSquare className="h-12 w-12 mx-auto text-purple-600 mb-4" />
+                <CardTitle>Quality Discussions</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription>Engage in meaningful discussions about the latest technologies</CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center">
+              <CardHeader>
+                <Trophy className="h-12 w-12 mx-auto text-orange-600 mb-4" />
+                <CardTitle>Build Reputation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription>Earn reputation points and badges by contributing to the community</CardDescription>
+              </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Community Stats */}
-      <section id="community" className="py-20 px-4">
+      {/* Popular Topics */}
+      <section className="py-16 px-4 bg-white dark:bg-slate-800">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Join Our Growing Community</h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300">
-              Thousands of developers are already part of our community
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold text-blue-600 mb-2">50K+</div>
-              <div className="text-slate-600 dark:text-slate-300">Questions Asked</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-green-600 mb-2">75K+</div>
-              <div className="text-slate-600 dark:text-slate-300">Answers Provided</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-purple-600 mb-2">25K+</div>
-              <div className="text-slate-600 dark:text-slate-300">Active Users</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold text-orange-600 mb-2">500+</div>
-              <div className="text-slate-600 dark:text-slate-300">Technologies</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Tags */}
-      <section className="py-20 px-4 bg-white dark:bg-slate-900">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Popular Technologies</h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300">
-              Find questions and answers about the technologies you use
-            </p>
-          </div>
-
+          <h2 className="text-3xl font-bold text-center mb-12">Popular Topics</h2>
           <div className="flex flex-wrap justify-center gap-3">
             {[
               "JavaScript",
@@ -166,16 +118,16 @@ export default function LandingPage() {
               "C++",
               "Go",
               "Rust",
-              "PHP",
-              "Swift",
-              "Kotlin",
-              "Vue.js",
-              "Angular",
               "Docker",
               "Kubernetes",
-            ].map((tag) => (
-              <Badge key={tag} variant="secondary" className="text-sm py-2 px-4">
-                {tag}
+              "AWS",
+              "Machine Learning",
+              "Data Science",
+              "Web Development",
+              "Mobile Development",
+            ].map((topic) => (
+              <Badge key={topic} variant="secondary" className="text-sm py-2 px-4">
+                {topic}
               </Badge>
             ))}
           </div>
@@ -183,111 +135,111 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-600">
+      <section className="py-20 px-4">
         <div className="container mx-auto text-center">
-          <div className="max-w-2xl mx-auto text-white">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
-            <p className="text-xl mb-8 opacity-90">
-              Join thousands of developers who are already part of our community.
-            </p>
-            <Button size="lg" variant="secondary" asChild>
-              <Link href="/auth/signup">
-                Create Your Account <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+          <h2 className="text-3xl font-bold mb-6">Ready to Join the Community?</h2>
+          <p className="text-xl text-slate-600 dark:text-slate-300 mb-8">
+            Start asking questions, sharing knowledge, and building your developer network today.
+          </p>
+          <Link href="/auth/register">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+            >
+              Get Started for Free
             </Button>
-          </div>
+          </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12 px-4">
+      <footer className="border-t bg-white dark:bg-slate-900 py-12 px-4">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600"></div>
-                <span className="text-xl font-bold">DevOverflow</span>
+                <div className="h-6 w-6 rounded bg-gradient-to-br from-blue-600 to-purple-600"></div>
+                <span className="font-bold">DevOverflow</span>
               </div>
-              <p className="text-slate-400">
-                A community-driven platform for developers to share knowledge and grow together.
-              </p>
+              <p className="text-slate-600 dark:text-slate-300">The world's largest developer community platform.</p>
             </div>
-
             <div>
-              <h3 className="font-semibold mb-4">Product</h3>
-              <ul className="space-y-2 text-slate-400">
+              <h3 className="font-semibold mb-4">Community</h3>
+              <ul className="space-y-2 text-slate-600 dark:text-slate-300">
                 <li>
-                  <Link href="/questions" className="hover:text-white">
+                  <Link href="/questions" className="hover:text-blue-600">
                     Questions
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tags" className="hover:text-white">
+                  <Link href="/tags" className="hover:text-blue-600">
                     Tags
                   </Link>
                 </li>
                 <li>
-                  <Link href="/users" className="hover:text-white">
+                  <Link href="/users" className="hover:text-blue-600">
                     Users
                   </Link>
                 </li>
                 <li>
-                  <Link href="/companies" className="hover:text-white">
+                  <Link href="/companies" className="hover:text-blue-600">
                     Companies
                   </Link>
                 </li>
               </ul>
             </div>
-
             <div>
-              <h3 className="font-semibold mb-4">Community</h3>
-              <ul className="space-y-2 text-slate-400">
+              <h3 className="font-semibold mb-4">Support</h3>
+              <ul className="space-y-2 text-slate-600 dark:text-slate-300">
                 <li>
-                  <Link href="/blog" className="hover:text-white">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/help" className="hover:text-white">
+                  <Link href="/help" className="hover:text-blue-600">
                     Help Center
                   </Link>
                 </li>
                 <li>
-                  <Link href="/guidelines" className="hover:text-white">
-                    Guidelines
+                  <Link href="/contact" className="hover:text-blue-600">
+                    Contact
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="hover:text-white">
-                    Contact
+                  <Link href="/privacy" className="hover:text-blue-600">
+                    Privacy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="hover:text-blue-600">
+                    Terms
                   </Link>
                 </li>
               </ul>
             </div>
-
             <div>
-              <h3 className="font-semibold mb-4">Legal</h3>
-              <ul className="space-y-2 text-slate-400">
+              <h3 className="font-semibold mb-4">Company</h3>
+              <ul className="space-y-2 text-slate-600 dark:text-slate-300">
                 <li>
-                  <Link href="/privacy" className="hover:text-white">
-                    Privacy Policy
+                  <Link href="/about" className="hover:text-blue-600">
+                    About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms" className="hover:text-white">
-                    Terms of Service
+                  <Link href="/careers" className="hover:text-blue-600">
+                    Careers
                   </Link>
                 </li>
                 <li>
-                  <Link href="/cookies" className="hover:text-white">
-                    Cookie Policy
+                  <Link href="/blog" className="hover:text-blue-600">
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/press" className="hover:text-blue-600">
+                    Press
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
-
-          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400">
+          <div className="border-t mt-8 pt-8 text-center text-slate-600 dark:text-slate-300">
             <p>&copy; 2024 DevOverflow. All rights reserved.</p>
           </div>
         </div>
