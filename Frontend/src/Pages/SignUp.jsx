@@ -94,7 +94,7 @@ const signUp = () => {
         }
     }
 
-    const registerClick = () => {
+    const registerClick = async () => {
 
         if (confirmName() == false || validateEmail() == false || confirmPasswords() == false) {
             console.log("Form validation Failed");
@@ -103,7 +103,7 @@ const signUp = () => {
     
         try {
             //https://6ecc-72-138-28-18.ngrok-free.app/api/auth/register
-            const response = axios.post('https://jsonplaceholder.typicode.com/posts', {
+            const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
                 name: name,
                 email: email,
                 password: pass,

@@ -3,6 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser')
+const sendEmail = require("./util/sendEmail")
 
 const blogRoutes = require('./routes/blogRoutes');
 const tagRoutes = require('./routes/tagRoutes');
@@ -10,12 +12,12 @@ const userRoutes = require('./routes/userRoutes');
 const communityRoutes = require('./routes/communityRoutes');
 const questionRoutes = require('./routes/questionRoutes');
 const cors = require('cors');
-const nodemailer = require("nodemailer");
 
 const app = express();
 
 // setting CORS
 app.use(express.json());
+app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(cors({
   origin: 'http://localhost:5173', // Allow all origins, or specify domains
@@ -24,29 +26,31 @@ app.use(cors({
   credentials: true, // Allow credentials if necessary
 }))
 
-//nodemailer for reset password
-const transporter = nodemailer.createTransport({
-  service: "Gmail",
-  auth: {
-    username: "mygmail@gmail.com",
-    password: "password" 
-  }
-});
+// Nodemailer Route
+app.get("/", (req, res) => {
+  res.send("Home Page");
+})
 
-app.post("/api/send", (req, res) => {
-  const mailOptions = {
-    from: req.body.from,
-    to: req.body.to,
-    subject: req.body.subject,
-    html: req.body.message
-  };
-  transporter.sendMail(mailOptions, (error, info) => {
-     if(error){
-       return res.status(500).send(error);
-     }
-     res.status(200).send("Email sent successfully");
-  });
-});
+app.post("/api/sendemail", async (req, res) => {
+  const {email} = req.body;
+
+  try {
+    const send_To = email;
+    const sent_From = "daobrendan7@gmail.com";
+    const reply_To = email;
+    const subject = "Thank You Message"
+    const message = `
+      <h3>Reset Password</h3>
+      <p>Here is a link to reset your password, note this expires in an hour</p>
+      <p>Regards...</p>
+    `
+
+    await sendEmail(subject, message, send_To, sent_From, reply_To);
+    res.status(200).json({success: true, message: "Email Sent!"})
+  } catch (error) {
+    res.status(500).json(error.message)
+  }
+})
 
 // database connection
 mongoose.connect(process.env.MONGO_URI)
