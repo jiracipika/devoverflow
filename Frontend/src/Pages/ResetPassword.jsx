@@ -1,32 +1,50 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios'
 
 const ResetPassword = () => {
+
+    const [searchParams] = useSearchParams();
+    let navigate = useNavigate();
+    
 
     const [NewPassword, setNewPassword] = useState('');
     const [ConfirmPassword, setConfirmPassword] = useState('');
 
     const handleSubmit = async() => {
-        console.log(NewPassword)
-        console.log(ConfirmPassword)
+        console.log(`New Password: ${NewPassword}`)
+        console.log(`Confirm Password: ${ConfirmPassword}`)
         if (NewPassword === "" || ConfirmPassword === ""){
-            alert("Please Enter Passwords")
+            toast.error(`Please Enter Password`, {
+                autoClose: 3000
+            });
+            return
         }
         else if (NewPassword !== ConfirmPassword){
-            alert("Passwords do not match")
+            toast.error(`New Password and Confirm Password do not match!`, {
+                autoClose: 3000
+            });
         }
         else{
             //Do the Api Call here
-            try {
-                const response = await axios.put('https://jsonplaceholder.typicode.com/posts/1', {
-                    NewPassword: NewPassword,
+
+            const response = await axios.put('http://localhost:5173/api/auth/ResetPassword', {
+                NewPassword: NewPassword,
+                ConfirmPassword: ConfirmPassword
+            });
+
+            if (response.data.success === false) {
+                toast.error(response.data.message, {
+                    autoClose: 5000,
                 });
-        
-                console.log('Reset Password Success:', response.data);
-                alert('Reset Password Success!');
-            } catch (error) {
-                console.error('Error during password reset:', error.response ? error.response.data : error.message);
-                alert('Password Reset Failed. Please try again.');
+            } else {
+                toast.success(response.data.message, {
+                    autoClose: 5000
+                });
+                setTimeout(() => {
+                    navigate("/signin");
+                }, 2000);
             }
 
         }
@@ -34,6 +52,7 @@ const ResetPassword = () => {
 
     return (
         <section className='w-full h-fit bg-[#0F1117]'>
+            <ToastContainer />
             <section className='sign-in min-h-screen max-h-fit flex justify-center w-full p-6 flex-col items-center'>
                 <form className='bg-[#151821] w-[90%] h-4/5 flex flex-col gap-3 max-w-[450px] mt-5 pt-[50px] pb-[70px] px-[60px] rounded-[20px] left-2/4 top-2/4'>
                     <div className='flex justify-between items-center'>

@@ -32,9 +32,9 @@ const NotificationCard = ({
             console.log("Friend request accepted for:", title);
             // Add friend logic would go here
             await axios.put('https://jsonplaceholder.typicode.com/posts/1', {
+                title: title,
                 status: accepted ? 'accepted' : 'declined'
             })
-            
         }
         
         // Call the onRemove callback with the notification id

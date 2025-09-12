@@ -30,14 +30,14 @@ const profile = () => {
 
     return (
         <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-full lg:w-[calc(100%-330px)] p-6 flex-col'>
-            <AvatarPic />
             <div className='rounded-md bg-[#0A0B10] h-full rounded-[20px] flex flex-col p-6 mt-4'>
                 <div className='justify-between items-start mb-4 py-1'>
+                    <AvatarPic />
                     <h1 className='text-[white] text-4xl'>Dao</h1>
                     <h3 className='text-[white] text-sm'>@Daotama</h3>
                     <button className='bg-custom-gradient text-[white] font-bold py-2 px-4 rounded transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/30'><Link to="/editProfile">Edit Profile</Link></button>
                 </div>
-                <div className='mt-4 max-w-[600px]'>
+                <div className='mt-4 '>
                     <p className='text-[white] leading-relaxed'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 </div>
             </div>

@@ -1,25 +1,36 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import validator from "validator"
 import axios from 'axios'
 
 const ThankYouPassword = () => {
+    const [searchParams] = useSearchParams();
+    const email = searchParams.get('email');
 
-    const resend = async () =>{
-        console.log("Sending Email....")
-        //Send Email
-        try {
-            await axios.post('https://jsonplaceholder.typicode.com/posts', {
-                from: "defoverflow@gmail.com",
-                to: email,
-                subject: "Reset Password Link",
-                message: "Here's the link to reset password here"
-        });
-            // If the email was sent successfully, navigate
-            alert('Email Sent Successfully')
+    const resend = async (e) =>{
+        
+        e.preventDefault();
+        if (!validator.isEmail(email)) {
+            alert("Invalid Email")
+            return;
+        }
+        else{
+            console.log("Sending Email....")
+            //Send Email
+            try {
+                const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
+                    from: "defoverflow@gmail.com",
+                    to: email,
+                    subject: "Reset Password Link",
+                    message: "Here's Link to Reset Password Here"
+            });
+                // If the email was sent successfully, navigate
+                alert('Email Sent Successfully')
 
-        } catch (error) {
-            console.error('Email send failed:', error);
-            alert('Email send failed:', error);
+            } catch (error) {
+                console.error('Email send failed:', error);
+                alert('Email send failed:', error);
+            }
         }
     }
     return (

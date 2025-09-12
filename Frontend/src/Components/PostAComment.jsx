@@ -16,10 +16,11 @@ const PostAComment = ({ onCommentSubmit }) => {
         setError(null);
 
         try {
-            // Here you would typically make an API call to submit the comment
-            // For now, we'll just call the onCommentSubmit callback
+            // Here this calls the onCommentSubmit callback
+            console.log("Commencing Sending")
             await onCommentSubmit(commentText);
             setCommentText("");
+            console.log("Comment Posted Finished")
         } catch (err) {
             setError("Failed to post comment. Please try again.");
         } finally {

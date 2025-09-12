@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from '../utils/axios'
 import { Link } from 'react-router-dom'
 
 const FollowSuggestionCard = ({id, Name, Username, imgSrc}) => {
@@ -7,20 +8,22 @@ const FollowSuggestionCard = ({id, Name, Username, imgSrc}) => {
 
   const handleFollow = async () => {
     try {
-        // Here you would typically make an API call to follow the user
-        // For now, we'll just toggle the state
+    // Toggle follow state
+      const newFollowState = !isFollowing;
+      setIsFollowing(newFollowState);
+              
+      // Make API call to update follow status
+      await axios.put('https://jsonplaceholder.typicode.com/posts/1', {
+        status: newFollowState ? 'Followed' : 'Unfollowed'
+      });
+              
+      console.log(`User ${newFollowState ? 'followed' : 'unfollowed'} successfully`);
+      } catch (error) {
+        // Revert state on error
         setIsFollowing(!isFollowing);
-        
-        // In a real application, you would:
-        // 1. Make an API call to follow/unfollow the user
-        // 2. Update the UI based on the response
-        // 3. Handle any errors that might occur
-        
-    } catch (error) {
-        console.error('Error following user:', error);
-        // In a real app, you would show an error message to the user
+        console.error('Error updating follow status:', error);
     }
-}
+  };
 
   return (
     <>
@@ -28,8 +31,8 @@ const FollowSuggestionCard = ({id, Name, Username, imgSrc}) => {
             <div className='flex gap-3 items-center'>
                 <img className='w-14 h-14 rounded-full' src={imgSrc} alt="" />
                 <div className="">
-                <Link to={`/user/${Name}`}><h1 className="hover:text-purple-400 transition-colors">{Name}</h1></Link>
-                    <p>@{Username}</p>
+                <Link to={`/user/${Name}`}><h1 className="text-lg hover:text-purple-400 transition-colors">{Name}</h1></Link>
+                    <p className='text-sm'>@{Username}</p>
                 </div>
             </div>
             <button 

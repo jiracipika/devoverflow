@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios'
 import validator from "validator"
 
@@ -10,34 +11,46 @@ const ForgotPassword = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (email === "") {
+            toast.error(`Please Enter Email`, {
+                autoClose: 3000
+            });
+            return
+        }
         if (!validator.isEmail(email)) {
-            alert("Invalid Email")
+            toast.error(`Invalid Email`, {
+                autoClose: 3000
+            });
             return;
         }
+
         else{
             console.log("Sending Email....")
             //Send Email
-            try {
-                const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
-                    from: "defoverflow@gmail.com",
-                    to: email,
-                    subject: "Reset Password Link",
-                    message: "Here's Link to Reset Password Here"
+            // https://jsonplaceholder.typicode.com/posts
+            // http://localhost:5173/api/ForgotPassword
+            const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
+                email: email,
             });
-                // If the email was sent successfully, navigate
-                alert('Email Sent Successfully')
-                navigate('/thankyoupassword');
+            // If the email was sent successfully, navigate
+            if (response.data.success === false) {
+                toast.error(response.data.message, {
+                    autoClose: 5000,
+                });
+            } else {
+                alert("Email Sent");
+                navigate(`/thankyoupassword?email=${encodeURIComponent(email)}`);
 
-            } catch (error) {
-                console.error('Email send failed:', error);
-                alert('Email send failed:', error);
             }
+            
         }
         
     }
     
     return (
         <section className='w-full h-fit bg-[#0F1117]'>
+            <ToastContainer />
             <section className='sign-in min-h-screen max-h-fit flex justify-center w-full p-6 flex-col items-center'>
                 <form className='bg-[#151821] w-[90%] h-4/5 flex flex-col gap-3 max-w-[450px] mt-5 pt-[50px] pb-[70px] px-[60px] rounded-[20px] left-2/4 top-2/4'>
                     <div className='flex justify-between items-center'>
