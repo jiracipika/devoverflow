@@ -9,10 +9,13 @@ const MessageBoxes = () => {
     <div className='bg-[#ddddf7] h-[calc(100%_-_100px)] overflow-scroll p-[5px]' alt='messages'>
       {messages.map((message, index) => (
         <MessageBox 
-          key={index}
+          key={message.id || index}
           text={message.text}
           isSending={message.isSending}
           timestamp={message.timestamp}
+          type={message.type || 'text'}
+          file={message.file}
+          isLocal={message.isLocal}
         />
       ))}
     </div>

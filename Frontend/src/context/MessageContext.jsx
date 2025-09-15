@@ -11,7 +11,7 @@ export const MessageProvider = ({ children }) => {
     setMessages(prev => [...prev, message]);
   };
 
-  const addFile = async (file) => {
+  const addFile = async (file, tempMessageId = null) => {
     try {
       const reader = new FileReader();
       const fileData = await new Promise((resolve) => {
@@ -19,23 +19,51 @@ export const MessageProvider = ({ children }) => {
         reader.readAsDataURL(file);
       });
 
-      const message = {
+      const fileMessage = {
+        id: tempMessageId || Date.now().toString(),
         type: 'file',
         file: {
           name: file.name,
           type: file.type,
           size: file.size,
           data: fileData,
-          preview: URL.createObjectURL(file)
+          preview: file.type.startsWith('image/') ? URL.createObjectURL(file) : null,
+          isUploading: false
         },
         timestamp: new Date().toISOString(),
-        chatId: currentChat?.id
+        chatId: currentChat?.id,
+        isSending: false
       };
 
-      addMessage(message);
-      return message;
+      if (tempMessageId) {
+        // Update existing message with file data
+        setMessages(prev => 
+          prev.map(msg => 
+            msg.id === tempMessageId 
+              ? { ...msg, ...fileMessage, isSending: false }
+              : msg
+          )
+        );
+      } else {
+        // Add new message if no temp ID provided (fallback)
+        addMessage(fileMessage);
+      }
+
+      return fileMessage;
     } catch (error) {
       console.error('Error adding file:', error);
+      
+      // Update the message to show error state if it was a preview
+      if (tempMessageId) {
+        setMessages(prev => 
+          prev.map(msg => 
+            msg.id === tempMessageId 
+              ? { ...msg, error: 'Failed to upload file', isSending: false }
+              : msg
+          )
+        );
+      }
+      
       throw error;
     }
   };
