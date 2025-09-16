@@ -24,11 +24,14 @@ import ForgotPassword from "./Pages/ForgotPassword"
 import ThankYouPassword from "./Pages/ThankYouPassword"
 import ResetPassword from "./Pages/ResetPassword"
 import { TagsProvider } from './context/TagsContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
   return (
     <>
+    <ToastContainer position="top-right" autoClose={5000} />
     <BrowserRouter>
       <TagsProvider>
         <Routes>

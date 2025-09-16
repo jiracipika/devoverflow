@@ -1,18 +1,50 @@
-import React from 'react';
-import { FaSpinner } from 'react-icons/fa';
+import React, { useMemo, useCallback } from 'react';
+import { FaSpinner, FaExclamationTriangle, FaFileDownload } from 'react-icons/fa';
+import { sanitizeInput } from '../utils/security';
+
+// Helper function to safely render HTML content
+const createMarkup = (html) => ({
+  __html: sanitizeInput(html)
+});
 
 const MessageBox = ({
-  text,
+  text = '',
   isSending = false,
   type = 'text',
   file,
   isLocal = false,
   error,
-  sentBubbleColor = '#8aadf4',
-  receivedBubbleColor = 'white',
-  sentTextColor = 'white',
-  receivedTextColor = 'black'
+  timestamp = new Date().toISOString()
 }) => {
+
+  const formattedTime = useMemo(() => {
+    try {
+      return new Date(timestamp).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch (e) {
+      console.error('Invalid timestamp:', timestamp, e);
+      return '';
+    }
+  }, [timestamp]);
+
+  const handleDownload = useCallback(() => {
+    if (!file?.data) return;
+
+    try {
+      const link = document.createElement('a');
+      link.href = file.data;
+      link.download = file.name || 'download';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
+  }, [file]);
+
+   // Render file preview based on type
   const renderFilePreview = () => {
     if (!file) return null;
 
@@ -161,9 +193,9 @@ const MessageBox = ({
           </div>
         )}
         
-        <div className={`text-xs text-gray-500 ${isSending ? 'text-right' : 'text-left'}`}>
-          {formatTimestamp(isLocal ? new Date().toISOString() : null)}
-          {isLocal && <span className="ml-1 text-blue-500">• Sending</span>}
+        <div className={`text-xs text-gray-500 flex items-center gap-1 ${isSending ? 'flex-row-reverse' : ''}`}>
+          {formatTimestamp(timestamp)}
+          {isLocal && <span className="text-blue-500">• Sending</span>}
         </div>
       </div>
     </div>

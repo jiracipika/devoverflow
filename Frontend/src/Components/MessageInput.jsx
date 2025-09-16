@@ -1,6 +1,10 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { useMessages } from '../context/MessageContext'
+import { validateFile, sanitizeInput, getAllowedFileExtensions } from '../utils/security';
 import attachment_icon from '../assets/Images/attach.png'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const FilePreview = ({ file, onRemove }) => {
   const previewUrl = useMemo(() => {
@@ -50,21 +54,40 @@ const MessageInput = () => {
   const [uploading, setUploading] = useState(false);
   const { addMessage, addFile, currentChat } = useMessages();
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-    }
-  };
+  const showError = useCallback((message) => {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }, []);
 
-  const handleRemoveFile = () => {
+  const handleFileChange = useCallback((e) => {
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+
+    // Validate the file
+    const validation = validateFile(selectedFile);
+    if (!validation.isValid) {
+      showError(validation.error);
+      e.target.value = ''; // Reset file input
+      return;
+    }
+
+    setFile(selectedFile);
+  }, [showError]);
+
+  const handleRemoveFile = useCallback(() => {
     setFile(null);
-    // Reset file input
     const fileInput = document.getElementById('file');
     if (fileInput) {
       fileInput.value = '';
     }
-  };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,23 +97,38 @@ const MessageInput = () => {
     setUploading(true);
 
     try {
+
+      // Sanitize message text
+      const sanitizedText = sanitizeInput(messageText);
+
+
       if (file) {
+         // Re-validate file before upload (in case it was modified)
+         const validation = validateFile(file);
+         if (!validation.isValid) {
+           showError(validation.error);
+           handleRemoveFile();
+           return;
+         }
+         
         await addFile(file);
         handleRemoveFile();
       }
 
-      if (messageText.trim()) {
+      if (sanitizedText) {
         const newMessage = {
-          text: messageText,
+          text: sanitizedText,
           isSending: true,
           timestamp: new Date().toISOString(),
           chatId: currentChat?.id
         };
+
         addMessage(newMessage);
         setMessageText('');
       }
     } catch (error) {
       console.error('Error sending message:', error);
+      showError('Failed to send message. Please try again.');
     } finally {
       setUploading(false);
     }
@@ -107,9 +145,10 @@ const MessageInput = () => {
             id="file" 
             style={{display:"none"}} 
             onChange={handleFileChange}
-            accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt"
+            accept={getAllowedFileExtensions()}
+            disabled={uploading}
           />
-          <label htmlFor="file" className='cursor-pointer'>
+          <label htmlFor="file" className='cursor-pointer' aria-label="Attach file">
             <img className='h-[24px] w-[24px]' src={attachment_icon} alt="Attach" />
           </label>
         </div>
@@ -117,16 +156,19 @@ const MessageInput = () => {
         <input 
           className='flex-1 border-none outline-none text-[#2f2d52] text-[18px] px-[10px]' 
           type="text" 
-          placeholder='Type Something...'
+          placeholder='Type something...'
           value={messageText}
           onChange={(e) => setMessageText(e.target.value)}
           disabled={uploading}
+          maxLength={2000}
+          aria-label="Message input"
         />
         
         <button 
           type="submit"
           className='border-none px-[15px] py-2.5 text-[white] bg-[#8da4f1] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'
-          disabled={!messageText.trim() && !file}
+          disabled={(!messageText.trim() && !file) || uploading}
+          aria-label="Send message"
         >
           {uploading ? 'Sending...' : 'Send'}
         </button>
