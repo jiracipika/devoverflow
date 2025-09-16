@@ -1,11 +1,5 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { FaSpinner, FaExclamationTriangle, FaFileDownload } from 'react-icons/fa';
-import { sanitizeInput } from '../utils/security';
-
-// Helper function to safely render HTML content
-const createMarkup = (html) => ({
-  __html: sanitizeInput(html)
-});
 
 const MessageBox = ({
   text = '',
@@ -16,18 +10,6 @@ const MessageBox = ({
   error,
   timestamp = new Date().toISOString()
 }) => {
-
-  const formattedTime = useMemo(() => {
-    try {
-      return new Date(timestamp).toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    } catch (e) {
-      console.error('Invalid timestamp:', timestamp, e);
-      return '';
-    }
-  }, [timestamp]);
 
   const handleDownload = useCallback(() => {
     if (!file?.data) return;
@@ -64,8 +46,11 @@ const MessageBox = ({
     if (error) {
       return (
         <div className="p-2 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-600 text-sm">Failed to upload {name}</p>
-          <p className="text-red-500 text-xs">{error}</p>
+          <div className="flex items-center gap-2 text-red-600">
+            <FaExclamationTriangle />
+            <span>Failed to upload {name}</span>
+          </div>
+          {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
         </div>
       );
     }
@@ -81,14 +66,26 @@ const MessageBox = ({
     
     // Create appropriate preview
     switch (true) {
-      case isImage:
+      case isImage && preview:
         return (
           <div className="relative group">
             <img 
-              src={preview || data} 
+              src={preview} 
               alt={name} 
-              className="max-w-[200px] max-h-[200px] object-cover rounded-lg hover:opacity-90 transition-opacity"
+              className="max-h-64 max-w-full rounded-lg border border-gray-200"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '';
+                e.target.parentElement.innerHTML = renderGenericFilePreview();
+              }}
             />
+            <button 
+              onClick={handleDownload}
+              className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-200 rounded-lg"
+              aria-label="Download image"
+            >
+              <FaFileDownload className="text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 truncate">
               {name}
             </div>
@@ -98,69 +95,106 @@ const MessageBox = ({
         return (
           <div className="relative">
             <video 
-              src={preview || data} 
-              className="max-w-[200px] rounded-lg"
+              src={data} 
+              className="max-h-64 max-w-full rounded-lg border border-gray-200"
               controls
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 truncate">
               {name}
             </div>
+            <button 
+              onClick={handleDownload}
+              className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-1 rounded-full"
+              aria-label="Download video"
+            >
+              <FaFileDownload />
+            </button>
           </div>
         );
       case isAudio:
         return (
-          <div className="bg-white p-3 rounded-lg shadow">
-            <p className="text-sm font-medium text-gray-800 mb-2 truncate">{name}</p>
-            <audio 
-              src={preview || data} 
-              className="w-full"
-              controls
-            />
+          <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+            <audio controls src={data} className="flex-1" />
+            <button 
+              onClick={handleDownload}
+              className="p-2 text-gray-600 hover:text-gray-900"
+              aria-label="Download audio"
+            >
+              <FaFileDownload />
+            </button>
           </div>
         );
       case isDocument:
         return (
-          <a 
-            href={data} 
-            download={name}
-            className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
+          <div 
+            className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-100"
+            onClick={handleDownload}
           >
-            <div className="p-2 bg-blue-100 rounded-md">
-              <span className="text-blue-600 text-xl">📄</span>
+            <div className="flex items-center gap-3">
+              <div className="text-2xl text-blue-500">
+                {getFileIcon(extension)}
+              </div>
+              <div className="truncate max-w-xs">
+                <p className="font-medium text-gray-900 truncate">{name}</p>
+                <p className="text-xs text-gray-500">{formatFileSize(file.size)} • {extension.toUpperCase()}</p>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">{name}</p>
-              <p className="text-xs text-gray-500">
-                {Math.round(file.size / 1024)} KB • {extension.toUpperCase()}
-              </p>
-            </div>
-            <span className="text-blue-600 text-sm font-medium">Download</span>
-          </a>
+            <FaFileDownload className="text-gray-400" />
+          </div>
         );
       default:
-        return (
-          <a 
-            href={data} 
-            download={name}
-            className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div className="p-2 bg-gray-100 rounded-md">
-              <span className="text-gray-600 text-xl">📎</span>
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">{name}</p>
-              <p className="text-xs text-gray-500">
-                {Math.round(file.size / 1024)} KB • {extension ? extension.toUpperCase() : 'FILE'}
-              </p>
-            </div>
-            <span className="text-blue-600 text-sm font-medium">Download</span>
-          </a>
-        );
+        return renderGenericFilePreview();
     }
+  };
+
+  // Helper function to render a generic file preview
+  const renderGenericFilePreview = useCallback(() => {
+    if (!file) return null;
+    
+    return (
+      <div 
+        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-100"
+        onClick={handleDownload}
+      >
+        <div className="flex items-center gap-3">
+          <div className="text-2xl text-gray-500">
+            📄
+          </div>
+          <div className="truncate max-w-xs">
+            <p className="font-medium text-gray-900 truncate">{file.name}</p>
+            <p className="text-xs text-gray-500">
+              {formatFileSize(file.size)}
+              {file.type && ` • ${file.type.split('/').pop().toUpperCase()}`}
+            </p>
+          </div>
+        </div>
+        <FaFileDownload className="text-gray-400" />
+      </div>
+    );
+  })
+
+  // Get appropriate icon for file type
+  const getFileIcon = (extension) => {
+    const icons = {
+      pdf: '📄',
+      doc: '📝',
+      docx: '📝',
+      xls: '📊',
+      xlsx: '📊',
+      ppt: '📑',
+      pptx: '📑',
+      txt: '📄',
+    };
+    return icons[extension.toLowerCase()] || '📁';
+  };
+
+   // Format file size
+   const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   // Format timestamp
@@ -187,7 +221,8 @@ const MessageBox = ({
           <div 
             className={`px-4 py-2 rounded-lg ${isSending 
               ? 'bg-blue-500 text-white rounded-tr-none' 
-              : 'bg-white text-gray-800 rounded-tl-none'}`}
+              : 'bg-white text-gray-800 rounded-tl-none'}`
+            }
           >
             <p className="whitespace-pre-wrap">{text}</p>
           </div>
@@ -202,4 +237,4 @@ const MessageBox = ({
   );
 };
 
-export default MessageBox;
+export default React.memo(MessageBox);
