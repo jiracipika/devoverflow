@@ -1,116 +1,146 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useRef, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import SearchInput from './SearchInput'
-import { FaMagnifyingGlass, FaMoon, FaBars } from 'react-icons/fa6'
+import { FaMoon, FaBars, FaX } from 'react-icons/fa6'
 import NotifIcon from '../assets/Images/icons8-notification-48.png'
 
 const Searchbar = () => {
   const [query, setQuery] = useState("")
   const [isDropdownOpened, setIsDropdownOpened] = useState(false)
+  const dropdownRef = useRef(null)
+  const buttonRef = useRef(null)
+  const navigate = useNavigate()
 
   const handleSearch = (userquery) =>{
     setQuery(userquery)
   }
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e) => {
+    e.stopPropagation()
     setIsDropdownOpened(!isDropdownOpened)
   }
 
   const closeDropdown = () => {
     setIsDropdownOpened(false)
   }
+
+  const handleEscape = (e) => {
+    if (e.key === 'Escape') {
+      closeDropdown()
+      buttonRef.current?.focus()
+    }
+  }
+
+  const handleNavigation = (path) => {
+    closeDropdown()
+    navigate(path)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target) && 
+          buttonRef.current && !buttonRef.current.contains(event.target)) {
+        closeDropdown()
+      }
+    }
+
+    // Add event listener
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleEscape)
+    
+    return () => {
+      // Clean up
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [])
+
+  const navItems = [
+    { path: "/", label: "Home" },
+    { path: "/notifications", label: "Notifications" },
+    { path: "/profile", label: "Profile" },
+    { path: "/collections", label: "Collections" },
+    { path: "/tags", label: "Tags" },
+    { path: "/communitiesbytags", label: "Communities" },
+    { path: "/ask-a-question", label: "Ask a Question" },
+    { path: "/blog", label: "Blog" },
+    { path: "/messages", label: "Messages" },
+    { path: "/signin", label: "Log Out" }
+  ]
   
 
   return (
-    <div className={`bg-[#0A0B10] z-10 w-full lg:w-[calc(100%-266px)] fixed top-0 h-[100px] text-white flex justify-around items-center `}>
-      
-      
-    <SearchInput onSearchChange={handleSearch} placeholderText={"Search anything globally"} classNames={"w-[566px]"}/>
-      <div className='flex items-center gap-4'>
-        <FaMoon className='max-lg:hidden text-[#ff7000] rotate-[-90deg] w-[24px] h-[24px]' />
-        <Link to={"notifications"}><img className='max-lg:hidden rounded-full w-[42px] h-[42px]' src={NotifIcon}></img></Link>
-        <Link to={"profile"}><img className='max-lg:hidden rounded-full w-[42px] h-[42px]' src="https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://www.filepicker.io/api/file/4JkBtVU9QUwcwFCWi3AV" alt="" /></Link>
-        <FaBars onClick={toggleDropdown} className='hidden max-lg:flex hover:border-primary cursor-pointer absolute right-4 top-1/2 transform -translate-y-1/2'/>
-        {isDropdownOpened && (
-          <div 
-          className="absolute right-0 top-[100px] bg-[#0A0B10] w-[200px] rounded-lg shadow-lg py-2 z-50"
-          onClick={closeDropdown}
+    <header className={`bg-[#0A0B10] z-10 w-full lg:w-[calc(100%-266px)] fixed top-0 h-[100px] text-white flex justify-around items-center `}>
+    <SearchInput onSearchChange={handleSearch} placeholderText={"Search anything globally"} classNames={"w-full"} aria-label="Search"/>
+      <div className='flex items-center gap-4' aria-label="User Menu">
+        <button 
+          className="p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+          aria-label="Toggle dark mode"
         >
-          <Link 
-            to="/" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
+          <FaMoon className='max-lg:hidden text-[#ff7000] rotate-[-90deg] w-6 h-6' aria-hidden="true" />
+        </button>
+        <Link 
+          to="notifications" 
+          className="p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+          aria-label="Notifications"
+        >
+          <img 
+            className='max-lg:hidden rounded-full w-10 h-10' 
+            src={NotifIcon} 
+            alt="Notifications"
+            width="42"
+            height="42"
+          />
+        </Link>
+        <Link 
+          to="profile" 
+          className="p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+          aria-label="User profile"
+        >
+          <img 
+            className='max-lg:hidden rounded-full w-10 h-10' 
+            src="https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://www.filepicker.io/api/file/4JkBtVU9QUwcwFCWi3AV" 
+            alt="User profile"
+            width="42"
+            height="42"
+          />
+        </Link>
+        <button 
+          ref={buttonRef}
+          onClick={toggleDropdown}
+          className="lg:hidden p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+          aria-expanded={isDropdownOpened}
+          aria-haspopup="true"
+          aria-label="Toggle navigation menu"
+        >
+          {isDropdownOpened ? (
+            <FaX className="w-6 h-6" aria-hidden="true" />
+          ) : (
+            <FaBars className="w-6 h-6" aria-hidden="true" />
+          )}
+        </button>
+        {isDropdownOpened && (
+          <nav 
+            ref={dropdownRef}
+            className="absolute right-0 top-[100px] bg-[#0A0B10] w-[250px] rounded-lg shadow-lg py-2 z-50 border border-[#1A1B20]"
+            role="menu"
+            aria-label="Navigation menu"
           >
-            Home
-          </Link>
-          <Link 
-            to="/notifications" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Notifications
-          </Link>
-          <Link 
-            to="/profile" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Profile
-          </Link>
-          <Link 
-            to="/collections" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Collections
-          </Link>
-          <Link 
-            to="/tags" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Tags
-          </Link>
-          <Link 
-            to="/communitiesbytags" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Communities
-          </Link>
-          <Link 
-            to="/ask-a-question" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Ask a Question
-          </Link>
-          <Link 
-            to="/blog" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Blog
-          </Link>
-          <Link 
-            to="/messages" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Messages
-          </Link>
-          <Link 
-            to="/signin" 
-            className="block px-4 py-2 hover:bg-[#1A1B20] transition-colors"
-            onClick={closeDropdown}
-          >
-            Log Out
-          </Link>
-        </div>
+            {navItems.map((item) => (
+              <button
+                key={item.path}
+                onClick={() => handleNavigation(item.path)}
+                className="w-full text-left px-4 py-2 hover:bg-[#1A1B20] transition-colors focus:outline-none focus:bg-[#1A1B20] focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+                role="menuitem"
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
         )}
       </div>
         
-    </div>
+    </header>
   )
 }
 
