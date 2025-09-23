@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const CommunityCard = ({TagName, Users, id}) => {
 
     return (
-        <div id={id} className='bg-card-gradient flex flex-col gap-3 p-10 rounded-lg'>
+        <div id={id} className='bg-[#0B0D12] dark:bg-gray-400 flex flex-col gap-3 p-10 rounded-lg'>
             <div className='flex justify-center items-center mb-4'>
                 <CommunityPic/>
             </div>

@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { ThemeProvider } from "./context/ThemeContext"
 import Layout from "./Components/Layout"
 import Home from "./Pages/Home"
 import Signup from "./Pages/SignUp"
@@ -23,50 +24,48 @@ import Messages from "./Pages/Messages"
 import ForgotPassword from "./Pages/ForgotPassword"
 import ThankYouPassword from "./Pages/ThankYouPassword"
 import ResetPassword from "./Pages/ResetPassword"
-import { TagsProvider } from './context/TagsContext';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify"
+import { TagsProvider } from "./context/TagsContext"
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
-
   return (
-    <>
-    <ToastContainer position="top-right" autoClose={5000} />
-    <BrowserRouter>
-      <TagsProvider>
-        <Routes>
-          {/*<Route element={<PersistLogin />}>*/}
-          {/*<Route element={<ProtectedRoute />}>*/}
-            <Route path="/" element={<Layout />}>
-              <Route path="" element={<Home />} />
-              <Route path="collections" element={<Collections />} />
-              <Route path="ask-a-question" element={<AskAQuestion />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="/editProfile" element={<EditProfile />} />
-              <Route path="/user/:username" element={<OtherUserProfile />} />
-              <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
-              <Route path="communities/:TagName" element={<Communities />} />
-              <Route path="/schedule" element={<Schedule />} />
-              <Route path="/notifications" element={<Notifications/>} />
-              <Route path="/tags" element={<Tags />} />
-              <Route path="/tagSection/:id" element={<TagSection />} />
-              <Route path="/blog" element={<Blog/>} />
-              <Route path="/blogview/:id" element={<BlogView/>} />
-              <Route path="/messages" element={<Messages/>} />
-              <Route path="/question/:id" element={<QuestionView/>} />
-            </Route>
+    <ThemeProvider>
+      <ToastContainer position="top-right" autoClose={5000} />
+      <BrowserRouter>
+        <TagsProvider>
+          <Routes>
+            {/*<Route element={<PersistLogin />}>*/}
+            {/*<Route element={<ProtectedRoute />}>*/}
+              <Route path="/" element={<Layout />}>
+                <Route path="" element={<Home />} />
+                <Route path="collections" element={<Collections />} />
+                <Route path="ask-a-question" element={<AskAQuestion />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="/editProfile" element={<EditProfile />} />
+                <Route path="/user/:username" element={<OtherUserProfile />} />
+                <Route path="communitiesbytags" element={<CommunitiesByTags/>} />
+                <Route path="communities/:TagName" element={<Communities />} />
+                <Route path="/schedule" element={<Schedule />} />
+                <Route path="/notifications" element={<Notifications/>} />
+                <Route path="/tags" element={<Tags />} />
+                <Route path="/tagSection/:id" element={<TagSection />} />
+                <Route path="/blog" element={<Blog/>} />
+                <Route path="/blogview/:id" element={<BlogView/>} />
+                <Route path="/messages" element={<Messages/>} />
+                <Route path="/question/:id" element={<QuestionView/>} />
+              </Route>
+            {/*</Route>*/}
           {/*</Route>*/}
-        {/*</Route>*/}
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/thankyoupassword" element={<ThankYouPassword />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
-      </Routes>
-      </TagsProvider>
-    </BrowserRouter>
-      
-    </>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/thankyoupassword" element={<ThankYouPassword />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+        </Routes>
+        </TagsProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 

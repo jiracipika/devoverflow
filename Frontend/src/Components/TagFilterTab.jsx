@@ -13,10 +13,10 @@ const TagFilterTab = ({onChosenFilter}) => {
     <section className="filterTab flex gap-4 ">
         <Link 
         onClick={handleClick} 
-        className={`transition-all rounded-lg p-4 bg-[#151821] text-[#7B8EC8]`}> <span className={`${chosenFilter === "Popular" ? "bg-clip-text text-[orange] bg-custom-gradient" : ""}`}>Popular</span> </Link>
+        className={`transition-all rounded-lg p-4 bg-[#151821] dark:bg-gray-400 text-[#7B8EC8]`}> <span className={`${chosenFilter === "Popular" ? "bg-clip-text text-[orange] bg-custom-gradient" : ""}`}>Popular</span> </Link>
         <Link
          onClick={handleClick} 
-        className={`rounded-lg p-4 transition-all bg-[#151821] text-[#7B8EC8]`}> <span className={`${chosenFilter === "Name" ? "bg-clip-text text-[orange] bg-custom-gradient" : ""}`}>Name</span> </Link>
+        className={`rounded-lg p-4 transition-all bg-[#151821] dark:bg-gray-400 text-[#7B8EC8]`}> <span className={`${chosenFilter === "Name" ? "bg-clip-text text-[orange] bg-custom-gradient" : ""}`}>Name</span> </Link>
     </section>
   )
 }

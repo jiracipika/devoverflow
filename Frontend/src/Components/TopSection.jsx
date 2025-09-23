@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import SearchInput from './SearchInput'
-import { FaMoon, FaBars, FaX } from 'react-icons/fa6'
+import { FaSun, FaMoon, FaBars, FaX } from 'react-icons/fa6'
 import NotifIcon from '../assets/Images/icons8-notification-48.png'
+import ThemeToggle from './ThemeToggle'
 
 const Searchbar = () => {
   const [query, setQuery] = useState("")
@@ -36,7 +37,6 @@ const Searchbar = () => {
     navigate(path)
   }
 
-  //
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target) && 
@@ -71,15 +71,10 @@ const Searchbar = () => {
   
 
   return (
-    <header className={`bg-[#0A0B10] z-10 w-full lg:w-[calc(100%-266px)] fixed top-0 h-[100px] text-white flex justify-around items-center `}>
+    <header className={`bg-[#0A0B10] dark:bg-gray-200 z-10 w-full lg:w-[calc(100%-266px)] fixed top-0 h-[100px] text-white flex justify-around items-center `}>
     <SearchInput onSearchChange={handleSearch} placeholderText={"Search anything globally"} classNames={"w-full"} aria-label="Search"/>
       <div className='flex items-center gap-4' aria-label="User Menu">
-        <button 
-          className="p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
-          aria-label="Toggle dark mode"
-        >
-          <FaMoon className='max-lg:hidden text-[#ff7000] rotate-[-90deg] w-6 h-6' aria-hidden="true" />
-        </button>
+        <ThemeToggle />
         <Link 
           to="notifications" 
           className="p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"

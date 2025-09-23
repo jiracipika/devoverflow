@@ -27,7 +27,7 @@ const FollowSuggestionCard = ({id, Name, Username, imgSrc}) => {
 
   return (
     <>
-        <div id={id} className='flex bg-card-gradient rounded-lg w-full justify-between p-2 items-center'>
+        <div id={id} className='flex bg-[#0A0B10] dark:bg-gray-400 rounded-lg w-full justify-between p-2 items-center'>
             <div className='flex gap-3 items-center'>
                 <img className='w-14 h-14 rounded-full' src={imgSrc} alt="" />
                 <div className="">

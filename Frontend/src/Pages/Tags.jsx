@@ -39,7 +39,7 @@ const Tags = () => {
   }
 
   return (
-    <section className='min-h-screen text-white py-4 md:py-8 px-4 md:px-8 w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+    <section className='min-h-screen text-white py-4 md:py-8 px-4 md:px-8 w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300'>
       <div className='mb-6'>
         <h1 className='text-2xl sm:text-3xl font-bold mb-6'>Tags</h1>
         <SearchInput 

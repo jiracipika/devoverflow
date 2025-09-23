@@ -27,9 +27,9 @@ const TagSection = () => {
     }
 
     return (
-        <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
-            <h1 className="text-2xl font-bold mb-2">{selectedData.title}</h1>
-            <p>{selectedData.description}</p>
+        <section className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300'>
+            <h1 className="text-2xl font-bold mb-2 dark:text-black">{selectedData.title}</h1>
+            <p className='dark:text-black'>{selectedData.description}</p>
             
             {filteredArticles.map((item) =>{
                 return (

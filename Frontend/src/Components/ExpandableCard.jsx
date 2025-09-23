@@ -48,7 +48,7 @@ const ExpandableCard = ({ title, author, asked, votes, comments, views, tags, id
 
     return (
         
-        <div id={id} className='p-4 sm:p-6 rounded-lg shadow-md bg-[#0B0D12] transition-all duration-200 hover:shadow-lg'>
+        <div id={id} className='p-4 sm:p-6 rounded-lg shadow-md bg-[#0B0D12] dark:bg-gray-400 transition-all duration-200 hover:shadow-lg'>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
                 <div className="">
                     <Link to={`/question/${id}`} className="block">
