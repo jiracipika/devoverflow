@@ -84,8 +84,8 @@ const BlogContent = ({
   };
 
   return (
-    <div className="max-w-screen-2xl px-4 md:px-0 mx-2">
-      <h1 className="text-4xl font-bold text-light-900 mb-8">Overflow Blog</h1>
+    <div className="max-w-screen-2xl dark:bg-gray-400 px-4 md:px-0 mx-2">
+      <h1 className="text-4xl font-bold text-white mb-8">Overflow Blog</h1>
       
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div className="flex flex-1 items-center gap-4 w-full md:w-auto">

@@ -82,10 +82,10 @@ const OtherUserProfile = () => {
 
     if (userNotFound) {
         return (
-            <section className='bg-gradient-to-r from-[#0A0B10] to-black min-h-screen w-full lg:w-[calc(100%-330px)] p-6 flex flex-col items-center justify-center'>
+            <section className='bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300 min-h-screen w-full lg:w-[calc(100%-330px)] p-6 flex flex-col items-center justify-center'>
                 <div className='text-center max-w-md'>
                     <h1 className='text-4xl font-bold text-white mb-4'>User Not Found</h1>
-                    <p className='text-gray-300 mb-8'>
+                    <p className='text-gray-300 dark:text-black mb-8'>
                         The user "{params.username}" doesn't exist or has been removed.
                     </p>
                     <button
@@ -100,8 +100,8 @@ const OtherUserProfile = () => {
     }
 
     return (
-        <section className='bg-gradient-to-r from-[#0A0B10] to-black h-full w-full lg:w-[calc(100%-330px)] p-6 flex-col'>
-            <div className='rounded-md bg-[#0A0B10] h-full rounded-[20px] left-[157px] top-[101px]'>
+        <section className='bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300 h-full w-full lg:w-[calc(100%-330px)] p-6 flex-col'>
+            <div className='rounded-md bg-[#0A0B10] dark:bg-gray-300 h-full rounded-[20px] left-[157px] top-[101px]'>
                 <AvatarPic />
                 <div className='flex gap-4 justify-end'>
                     <button 
@@ -125,7 +125,7 @@ const OtherUserProfile = () => {
                     </>
                 )}
             </div>
-            <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 bg-gradient-to-r from-[#0A0B10] to-black'>
+            <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300'>
                 <ProfileFilterTab onChosenFilter={handleFilterChosen}/>
                 {filteredPosts.map((item) => (
                     <ExpandableCard key={item.id} {...item}/>

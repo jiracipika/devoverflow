@@ -29,13 +29,13 @@ const PostAComment = ({ onCommentSubmit }) => {
     };
 
     return (
-        <div className="bg-[#1A1B20] rounded-lg p-6">
+        <div className="bg-[#1A1B20] dark:bg-gray-400 rounded-lg p-6">
             <form onSubmit={handleSubmit} className="space-y-4">
                 <textarea
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
                     placeholder="Write your comment..."
-                    className="w-full p-4 bg-[#202128] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full p-4 bg-[#202128] dark:bg-gray-500 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                     rows={4}
                 />
                 {error && (

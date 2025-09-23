@@ -8,7 +8,7 @@ const UserCard = ({Name, Username, tags, id}) => {
     const displayedTags = showAllTags ? tags : tags?.slice(0, 4); // Show 4 tags by default on larger screens
 
     return(
-        <div id={id} className='bg-card-gradient flex flex-col items-center sm:items-start gap-3 p-4 sm:p-6 2xl:p-8 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-purple-900/20 h-full w-full'>
+        <div id={id} className='bg-[#202128] dark:bg-gray-400 flex flex-col items-center sm:items-start gap-3 p-4 sm:p-6 2xl:p-8 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-purple-900/20 h-full w-full'>
             <div className='flex flex-col sm:flex-row items-center sm:items-start gap-4 2xl:gap-6 w-full'>
                 <div className='flex-shrink-0'>
                     <AvatarPic size="lg" className="w-16 h-16 sm:w-20 sm:h-20 2xl:w-24 2xl:h-24" />

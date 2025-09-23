@@ -95,13 +95,13 @@ const AskAQuestion = () => {
   }
 
   return (
-    <section className='text-white Ask a py-6 px-20 question bg-gradient-to-r w-full lg:w-[calc(100%-330px)] from-[#0A0B10] to-black min-h-screen max-h-fit'>
+    <section className='text-white Ask a py-6 px-20 question bg-gradient-to-r w-full lg:w-[calc(100%-330px)] from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300 min-h-screen max-h-fit'>
       <ToastContainer />
       <form action="" className='flex flex-col gap-5'>
         <h1 className='text-2xl font-bold'>Ask a public question</h1>
         <div className='flex flex-col gap-1'>
           <label className='font-semibold text-[16px]' htmlFor="">Question title <span className='text-red-600'>*</span></label>
-          <input value={titleInputVal} onChange={(e) => setTitleInputVal(e.target.value)} type="text" className='px-2 py-4 outline-none bg-[#151821] rounded-md'/>
+          <input value={titleInputVal} onChange={(e) => setTitleInputVal(e.target.value)} type="text" className='px-2 py-4 outline-none bg-[#151821] dark:bg-gray-400 rounded-md'/>
           <p className='text-[#7B8EC8]'>Be specific and imagine you're asking a question to another person.</p>
         </div>
 
@@ -119,7 +119,7 @@ const AskAQuestion = () => {
             type="text" 
             value={tagInputVal} 
             onChange={tagInputHandler} 
-            className='px-2 w-full py-4 outline-none bg-[#151821] rounded-md'/>
+            className='px-2 w-full py-4 outline-none bg-[#151821] dark:bg-gray-400 rounded-md'/>
           <div className=' flex gap-3'>
             
             <div className='grid gap-2 w-fit '>

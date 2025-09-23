@@ -40,7 +40,7 @@ const handleTextEditorData = () =>{
 
   return (
     <div className="control-group">
-      <div className="button-group flex bg-[#151821] p-1 rounded-t-md">
+      <div className="button-group flex bg-[#151821] dark:bg-gray-400 p-1 rounded-t-md">
         <button
           onClick={(event) => { event.preventDefault(); editor.chain().focus().toggleBold().run(); }}
           disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -113,7 +113,7 @@ const handleTextEditorData = () =>{
         
       </div>
 
-      <div className='bg-[#212734] rounded-md'>
+      <div className='bg-[#212734] dark:bg-gray-400 rounded-md'>
         
 
         <EditorContent editor={editor}></EditorContent>
