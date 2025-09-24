@@ -12,11 +12,11 @@ const NotificationFilterTab = ({onChosenFilter}) => {
         <section className="filterTab flex gap-4 ">
             <Link 
             onClick={handleClick} 
-            className={`transition-all rounded-lg p-4 bg-[#151821] text-[#7B8EC8]`}> <span className={`${chosenFilter === "All" ? "bg-clip-text text-transparent bg-custom-gradient" : ""}`}>All</span> </Link>
+            className={`transition-all rounded-lg p-4 bg-[#151821] dark:bg-gray-400 text-[#7B8EC8]`}> <span className={`${chosenFilter === "All" ? "bg-clip-text text-transparent bg-custom-gradient" : ""}`}>All</span> </Link>
             <Link
              onClick={handleClick} 
-            className={`rounded-lg p-4 transition-all bg-[#151821] text-[#7B8EC8]`}> <span className={`${chosenFilter === "Messages" ? "bg-clip-text text-transparent bg-custom-gradient" : ""}`}>Messages</span> </Link>
-            <Link onClick={handleClick} className='rounded-lg transition-all p-4 bg-[#151821] text-[#7B8EC8]'> <span className={`${chosenFilter === "Requests" ? "bg-clip-text text-transparent bg-custom-gradient" : ""}`}>Requests</span> </Link>
+            className={`rounded-lg p-4 transition-all bg-[#151821] dark:bg-gray-400 text-[#7B8EC8]`}> <span className={`${chosenFilter === "Messages" ? "bg-clip-text text-transparent bg-custom-gradient" : ""}`}>Messages</span> </Link>
+            <Link onClick={handleClick} className='rounded-lg transition-all p-4 bg-[#151821] dark:bg-gray-400 text-[#7B8EC8]'> <span className={`${chosenFilter === "Requests" ? "bg-clip-text text-transparent bg-custom-gradient" : ""}`}>Requests</span> </Link>
         </section>
       )
 }

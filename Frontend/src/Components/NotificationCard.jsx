@@ -48,7 +48,7 @@ const NotificationCard = ({
     }
 
     return (
-        <div id={`notification-${id}`} className='bg-card-gradient flex flex-col gap-3 p-4 sm:p-6 rounded-lg'>
+        <div id={`notification-${id}`} className='bg-[#0B0D12] dark:bg-gray-400  flex flex-col gap-3 p-4 sm:p-6 rounded-lg'>
             <div className='flex flex-col sm:flex-row justify-between w-full'>
                 <div className='flex items-center gap-2 sm:gap-3'>
                     <img 

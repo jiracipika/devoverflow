@@ -84,7 +84,7 @@ const BlogView = () => {
   };
 
   return (
-    <div className='min-h-screen text-white p-6 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+    <div className='min-h-screen text-white p-6 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300'>
       <div className="flex justify-between items-center mb-6">
         <Link to="/blog" className="text-blue-400 hover:text-blue-300">
           ← Back to Blog
@@ -156,7 +156,7 @@ const BlogView = () => {
                   value={authorName}
                   onChange={(e) => setAuthorName(e.target.value)}
                   placeholder="Enter your name"
-                  className="w-full p-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-2 rounded-lg bg-gray-800 dark:bg-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 

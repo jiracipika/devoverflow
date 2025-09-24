@@ -22,7 +22,7 @@ const Notifications = () => {
     }
     
     return(
-        <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black'>
+        <div className='min-h-screen text-white py-8 gap-8 flex flex-col px-8 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300'>
             <NotificationFilterTab onChosenFilter={handleFilterChosen}/>
             <section className='flex flex-col gap-3 justify-center'>
                 {filteredData.map((item) => (
