@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import SearchInput from './SearchInput'
-import { FaSun, FaMoon, FaBars, FaX } from 'react-icons/fa6'
+import { FaBars, FaX } from 'react-icons/fa6'
 import NotifIcon from '../assets/Images/icons8-notification-48.png'
 import ThemeToggle from './ThemeToggle'
+import GlobalSearchBar from './GlobalSearchBar';
 
 const Searchbar = () => {
   const [query, setQuery] = useState("")
@@ -72,7 +72,7 @@ const Searchbar = () => {
 
   return (
     <header className={`bg-[#0A0B10] dark:bg-gray-200 z-10 w-full lg:w-[calc(100%-266px)] fixed top-0 h-[100px] text-white flex justify-around items-center `}>
-    <SearchInput onSearchChange={handleSearch} placeholderText={"Search anything globally"} classNames={"w-full"} aria-label="Search"/>
+    <GlobalSearchBar onSearchChange={handleSearch} placeholderText={"Search anything globally"} classNames={"w-full"} aria-label="Search"/>
       <div className='flex items-center gap-4' aria-label="User Menu">
         <ThemeToggle />
         <Link 
@@ -141,4 +141,3 @@ const Searchbar = () => {
 }
 
 export default Searchbar
-

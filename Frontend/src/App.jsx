@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { ThemeProvider } from "./context/ThemeContext"
+import { SearchProvider } from "./context/SearchContext"
 import Layout from "./Components/Layout"
 import Home from "./Pages/Home"
 import Signup from "./Pages/SignUp"
@@ -24,6 +25,7 @@ import Messages from "./Pages/Messages"
 import ForgotPassword from "./Pages/ForgotPassword"
 import ThankYouPassword from "./Pages/ThankYouPassword"
 import ResetPassword from "./Pages/ResetPassword"
+import SearchResults from "./pages/SearchResults"
 import { ToastContainer } from "react-toastify"
 import { TagsProvider } from "./context/TagsContext"
 import 'react-toastify/dist/ReactToastify.css'
@@ -31,6 +33,7 @@ import 'react-toastify/dist/ReactToastify.css'
 function App() {
   return (
     <ThemeProvider>
+      <SearchProvider>
       <ToastContainer position="top-right" autoClose={5000} />
       <BrowserRouter>
         <TagsProvider>
@@ -39,6 +42,7 @@ function App() {
             {/*<Route element={<ProtectedRoute />}>*/}
               <Route path="/" element={<Layout />}>
                 <Route path="" element={<Home />} />
+                <Route path="search" element={<SearchResults />} />
                 <Route path="collections" element={<Collections />} />
                 <Route path="ask-a-question" element={<AskAQuestion />} />
                 <Route path="profile" element={<Profile />} />
@@ -65,6 +69,7 @@ function App() {
         </Routes>
         </TagsProvider>
       </BrowserRouter>
+      </SearchProvider>
     </ThemeProvider>
   )
 }
