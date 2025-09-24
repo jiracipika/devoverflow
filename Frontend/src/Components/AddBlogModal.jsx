@@ -101,10 +101,10 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-dark-200 rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-light-900">Add New Blog Post</h2>
+          <h2 className="text-2xl font-bold text-white">Add New Blog Post</h2>
           <button
             onClick={onClose}
-            className="text-light-400 hover:text-light-900 transition-colors"
+            className="text-white hover:text-white transition-colors"
           >
             <X size={24} />
           </button>
@@ -112,7 +112,7 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="title" className="block text-light-900 mb-2">
+            <label htmlFor="title" className="block text-white mb-2">
               Title
             </label>
             <input
@@ -122,13 +122,13 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
               required
               value={formData.title}
               onChange={handleChange}
-              className="w-full bg-dark-300 text-light-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full bg-dark-300 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
               placeholder="Enter blog title"
             />
           </div>
 
           <div>
-            <label htmlFor="description" className="block text-light-900 mb-2">
+            <label htmlFor="description" className="block text-white mb-2">
               Description
             </label>
             <textarea
@@ -138,17 +138,17 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
               value={formData.description}
               onChange={handleChange}
               rows="4"
-              className="w-full bg-dark-300 text-light-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full bg-dark-300 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
               placeholder="Enter blog description"
             />
           </div>
 
           <div>
-            <label className="block text-light-900 mb-2">Blog Image</label>
+            <label className="block text-white mb-2">Blog Image</label>
             <div className="space-y-4">
               {/* Image URL input */}
               <div>
-                <label htmlFor="imageUrl" className="block text-light-400 text-sm mb-2">
+                <label htmlFor="imageUrl" className="block text-white text-sm mb-2">
                   Option 1: Enter Image URL
                 </label>
                 <input
@@ -157,14 +157,14 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleImageUrlChange}
-                  className="w-full bg-dark-300 text-light-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full bg-dark-300 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   placeholder="Enter image URL from Unsplash"
                 />
               </div>
 
               {/* Image upload/drag-drop zone */}
               <div>
-                <label className="block text-light-400 text-sm mb-2">
+                <label className="block text-white text-sm mb-2">
                   Option 2: Upload Image
                 </label>
                 <div
@@ -188,9 +188,9 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
                   
                   <div className="flex flex-col items-center justify-center space-y-3">
                     <div className="p-3 rounded-full bg-dark-400">
-                      <Upload size={24} className="text-light-400" />
+                      <Upload size={24} className="text-white" />
                     </div>
-                    <p className="text-light-400 text-center">
+                    <p className="text-white text-center">
                       Drag and drop your image here, or{' '}
                       <button
                         type="button"
@@ -200,7 +200,7 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
                         browse
                       </button>
                     </p>
-                    <p className="text-light-400 text-sm">
+                    <p className="text-white text-sm">
                       Supports: JPG, PNG, GIF (max 5MB)
                     </p>
                   </div>
@@ -222,7 +222,7 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
                       setPreviewImage(null);
                       setFormData(prev => ({ ...prev, imageUrl: '' }));
                     }}
-                    className="absolute top-2 right-2 p-1 bg-dark-200 rounded-full text-light-400 hover:text-light-900"
+                    className="absolute top-2 right-2 p-1 bg-dark-200 rounded-full text-white hover:text-light-900"
                   >
                     <X size={20} />
                   </button>
@@ -232,7 +232,7 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
           </div>
 
           <div>
-            <label htmlFor="tags" className="block text-light-900 mb-2">
+            <label htmlFor="tags" className="block text-white mb-2">
               Tags (comma-separated)
             </label>
             <input
@@ -242,13 +242,13 @@ const AddBlogModal = ({ isOpen, onClose, onSubmit }) => {
               required
               value={formData.tags.join(', ')}
               onChange={handleChange}
-              className="w-full bg-dark-300 text-light-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full bg-dark-300 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
               placeholder="e.g., JavaScript, React, Web Development"
             />
           </div>
 
           <div>
-            <label htmlFor="tech" className="block text-light-900 mb-2">
+            <label htmlFor="tech" className="block text-white mb-2">
               Technology Category
             </label>
             <select
