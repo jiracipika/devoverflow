@@ -37,6 +37,10 @@ const Searchbar = () => {
     navigate(path)
   }
 
+  const handleLogOut = () => {
+    
+  }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target) && 
@@ -77,7 +81,7 @@ const Searchbar = () => {
         <ThemeToggle />
         <Link 
           to="notifications" 
-          className="p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+          className="max-lg:hidden p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
           aria-label="Notifications"
         >
           <img 
@@ -90,7 +94,7 @@ const Searchbar = () => {
         </Link>
         <Link 
           to="profile" 
-          className="p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+          className="max-lg:hidden p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
           aria-label="User profile"
         >
           <img 
@@ -104,7 +108,7 @@ const Searchbar = () => {
         <button 
           ref={buttonRef}
           onClick={toggleDropdown}
-          className="lg:hidden p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+          className="lg:hidden p-2 rounded-full hover:bg-[#1A1B20] dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
           aria-expanded={isDropdownOpened}
           aria-haspopup="true"
           aria-label="Toggle navigation menu"
@@ -118,7 +122,7 @@ const Searchbar = () => {
         {isDropdownOpened && (
           <nav 
             ref={dropdownRef}
-            className="absolute right-0 top-[100px] bg-[#0A0B10] w-[250px] rounded-lg shadow-lg py-2 z-50 border border-[#1A1B20]"
+            className="absolute right-0 top-[100px] bg-[#0A0B10] dark:bg-gray-400 w-[250px] rounded-lg shadow-lg py-2 z-50 border border-[#1A1B20] dark:border-gray-400"
             role="menu"
             aria-label="Navigation menu"
           >
@@ -126,7 +130,7 @@ const Searchbar = () => {
               <button
                 key={item.path}
                 onClick={() => handleNavigation(item.path)}
-                className="w-full text-left px-4 py-2 hover:bg-[#1A1B20] transition-colors focus:outline-none focus:bg-[#1A1B20] focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+                className="w-full text-left px-4 py-2 hover:bg-[#1A1B20] dark:hover:bg-gray-500 transition-colors focus:outline-none focus:bg-[#1A1B20] focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
                 role="menuitem"
               >
                 {item.label}

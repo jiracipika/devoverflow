@@ -7,7 +7,6 @@ const SearchResults = () => {
   const [searchParams] = useSearchParams();
   const { searchQuery, setSearchQuery, searchResults, searchAll } = useSearch();
   const query = searchParams.get('q') || '';
-  console.log(query)
 
   useEffect(() => {
     if (query) {
@@ -39,9 +38,9 @@ const SearchResults = () => {
     if (!query) {
       return (
         <div className="text-center p-8">
-          <SearchIcon className="mx-auto h-12 w-12 text-gray-400" />
-          <h3 className="mt-2 text-lg font-medium text-gray-900 dark:text-white">Search for something</h3>
-          <p className="mt-1 text-gray-500 dark:text-gray-400">Try searching for articles, users, or tags</p>
+          <SearchIcon className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-900" />
+          <h3 className="mt-2 text-lg font-medium text-white dark:text-gray-900">Search for something</h3>
+          <p className="mt-1 text-gray-500 dark:text-gray-900">Try searching for articles, users, or tags</p>
         </div>
       );
     }
@@ -124,11 +123,11 @@ const SearchResults = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-8 text-white dark:text-gray-900">
-        Search Results for "{query}"
-      </h1>
-      {renderResults()}
+    <div className="min-h-screen w-full lg:w-[80%] bg-gray-900 dark:bg-gray-300 px-4 py-8">
+        <h1 className="text-center text-2xl font-bold mb-8 text-white">
+          Search Results for "{query}"
+        </h1>
+        {renderResults()}
     </div>
   );
 };

@@ -31,7 +31,7 @@ const Footer = () => {
   
   if (isMobile) {
     return (
-      <footer className='fixed bottom-0 left-0 w-full bg-[#0A0B10] border-t border-gray-800 p-4 z-10'>
+      <footer className='fixed bottom-0 left-0 w-full bg-[#0A0B10] dark:bg-gray-400 border-t border-gray-800 p-4 z-10'>
         <div className='flex justify-between items-center'>
           <div className='flex space-x-2 overflow-x-auto pb-2 hide-scrollbar'>
           </div>

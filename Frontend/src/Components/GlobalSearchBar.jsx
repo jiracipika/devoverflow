@@ -10,6 +10,10 @@ const GlobalSearchBar = ({ className = '', placeholder = 'Search articles, users
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (searchQuery === "") {
+      navigate(`/search`);
+    }
+
     if (searchQuery.trim()) {
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
@@ -33,7 +37,7 @@ const GlobalSearchBar = ({ className = '', placeholder = 'Search articles, users
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder={placeholder}
-          className={`w-full bg-[#1E1E1E] dark:bg-gray-700 text-white rounded-lg pl-12 pr-4 py-3 
+          className={`w-full bg-[#1E1E1E] dark:bg-gray-500 text-white rounded-lg pl-12 pr-4 py-3 
             focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200
             ${isFocused ? 'ring-2 ring-blue-500' : ''}`}
         />

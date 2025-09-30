@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from '../utils/axios'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { 
   homeSvgSrc, 
   collectionSvgSrc, 
@@ -16,15 +16,26 @@ import {
 
 const Navbar = () => {
 
+  const navigate = useNavigate();
+
   const handleLogOut = async (e) => {
     e.preventDefault()
     
-    
-    try {
-          const response = await axios.post('https://jsonplaceholder.typicode.com/posts', { 
+    try {// http://localhost:5173/api/auth/logout
+          await axios.post('https://jsonplaceholder.typicode.com/posts', {
             
           });
-          console.log("User logged out successfully")
+          
+          // Clear any stored tokens or user data
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+
+          // Clear axios default headers
+          delete axios.defaults.headers.common['Authorization'];
+
+          alert("User logged out successfully")
+          // Redirect to sign-in page
+          navigate('/signin');
         } catch (error) {
           console.log("Refresh token is required to logout")
         }
@@ -43,7 +54,7 @@ const Navbar = () => {
           <NavLink to={"/blog"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><img src={blogSvgSrc} alt='Blog-icon' /> Blog</NavLink>
           <NavLink to={"/messages"} className={({ isActive }) => `flex transition-all text-[18px] px-4 py-2.5 rounded-lg w-full font-normal gap-2 items-center ${isActive ? "bg-custom-gradient" : ""}`}><img src={messagesSvgSrc} alt='Messages-icon' />Messages</NavLink>
         </ul>
-        <NavLink to={"/signin"} className="px-4 py-2.5 gap-2 flex items-center text-[18px]"> <img src={logoutSvgSrc} alt='Exit-icon' /> Log Out</NavLink>
+        <NavLink to={"/signin"} onClick={handleLogOut} className="px-4 py-2.5 gap-2 flex items-center text-[18px]"> <img src={logoutSvgSrc} alt='Exit-icon' /> Log Out</NavLink>
       </div>
     </nav>
   )
