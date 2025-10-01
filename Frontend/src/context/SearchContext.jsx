@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { searchArticles, searchUsers, searchTags } from '../api/searchApi';
 
 const SearchContext = createContext();
 
@@ -27,13 +28,11 @@ export const SearchProvider = ({ children }) => {
     setSearchResults(prev => ({ ...prev, isLoading: true, error: null }));
 
     try {
-      // TODO: Replace with actual API calls
-      // For now, we'll simulate an API call
+      // Using Promise.all to make parallel API calls
       const [articlesRes, usersRes, tagsRes] = await Promise.all([
-        // These would be your actual API endpoints
-        fetch(`/api/search/articles?q=${encodeURIComponent(query)}`).then(res => res.json()),
-        fetch(`/api/search/users?q=${encodeURIComponent(query)}`).then(res => res.json()),
-        fetch(`/api/search/tags?q=${encodeURIComponent(query)}`).then(res => res.json())
+        searchArticles(query),
+        searchUsers(query),
+        searchTags(query)
       ]);
 
       setSearchResults({

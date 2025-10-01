@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base URL for your API - update this with your actual API base URL
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:5173/api';
 
 // Create an axios instance with default config
 const api = axios.create({
