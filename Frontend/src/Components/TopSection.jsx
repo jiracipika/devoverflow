@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
+import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
 import { FaBars, FaX } from 'react-icons/fa6'
 import NotifIcon from '../assets/Images/icons8-notification-48.png'
@@ -37,9 +38,28 @@ const Searchbar = () => {
     navigate(path)
   }
 
-  const handleLogOut = () => {
-    
-  }
+  const handleLogOut = async (e) => {
+      e.preventDefault()
+      
+      try {// http://localhost:5173/api/auth/logout
+            await axios.post('https://jsonplaceholder.typicode.com/posts', {
+              
+            });
+            
+            // Clear any stored tokens or user data
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+  
+            // Clear axios default headers
+            delete axios.defaults.headers.common['Authorization'];
+  
+            alert("User logged out successfully")
+            // Redirect to sign-in page
+            navigate('/signin');
+          } catch (error) {
+            console.log("Refresh token is required to logout")
+          }
+    }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -70,7 +90,7 @@ const Searchbar = () => {
     { path: "/ask-a-question", label: "Ask a Question" },
     { path: "/blog", label: "Blog" },
     { path: "/messages", label: "Messages" },
-    { path: "/signin", label: "Log Out" }
+    { path: null, label: "Log Out", onClick: handleLogOut }
   ]
   
 
@@ -81,7 +101,7 @@ const Searchbar = () => {
         <ThemeToggle />
         <Link 
           to="notifications" 
-          className="max-lg:hidden p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+          className="max-lg:hidden p-2 rounded-full hover:bg-[#1A1B20] dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
           aria-label="Notifications"
         >
           <img 
@@ -94,7 +114,7 @@ const Searchbar = () => {
         </Link>
         <Link 
           to="profile" 
-          className="max-lg:hidden p-2 rounded-full hover:bg-[#1A1B20] focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
+          className="max-lg:hidden p-2 rounded-full hover:bg-[#1A1B20] dark:hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ff7000] focus:ring-offset-2 focus:ring-offset-[#0A0B10]"
           aria-label="User profile"
         >
           <img 

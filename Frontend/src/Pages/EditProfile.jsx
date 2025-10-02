@@ -49,8 +49,7 @@ const EditProfile = () => {
     }
 
     return (
-        <section className='bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300 h-[900px] w-full'>
-            <div className="relative">
+        <section className='bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300 h-[900px] w-full flex flex-col items-center justify-start pt-10 lg:pr-[240px]'>
                 {/* Profile Picture Preview */}
                 {preview ? (
                     <img 
@@ -59,16 +58,16 @@ const EditProfile = () => {
                         className="w-24 h-24 rounded-full object-cover border-2 border-gray-500 shadow-md"
                     />
                 ) : (
-                    <AvatarPic />
+                    <AvatarPic/>
                 )}
-                
+            <div className="relative">
                 {/* Upload Button */}
-                <label className="relative bg-gray-800 dark:bg-gray-400 hover:bg-gray-700 text-white text-xl py-1 px-4 top-5 rounded cursor-pointer">
+                <label className="relative bg-gray-800 dark:bg-gray-400 hover:bg-gray-700 text-white text-xl py-1 px-4 top-5 rounded cursor-pointer shadow-md">
                     Upload Picture
                     <input type="file" accept="image/*" className="hidden" onClick={handleImageChange} />
                 </label>
             </div>
-            <form onSubmit={handleSubmit}className='bg-[#0A0B10] dark:bg-gray-400  p-6 rounded-lg w-full max-w-md mt-10 shadow-md'>
+            <form onSubmit={handleSubmit}className='bg-[#0A0B10] dark:bg-gray-400  p-6 rounded-lg w-full max-w-md mt-10 shadow-md '>
                 <h2 className="text-white text-lg font-bold mb-4">Edit Profile</h2>
                 <label className="block text-gray-400 dark:text-black mb-1">Full Name</label>
                 <input 
