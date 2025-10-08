@@ -27,7 +27,7 @@ const GlobalSearchBar = ({ className = '', placeholder = 'Search articles, users
       <div className="relative">
         <Search 
           className={`absolute left-4 top-1/2 transform -translate-y-1/2 ${
-            isFocused ? 'text-blue-500' : 'text-[#7B8EC8]'
+            isFocused ? 'text-blue-500' : 'text-[#7B8EC8] dark:text-white'
           } h-5 w-5`} 
         />
         <input
@@ -37,8 +37,9 @@ const GlobalSearchBar = ({ className = '', placeholder = 'Search articles, users
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder={placeholder}
-          className={`w-full bg-[#1E1E1E] dark:bg-gray-500 text-white rounded-lg pl-12 pr-4 py-3 
+          className={`w-full bg-[#1E1E1E] dark:bg-gray-400 text-white rounded-lg pl-12 pr-4 py-3 
             focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200
+            placeholder-[#7B8EC8] dark:placeholder-white
             ${isFocused ? 'ring-2 ring-blue-500' : ''}`}
         />
       </div>

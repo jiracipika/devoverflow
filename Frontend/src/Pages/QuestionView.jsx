@@ -11,7 +11,6 @@ const QuestionView = () => {
   const [article, setArticle] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(false);
   const [hasLiked, setHasLiked] = useState(false);
   let params = useParams();
 
@@ -35,30 +34,53 @@ const QuestionView = () => {
     fetchArticle();
   }, [params.id])
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (!article) return;
-
-    const likedQuestions = JSON.parse(localStorage.getItem('likedQuestions') || '{}');
-    
-    if (hasLiked) {
-      // Unlike the question
+  
+    try {
+      const likedQuestions = JSON.parse(localStorage.getItem('likedQuestions') || '{}');
+      const newLikedState = !hasLiked;
+      
+      // Optimistic UI update
       setArticle(prev => ({
         ...prev,
-        likes: Math.max(0, prev.likes - 1)
+        likes: newLikedState ? prev.likes + 1 : Math.max(0, prev.likes - 1)
       }));
-      delete likedQuestions[params.id];
-      setHasLiked(false);
-    } else {
-      // Like the question
-      setArticle(prev => ({
-        ...prev,
-        likes: prev.likes + 1
-      }));
-      likedQuestions[params.id] = true;
-      setHasLiked(true);
+  
+      try {
+        // Call your API endpoint to update likes
+        await axios.post(`/questions/${params.id}/like`, {
+          like: newLikedState
+        }, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+  
+        // Update local storage only after successful API call
+        if (newLikedState) {
+          likedQuestions[params.id] = true;
+        } else {
+          delete likedQuestions[params.id];
+        }
+        localStorage.setItem('likedQuestions', JSON.stringify(likedQuestions));
+        setHasLiked(newLikedState);
+  
+      } catch (apiError) {
+        // Revert UI if API call fails
+        console.error('Error updating like:', apiError);
+        setArticle(prev => ({
+          ...prev,
+          likes: newLikedState ? Math.max(0, prev.likes - 1) : prev.likes + 1
+        }));
+        alert('Failed to update like. Please try again.');
+      }
+  
+    } catch (error) {
+      console.error('Error handling like:', error);
+      // Additional error handling if needed
     }
-    
-    localStorage.setItem('likedQuestions', JSON.stringify(likedQuestions));
   };
 
   const handleCommentSubmit = async (commentText) => {
