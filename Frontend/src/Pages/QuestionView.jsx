@@ -14,25 +14,35 @@ const QuestionView = () => {
   const [hasLiked, setHasLiked] = useState(false);
   let params = useParams();
 
-  useEffect(()=> {
+  useEffect(() => {
     const fetchArticle = () => {
       setIsLoading(true);
-      const data = articles.find(x => x.id == params.id);
-      if (!data) {
-        setNotFound(true);
-      } else {
-        setArticle(data);
-        // Check if user has already liked this question
-        const likedQuestions = JSON.parse(localStorage.getItem('likedQuestions') || '{}');
-        if (likedQuestions[params.id]) {
-          setHasLiked(true);
+      try {
+        const data = articles.find(x => x.id == params.id);
+        if (!data) {
+          setNotFound(true);
+        } else {
+          setArticle(data);
+          // Check if user has already liked this question
+          try {
+            const likedQuestions = JSON.parse(localStorage.getItem('likedQuestions') || '{}');
+            if (likedQuestions[params.id]) {
+              setHasLiked(true);
+            }
+          } catch (e) {
+            console.error('Error reading from localStorage:', e);
+          }
         }
+      } catch (error) {
+        console.error('Error fetching article:', error);
+        setNotFound(true);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
     
     fetchArticle();
-  }, [params.id])
+  }, [params.id]);
 
   const handleLike = async () => {
     if (!article) return;
