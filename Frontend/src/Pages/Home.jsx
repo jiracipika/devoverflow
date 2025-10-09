@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-import { FaLinkedin, FaInstagram, FaYoutube   } from "react-icons/fa6";
 import SearchInput from '../Components/SearchInput';
 import FilterQuestionTab from '../Components/FilterQuestionTab';
 import articles from '../assets/FakeData.js'
@@ -91,13 +90,13 @@ const Home = () => {
       setFilteredArticles(sortedArticles)
     }
     else if (userquery === "Recommended") {
-      setFilteredArticles(articles.sort((a, b) => b.votes - a.votes))
+      setFilteredArticles([...articles].sort((a, b) => b.votes - a.votes))
     }
     else if (userquery === "Frequent") {
-      setFilteredArticles(articles.sort((a, b) => b.views - a.views))
+      setFilteredArticles([...articles].sort((a, b) => b.views - a.views))
     }
     else if (userquery === "Unanswered") {
-      setFilteredArticles(articles.filter(article => article.comments.length === 0))
+      setFilteredArticles([...articles].filter(article => article.comments.length === 0))
     }
   }
 
