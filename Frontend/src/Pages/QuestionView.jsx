@@ -12,6 +12,7 @@ const QuestionView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [hasLiked, setHasLiked] = useState(false);
+  
   let params = useParams();
 
   useEffect(() => {
@@ -44,86 +45,126 @@ const QuestionView = () => {
     fetchArticle();
   }, [params.id]);
 
+  // In handleLike function
   const handleLike = async () => {
-    if (!article) return;
-  
+    if (!article) {
+      console.error('No article data available');
+      return;
+    }
+
     try {
       const likedQuestions = JSON.parse(localStorage.getItem('likedQuestions') || '{}');
       const newLikedState = !hasLiked;
-      
+    
       // Optimistic UI update
+      const previousArticleState = { ...article };
       setArticle(prev => ({
         ...prev,
         likes: newLikedState ? prev.likes + 1 : Math.max(0, prev.likes - 1)
       }));
-  
+
       try {
-        // Call your API endpoint to update likes
-        await axios.post(`/questions/${params.id}/like`, {
-          like: newLikedState
-        }, {
+        const response = await axios.post(
+          `/questions/${params.id}/like`,
+          { like: newLikedState },
+          {
           withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
-  
-        // Update local storage only after successful API call
-        if (newLikedState) {
-          likedQuestions[params.id] = true;
-        } else {
-          delete likedQuestions[params.id];
+          headers: { 'Content-Type': 'application/json' }
         }
-        localStorage.setItem('likedQuestions', JSON.stringify(likedQuestions));
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        // Update local storage only after successful API call
+        const updatedLikes = { ...likedQuestions };
+        if (newLikedState) {
+          updatedLikes[params.id] = true;
+        } else {
+          delete updatedLikes[params.id];
+        }
+        localStorage.setItem('likedQuestions', JSON.stringify(updatedLikes));
         setHasLiked(newLikedState);
-  
-      } catch (apiError) {
-        // Revert UI if API call fails
-        console.error('Error updating like:', apiError);
+      } else {
+        throw new Error(`API returned status ${response.status}`);
+      }
+    } catch (apiError) {
+      // Revert UI if API call fails
+      console.error('Error updating like:', apiError);
+      setArticle(previousArticleState);
+      // Show user-friendly error message
+      // You might want to use a toast notification here instead of alert
+      alert('Failed to update like. Please check your connection and try again.');
+    }
+  } catch (error) {
+    console.error('Error in like operation:', error);
+    // Fallback error handling
+    alert('An unexpected error occurred. Please try again later.');
+  }
+};
+
+  // In handleCommentSubmit function
+  const handleCommentSubmit = async (commentText) => {
+    if (!article || !commentText?.trim()) {
+      console.error('No article data or empty comment');
+      return;
+    }
+
+    const trimmedComment = commentText.trim();
+    const tempId = `temp-${Date.now()}`; // For optimistic updates
+
+    // Optimistic UI update
+    const newComment = {
+      id: tempId,
+      comment: trimmedComment,
+      author: "Current User", // Should come from auth context
+      date: "just now",
+      isOptimistic: true
+    };
+
+    // Update UI immediately
+    setArticle(prev => ({
+      ...prev,
+      comments: [newComment, ...prev.comments]
+    }));
+
+    try {
+      const response = await axios.post(
+        '/api/comments',
+        { 
+          questionId: params.id,
+          comment: trimmedComment 
+        },
+        {
+          withCredentials: true,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        // Replace the optimistic comment with the server response
         setArticle(prev => ({
           ...prev,
-          likes: newLikedState ? Math.max(0, prev.likes - 1) : prev.likes + 1
+          comments: prev.comments.map(comment => 
+            comment.id === tempId 
+              ? { ...response.data, isOptimistic: false } 
+              : comment
+          )
         }));
-        alert('Failed to update like. Please try again.');
+      } else {
+        throw new Error(`API returned status ${response.status}`);
       }
-  
     } catch (error) {
-      console.error('Error handling like:', error);
-      // Additional error handling if needed
+      console.error('Error submitting comment:', error);
+    
+      // Remove the optimistic comment on error
+      setArticle(prev => ({
+        ...prev,
+        comments: prev.comments.filter(comment => comment.id !== tempId)
+      }));
+
+      // Show user-friendly error message
+      // Consider using a toast notification instead of alert
+      alert('Failed to post comment. Please try again.');
     }
-  };
-
-  const handleCommentSubmit = async (commentText) => {
-    if (!article) return;
-
-    // Update the article's comments in state
-    const newComment = {
-      comment: commentText,
-      author: "Current User", // You would get this from auth state
-      date: "just now"
-    };
-
-    // Create a new copy of the article with the new comment
-    const updatedArticle = {
-      ...article,
-      comments: [...article.comments, newComment]
-    };
-
-    // Update the state
-    setArticle(updatedArticle);
-
-    // In a real app, you would make an API call here
-    console.log("Submitting...")
-    await axios.post('https://jsonplaceholder.typicode.com/posts', {
-      newComment
-    })
-      .then(response => {
-        console.log(response.data);
-        console.log("Sending Done")
-      })
-      .catch(error => {
-        console.error(error);
-      });
   };
 
   const handleShare = async () => {
