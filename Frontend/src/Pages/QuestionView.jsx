@@ -215,47 +215,57 @@ const QuestionView = () => {
   }
 
   return (
-    <div className='min-h-screen text-white p-6 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300'>
-      <h1 className='text-4xl font-bold mb-4'>{article.title}</h1>
-      <div className='flex gap-3 py-4 text-gray-400'>
-        <h3>Asked {article.asked}</h3>
+    <div 
+      className='min-h-screen text-white p-6 max-h-fit w-full lg:w-[calc(100%-330px)] bg-gradient-to-r from-[#0A0B10] to-black dark:bg-gradient-to-r dark:from-gray-300 dark:to-gray-300'
+      role="main"
+      aria-label="Question details"
+    >
+      <h1 className='text-4xl font-bold mb-4' tabIndex="-1">{article.title}</h1>
+      <div className='flex gap-3 py-4 text-gray-400' role="contentinfo" aria-label='Question metadata'>
+        <span>Asked <time dateTime={article.askedDateTime || ''}>{article.asked}</time></span>
         <button 
           onClick={handleLike}
+          aria-pressed={hasLiked}
+          aria-label={hasLiked ? 'Unlike this question' : 'Like this question'}
           className={`flex items-center gap-1 ${hasLiked ? 'text-blue-400' : 'text-gray-400 hover:text-blue-300'}`}
         >
           <img 
             src={LikeIcon} 
-            alt={hasLiked ? 'Unlike' : 'Like'} 
+            alt="" 
             className={`w-4 h-4 ${hasLiked ? 'fill-current' : ''}`}
+            aria-hidden="true"
           />
-          {article.likes} {article.likes === 1 ? 'Like' : 'Likes'}
+          <span aria-live="polite">
+            {article.likes} {article.likes === 1 ? 'Like' : 'Likes'}
+          </span>
         </button>
         <button 
-        onClick={handleShare}
-        className="flex items-center gap-1 text-gray-400 hover:text-blue-300"
-        title="Share this question"
+          onClick={handleShare}
+          className="flex items-center gap-1 text-gray-400 hover:text-blue-300"
+          aria-label="Share this question"
         >
           <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          className="w-4 h-4" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
+            xmlns="http://www.w3.org/2000/svg" 
+            className="w-4 h-4" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+            aria-hidden="true"
           >
-        <path 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
-        strokeWidth={2} 
-        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" 
-        />
-        </svg>
-        Share
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" 
+            />
+          </svg>
+          <span>Share</span>
         </button>
-        <h4>{article.views} Views</h4>
+        <span>{article.views} Views</span>
       </div>
 
       <div className='mb-6'>
-        <div className='flex flex-wrap gap-2 mb-3'>
+        <div className='flex flex-wrap gap-2 mb-3' role="list" aria-label="Question tags">
           {article.tags ? 
             article.tags.map((item, index) => (
               <Tag key={index} text={item} />
@@ -264,22 +274,29 @@ const QuestionView = () => {
           }
         </div>
 
-        <div className='flex items-center gap-2 justify-self-end text-sm text-gray-400'>
-          <p>Asked By</p>
-          <Link to={`/user/${article.author}`} className="text-white font-semibold text-sm sm:text-base hover:underline">
+        <div className='flex items-center gap-2 justify-self-end text-sm text-gray-400' aria-label="Question author">
+          <span>Asked By</span>
+          <Link 
+            to={`/user/${article.author}`} 
+            className="text-white font-semibold text-sm sm:text-base hover:underline"
+            aria-label={`View profile of ${article.author}`}
+          >
             {article.author}
           </Link>
         </div>
       </div>
 
-      <div className='prose prose-invert max-w-none'>
+      <article className='prose prose-invert max-w-none' aria-labelledby="question-title">
+        <h2 id="question-title" className="sr-only">Question</h2>
         <p className='text-lg leading-relaxed'>{article.content}</p>
-      </div>
+      </article>
 
-      <CommentsSection 
-        comments={article.comments || []} 
-        onCommentSubmit={handleCommentSubmit} 
-      />
+      <section aria-label="Comments">
+        <CommentsSection 
+          comments={article.comments || []} 
+          onCommentSubmit={handleCommentSubmit} 
+        />
+      </section>
     </div>
   )
 }
