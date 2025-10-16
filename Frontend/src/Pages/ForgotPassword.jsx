@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import emailjs from 'emailjs-com'
-import validator from "validator"
 
 const ForgotPassword = () => {
 
