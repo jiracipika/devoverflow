@@ -1,38 +1,7 @@
-import React from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import validator from "validator"
-import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const ThankYouPassword = () => {
-    const [searchParams] = useSearchParams();
-    const email = searchParams.get('email');
 
-    const resend = async (e) =>{
-        
-        e.preventDefault();
-        if (!validator.isEmail(email)) {
-            alert("Invalid Email")
-            return;
-        }
-        else{
-            console.log("Sending Email....")
-            //Send Email
-            try {
-                const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
-                    from: "defoverflow@gmail.com",
-                    to: email,
-                    subject: "Reset Password Link",
-                    message: "Here's Link to Reset Password Here"
-            });
-                // If the email was sent successfully, navigate
-                alert('Email Sent Successfully')
-
-            } catch (error) {
-                console.error('Email send failed:', error);
-                alert('Email send failed:', error);
-            }
-        }
-    }
     return (
     <section className='w-full h-fit bg-[#0F1117]'>
             <section className='sign-in min-h-screen max-h-fit flex justify-center w-full p-6 flex-col items-center'>
@@ -45,7 +14,6 @@ const ThankYouPassword = () => {
                     </div>
                     <div className='flex gap-3 flex-col justify-center mx-0 my-[15px] rounded-[3px]'>
                         <Link to={"/signin"}><button className='bg-gradient-to-r from-[#FF7000] to-[#E2995F] text-sm basis-[48%] h-10 w-full rounded-md text-white font-medium border-0 outline-none' type="button">Back To Login</button></Link>
-                        <p onClick={resend} className='self-center text-[#FF7000] cursor-pointer '>Send Again</p>
                     </div>
                 </form>
             </section>

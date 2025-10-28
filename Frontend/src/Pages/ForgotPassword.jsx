@@ -4,40 +4,41 @@ import { ToastContainer, toast } from 'react-toastify';
 import emailjs from 'emailjs-com'
 
 const ForgotPassword = () => {
-
     const [formData, setFormData] = useState({
         email: "",
     })
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
-        console.log(e.target)
         e.preventDefault();
 
-        if (formData.email === "") {
+        if (!formData.email) {
             toast.error(`Please Enter Email`, {
                 autoClose: 3000
             });
             return
         }
 
-        else {
-            emailjs
+
+        emailjs
             .sendForm(import.meta.env.VITE_SERVICE_ID, import.meta.env.VITE_TEMPLATE_ID, e.target, import.meta.env.VITE_PUBLIC_KEY)
             .then((result) => {
                 alert(`Email Sent! Please Check Your Inbox`);
                 setFormData({ email: "" })
                 navigate(`/thankyoupassword`);
-            }).catch(() => toast.error("Oops! Something went wrong. Please try again.", {
-                autoClose: 3000
-            }))
-        }
+            }).catch((error) => {
+                console.error('EmailJS Error:', error);
+                toast.error("Oops! Something went wrong. Please try again.", {
+                    autoClose: 3000
+            });
+        });
+        
     }
     return (
         <section className='w-full h-fit bg-[#0F1117]'>
             <ToastContainer />
             <section className='sign-in min-h-screen max-h-fit flex justify-center w-full p-6 flex-col items-center'>
-                <form onSubmit={handleSubmit} className='bg-[#151821] w-[90%] h-4/5 flex flex-col gap-3 max-w-[450px] mt-5 pt-[50px] pb-[70px] px-[60px] rounded-[20px] left-2/4 top-2/4' id="forgot-password-form">
+                <form onSubmit={handleSubmit} name="forgot-password-form" className='bg-[#151821] w-[90%] h-4/5 flex flex-col gap-3 max-w-[450px] mt-5 pt-[50px] pb-[70px] px-[60px] rounded-[20px] left-2/4 top-2/4'>
                     <div className='flex justify-between items-center'>
                         <div>
                             <h1 className='text-white'>logo</h1>
